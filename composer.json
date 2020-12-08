@@ -1,0 +1,34 @@
+{
+	"name": "technicalguru/webapp",
+	"description": "A ready-to-use framework to write web applications in PHP",
+	"type": "library",
+	"keywords": ["framework","bootstrap"],
+	"authors": [
+		{
+			"name": "TechnicalGuru",
+			"homepage": "https://github.com/technicalguru/php-webapp"
+		}
+	],
+	"require": {
+		"php" : ">=7.0.0",
+		"technicalguru/vault" : "^1",
+		"technicalguru/utils" : "^1",
+		"technicalguru/database" : "^1",
+		"technicalguru/i18n" : "^1",
+		"technicalguru/rest-client" : "^1",
+		"technicalguru/email" : "^1",
+		"technicalguru/jquery" : "^1",
+		"technicalguru/bootstrap" : "^1",
+		"technicalguru/font-awesome" : "^1"
+	},
+	"autoload": {
+		"psr-4": {
+			"WebApp\\": "src/WebApp/"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "main-dev"
+		}
+	}
+}
