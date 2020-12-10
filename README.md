@@ -28,7 +28,7 @@ This project is licensed under [GNU LGPL 3.0](LICENSE.md).
 ## By Composer
 
 ```
-composer install technicalguru/utils
+composer install technicalguru/webapp
 ```
 
 ## By Package Download
