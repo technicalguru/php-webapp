@@ -34,5 +34,24 @@ composer install technicalguru/webapp
 ## By Package Download
 You can download the source code packages from [GitHub Release Page](https://github.com/technicalguru/php-webapp/releases)
 
+# Start a WebApp
+The best way is to use a template from [php-webapp-template](https://github.com/technicalguru/php-webapp-template) repository
+but you can also start from scratch. You will need the configuration from [application-example.php](application-example.php)
+and the main [index-example.php](index-example.php) file in the root of your web app. Notice that your web server needs to
+route all requests to the `index.php` file. You could achieve this with this snippet:
+
+```
+    <IfModule mod_rewrite.c>
+        Options -MultiViews
+
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^ index.php [QSA,L]
+    </IfModule>
+```
+
+in your `.htaccess` file
+
 # Contribution
 Report a bug, request an enhancement or pull request at the [GitHub Issue Tracker](https://github.com/technicalguru/php-webapp/issues).
