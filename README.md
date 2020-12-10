@@ -6,12 +6,14 @@ faces when he wants to start a new website. This framework addresses:
 * Localization
 * Flexible design, theme and layout of websites and individual pages
 * Database Access (mostly MariaDB or MySQL)
-* Data Model abstact layer to avoid any SQL writing
+* Data Model abstract layer to avoid any SQL writing
 * Flexible URL routing (mapping the URL path to a specific Page class)
 * Logging
 * Email Sending
 * Application Configuration
 * Session Handling and Persistence
+
+Most of them are not mandatory to use. The configuration allows to switch off many of them.
 
 As I currently use this framework for my private projects only, there is not much documentation available yet. Feel free to ask
 questions or checkout also the [php-webapp-template](https://github.com/technicalguru/php-webapp-template) repository which
