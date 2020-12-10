@@ -20,6 +20,8 @@ provides starter templates.
 The framework is mostly based on other PHP modules that are documented quite good. So you can consult them in order
 to understand some of the features.
 
+Remember: *technicalguru/webapp* is a framework to ease and speed up your development of a new website. It cannot solve all your problems but is a good starting point.
+
 # License
 This project is licensed under [GNU LGPL 3.0](LICENSE.md). 
 
