@@ -2,6 +2,8 @@
 
 namespace WebApp\BootstrapTheme;
 
+use \TgI18n\I18N;
+
 class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	public function __construct($theme, $component) {
@@ -26,6 +28,16 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 					$rc .= '</div>';
 				} else if (is_a($child, 'WebApp\\Component\\HiddenInput')) {
 					$rc .= $this->theme->renderComponent($child);
+				} else if (is_a($child, 'WebApp\\Component\\FileInput')) {
+					$child->addClass('custom-file-input');
+					$rc .= '<div class="custom-file">'.
+					          $this->theme->renderComponent($child);
+					$label = $child->getLabel();
+					if ($label == NULL) $label = I18N::_('browse_file');
+					if ($label != NULL) {
+						$rc .= '<label for="'.htmlentities($child->getId()).'" class="custom-file-label">'.$label.'</label>';
+					}
+					$rc .= '</div>';
 				} else {
 					$error = $child->getError();
 

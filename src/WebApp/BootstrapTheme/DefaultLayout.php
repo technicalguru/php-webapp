@@ -44,7 +44,8 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderNavbarBrand() {
 		$rc  = '<span class="navbar-brand mb-0 display-4">';
 		$link = $this->app->getBrandLink();
-		if ($link != null) $rc .= '<a href="'.$link.'">';
+		if ($link == null) $link = \WebApp\Utils::getAppPath('/');
+		if ($link != null) $rc .= '<a class="navbar-brand" href="'.$link.'">';
 		$logo = $this->app->getBrandLogo();
 		if ($logo != null) {
 			if ((substr($logo, 0, 4) != 'http') && (substr($logo, 0, 1) != '/')) $logo = Utils::getImageBaseUrl().'/'.$logo;
@@ -58,15 +59,20 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderNavbarToggler() {
-		$rc = '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="'.I18N::_('navbar_toggle_label').'"><span class="navbar-toggler-icon"></span></button>';
+		$rc = '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbarContent" aria-expanded="false" aria-label="'.I18N::_('navbar_toggle_label').'"><span class="navbar-toggler-icon"></span></button>';
 		return $rc;
 	}
 
 	protected function renderNavbarContent() {
-		$rc  = '<div id="navbar-content" class="collapse navbar-collapse">'.
+		$rc   = '<div id="navbar-content" class="collapse navbar-collapse">'.
 		          '<ul class="navbar-nav mr-auto">';
-
-		$rc .=    '</ul>';
+		$menu = $this->app->getMenu();
+		if (($menu != NULL) && is_array($menu)) {
+			foreach ($menu AS $menuItem) {
+				$rc .= $this->theme->renderComponent($menuItem);
+			}
+		}
+		$rc  .=    '</ul>';
 		$principal = $this->app->getPrincipal();
 		if ($principal != NULL) {
 			$rc .= '<span class="navbar-text align-middle">'.$principal->__toString().'<a class="px-2" href="?logout"><i class="fas fa-sign-out-alt fa-lg"></i></a></span>';

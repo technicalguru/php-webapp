@@ -34,5 +34,8 @@ class Container extends Component {
 		return $this->children;
 	}
 
+	public function hasChildren() {
+		return count($this->children) > 0;
+	}
 }
 

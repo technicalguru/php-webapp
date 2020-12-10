@@ -183,27 +183,6 @@ class Application {
 		return array();
 	}
 
-	public function getMenu($id = 'default') {
-		$rc = NULL;
-		/* TODO
-		if (isset($this->config['menu'][$id])) {
-			$rc = $this->config['menu'][$id];
-		} else {
-			$menuClassName = NULL;
-			if (isset($this->config['menuClass'][$id])) {
-				$menuClassName = $this->config['menuClass'][$id];
-			} else if ($id == 'default') {
-				$menuClassName = '\\WebApp\\Menu';
-			}
-			if ($menuClassName != NULL) {
-				$rc = new $menuClassName($this);
-				$this->config['menu'][$id] = $rc;
-			}
-		}
-		*/
-		return $rc;
-	}
-
 	/** TODO */
 	protected function createRestPage() {
 		return new RestPage($this);
@@ -273,6 +252,14 @@ class Application {
 	 * @return the URI or NULL when login is performed on same page.
 	 */
 	public function getLoginUri() {
+		return NULL;
+	}
+
+	/**
+	 * returns an array of menu items.
+	 * @param string $id - denotes the ID of the menu to return, depends on the chosen layout. NULL usually means the main menu.
+	 */
+	public function getMenu($id = NULL) {
 		return NULL;
 	}
 

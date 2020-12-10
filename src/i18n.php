@@ -57,6 +57,10 @@ return array(
 		'de' => 'Toggle Navigation',
 		'en' => 'Toggle Navigation',
 	),
+	'browse_file' => array(
+		'de' => 'Bitte w&auml;hle Deine Datei aus.',
+		'en' => 'Please, select your file.',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
