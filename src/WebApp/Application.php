@@ -209,6 +209,7 @@ class Application {
 	public function authenticate($id, $secret, $persist = FALSE) {
 		if ($this->authentication != NULL) {
 			$this->setPrincipal($this->authentication->authenticate($id, $secret), $persist);
+			$this->sessionHandler->gc(3600);
 			return $this->principal != NULL;
 		}
 		return FALSE;

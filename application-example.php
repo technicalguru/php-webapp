@@ -18,9 +18,15 @@ return array(
 				'en' => 'English',
 			),
 			'pageMap' => array(
-				'/'    => 'MyWebApp\\Page\\',
+				'/'           => 'MyWebApp\\Page\\',
+				'/login.html' => 'WebApp\\BootstrapTheme\\LoginPage',
 			),
 		),
+	),
+	'pageLinks'   => array(
+		'login'           => '/login.html',
+		'logout'          => '/index.html',
+		'forget_password' => '/forgot-password.html',
 	),
 	'database'    => array(
 		'host'        => 'my-db-host',

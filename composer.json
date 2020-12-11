@@ -3,6 +3,7 @@
 	"description": "A ready-to-use framework to write web applications in PHP",
 	"type": "library",
 	"keywords": ["framework","bootstrap"],
+	"license" : "LGPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "TechnicalGuru",
