@@ -87,8 +87,13 @@ class Page extends Component\Component {
 	public function processRequest() {
 		if ($this->request->getPostParam('action') == 'login') {
 			$this->processLoginAction();
+			return array('redirect', $this->request->path);
 		} else if ($this->request->hasGetParam('logout')) {
 			$this->processLogoutAction();
+			$home = $this->app->getPageLink('home');
+			if ($home == NULL) $home = $this->request->path;
+			else $home = Utils::getAppPath($home);
+			return array('redirect', $home);
 		}
 
 		$requiredRight = $this->getRequiredRight();
@@ -141,9 +146,12 @@ class Page extends Component\Component {
 		if ($this->app->getPrincipal() == NULL) {
 			// We need a login
 			$this->display = 'login';
-			$uri           = $this->app->getLoginUri();
-			if (($uri != NULL) && ($uri != $this->request->path)) {
-				return array('redirect', $uri.'?return='.urlencode($this->request->uri));
+			$uri           = $this->app->getPageLink('login');
+			if ($uri != NULL) {
+				$uri = Utils::getAppPath($uri);
+				if ($uri != $this->request->path) {
+					return array('redirect', $uri.'?return='.urlencode($this->request->uri));
+				}
 			}
 		} else if ($this->app->isAuthorized($requiredRight)) {
 			// We can render

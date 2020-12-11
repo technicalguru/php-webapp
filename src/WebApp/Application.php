@@ -248,10 +248,16 @@ class Application {
 	*/
 
 	/**
-	 * Used for protected pages: returns the URI where login shall be performed.
-	 * @return the URI or NULL when login is performed on same page.
+	 * Returns special defined page links or URIs for usage in various
+	 * contexts. Mostly used is 'login', 'logout', 'forget_password', 'home'.
+	 * @param string $key - key of the link
+	 * @return the page link, URI or NULL.
 	 */
-	public function getLoginUri() {
+	public function getPageLink($key) {
+		if ($this->config->has('pageLinks')) {
+			$links = $this->config->get('pageLinks');
+			if (isset($links->$key)) return $links->$key;
+		}
 		return NULL;
 	}
 

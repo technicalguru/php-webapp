@@ -92,12 +92,13 @@ class DefaultLayout extends \WebApp\Layout {
 			}
 			//$rc .= '<span class="navbar-text align-middle">'.$principal->__toString().'<a class="px-2" href="?logout"><i class="fas fa-sign-out-alt fa-lg"></i></a></span>';
 			$rc  .= '</ul>';
-		} else if ($this->app->getLoginUri() != NULL) {
-			$uri = $this->app->request->uri;
-			if ($this->app->request->path == $this->app->getLoginUri()) {
+		} else if ($this->app->getPageLink('login') != NULL) {
+			$uri   = $this->app->request->uri;
+			$login = Utils::getAppPath($this->app->getPageLink('login'));
+			if ($this->app->request->path == $login) {
 				$uri = $this->app->request->path;
 			} else {
-				$uri = $this->app->getLoginUri().'?return='.urlencode($this->app->request->uri);
+				$uri = $login.'?return='.urlencode($this->app->request->uri);
 			}
 			$rc .= '<span class="navbar-text  align-middle"><a class="px-2" href="'.$uri.'">'.I18N::_('login_label').'</a></span>';
 		}
