@@ -47,6 +47,6 @@ class SessionDAO extends \TgDatabase\DAO {
 	public function expire($maxlifetime) {
 		$now    = new Date(time(), WFW_TIMEZONE);
 		$expiry = $now->toMysql(TRUE);
-		$this->deleteBy(array('expiry_time', $expiry, '<'), array('persistent', 0));
+		$this->deleteBy(array(array('expiry_time', $expiry, '<'), array('persistent', 0)));
 	}
 }
