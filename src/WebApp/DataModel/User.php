@@ -91,7 +91,7 @@ class User implements \WebApp\Auth\Principal {
 	 * A user can be temporarily blocked or not in status active.
 	 */
 	public function isBlocked() {
-		$rc = $this->isPermanentlyBlocked() || $this->isTemporarilyBlocked();
+		return $this->isPermanentlyBlocked() || $this->isTemporarilyBlocked();
 	}
 
 	/**
@@ -118,12 +118,12 @@ class User implements \WebApp\Auth\Principal {
 	 * @return bool TRUE when the user is now blocked temporarily.
 	 */
 	public function registerFailedLoginAttempt() {
-		$data = $user->getSecurityData();
+		$data = $this->getSecurityData();
 		$data->failedAttempts++;
 		$data->lastFailedAttempt = time();
 		if ($data->failedAttempts > 3) {
 			$data->blocked           = TRUE;
-			$data->blockedExpiryTime = time()+10*Date::SECONDS_PER_MINUTE;
+			$data->blockedExpiryTime = time()+10*\TgUtils\Date::SECONDS_PER_MINUTE;
 			return TRUE;
 		}
 		return FALSE;
