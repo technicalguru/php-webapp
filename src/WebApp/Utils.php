@@ -2,7 +2,7 @@
 
 namespace WebApp;
 
-define ('WEBAPP_SUB_PATH', '/vendor/technicalguru/web-framework');
+define ('WEBAPP_SUB_PATH', '/vendor/technicalguru/webapp');
 
 use TgUtils\Request;
 
