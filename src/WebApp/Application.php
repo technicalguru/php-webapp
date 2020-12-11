@@ -258,6 +258,7 @@ class Application {
 	/**
 	 * returns an array of menu items.
 	 * @param string $id - denotes the ID of the menu to return, depends on the chosen layout. NULL usually means the main menu.
+	 *                     Bootstrap layouts will ask for the 'user' menu which can return profile page, change password page and others.
 	 */
 	public function getMenu($id = NULL) {
 		return NULL;

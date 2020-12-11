@@ -9,6 +9,14 @@ return array(
 		'de' => 'Dies ist der Standardtext des Web-Frameworks.',
 		'en' => 'This is the default text of the web-framework modules.',
 	),
+	'login_label' => array(
+		'de' => '<i class="fas fa-sign-in-alt fa-lg"></i> Anmelden',
+		'en' => '<i class="fas fa-sign-in-alt fa-lg"></i> Login',
+	),
+	'logout_label' => array(
+		'de' => '<i class="fas fa-sign-out-alt fa-lg"></i> Abmelden',
+		'en' => '<i class="fas fa-sign-out-alt fa-lg"></i> Logout',
+	),
 	'login_title' => array(
 		'de' => 'Anmelden',
 		'en' => 'Login',

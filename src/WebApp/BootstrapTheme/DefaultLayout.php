@@ -65,7 +65,7 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderNavbarContent() {
 		$rc   = '<div id="navbar-content" class="collapse navbar-collapse">'.
-		          '<ul class="navbar-nav mr-auto">';
+		          '<ul class="navbar-nav mr-auto main-menu">';
 		$menu = $this->app->getMenu();
 		if (($menu != NULL) && is_array($menu)) {
 			foreach ($menu AS $menuItem) {
@@ -75,7 +75,23 @@ class DefaultLayout extends \WebApp\Layout {
 		$rc  .=    '</ul>';
 		$principal = $this->app->getPrincipal();
 		if ($principal != NULL) {
-			$rc .= '<span class="navbar-text align-middle">'.$principal->__toString().'<a class="px-2" href="?logout"><i class="fas fa-sign-out-alt fa-lg"></i></a></span>';
+			$rc .= '<ul class="navbar-nav user-menu">';
+			$userMenu = $this->app->getMenu('user');
+			if ($userMenu == NULL) {
+				$userMenu = array();
+				$userItem = new \WebApp\Component\MenuItem($this, $principal->__toString(), '#');
+				$userMenu[] = new \WebApp\Component\MenuItem($userItem, 'logout_label', '?logout');
+				$userMenu = array($userItem);
+			}
+			if (($userMenu != NULL) && is_array($userMenu)) {
+				//$userMenu[] = new \WebApp\Component\MenuItem($this, 'logout_label', '?logout');
+				foreach ($userMenu AS $menuItem) {
+					$rc .= $this->theme->renderComponent($menuItem);
+				}
+				
+			}
+			//$rc .= '<span class="navbar-text align-middle">'.$principal->__toString().'<a class="px-2" href="?logout"><i class="fas fa-sign-out-alt fa-lg"></i></a></span>';
+			$rc  .= '</ul>';
 		} else if ($this->app->getLoginUri() != NULL) {
 			$uri = $this->app->request->uri;
 			if ($this->app->request->path == $this->app->getLoginUri()) {
@@ -83,7 +99,7 @@ class DefaultLayout extends \WebApp\Layout {
 			} else {
 				$uri = $this->app->getLoginUri().'?return='.urlencode($this->app->request->uri);
 			}
-			$rc .= '<span class="navbar-text  align-middle"><a class="px-2" href="'.$uri.'"><i class="fas fa-sign-in-alt fa-lg"></i></a></span>';
+			$rc .= '<span class="navbar-text  align-middle"><a class="px-2" href="'.$uri.'">'.I18N::_('login_label').'</a></span>';
 		}
 		$rc .= '</nav>';
 		return $rc;
