@@ -80,7 +80,10 @@ class DefaultLayout extends \WebApp\Layout {
 			if ($userMenu == NULL) {
 				$userMenu = array();
 				$userItem = new \WebApp\Component\MenuItem($this, $principal->__toString(), '#');
-				$userMenu[] = new \WebApp\Component\MenuItem($userItem, 'logout_label', '?logout');
+				$logoutLink = $this->app->getPageLink('logout');
+				if ($logoutLink != NULL) $logoutLink = Utils::getAppPath($logoutLink);
+				else                     $logoutLink = '';
+				$userMenu[] = new \WebApp\Component\MenuItem($userItem, 'logout_label', $logoutLink.'?logout');
 				$userMenu = array($userItem);
 			}
 			if (($userMenu != NULL) && is_array($userMenu)) {

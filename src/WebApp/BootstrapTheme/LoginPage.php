@@ -3,6 +3,7 @@
 namespace WebApp\BootstrapTheme;
 
 use WebApp\Component\Alert;
+use WebApp\Utils;
 
 class LoginPage extends \WebApp\Page\LoginPage {
 
@@ -67,6 +68,13 @@ class LoginPage extends \WebApp\Page\LoginPage {
 		$submit->addClass('btn-primary');
 
 		$rc[] = $form;
+		if ($this->app->getPageLink('forgot_password') != NULL) {
+			$link = Utils::getAppPath($this->app->getPageLink('forgot_password'));
+			$forgot = new \WebApp\Component\Div($this, new \WebApp\Component\Link($this, $link, 'Passwort vergessen?'));
+			$forgot->addClass('small');
+			$forgot->setStyle('margin-top', '1em');
+			$rc[] = $forgot;
+		}
 		return $rc;
 	}
 }

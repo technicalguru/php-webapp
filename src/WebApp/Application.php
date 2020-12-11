@@ -46,7 +46,7 @@ class Application {
 	protected function initVault() {
 		if ($this->config->has('vault')) {
 			$this->vault = \TgVault\VaultFactory::create($this->config->get('vault'));
-			// TODO $this->vault->setLogger(new WLogger());
+			// TODO $this->vault->setLogger(Log::instance());
 		}
 	}
 
@@ -183,16 +183,6 @@ class Application {
 		return array();
 	}
 
-	/** TODO */
-	protected function createRestPage() {
-		return new RestPage($this);
-	}
-
-	/** TODO */
-	public function getRestService($serviceName, $restPath) {
-		return NULL;
-	}
-
 	public function getPrincipal() {
 		// Retrieve from session
 		if (($this->principal == NULL) && isset($_SESSION['principal'])) {
@@ -236,16 +226,6 @@ class Application {
 	public function getJavascript() {
 		return array();
 	}
-
-	/** TODO Unclear where it is used 
-	public function getAllowedTestType() {
-		$rc = 'none';
-		if (isset($this->config['allowedTestType'])) {
-			$rc = $this->config['allowedTestType'];
-		}
-		return $rc;
-	}
-	*/
 
 	/**
 	 * Returns special defined page links or URIs for usage in various
