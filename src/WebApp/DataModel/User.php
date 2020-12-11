@@ -61,8 +61,82 @@ class User implements \WebApp\Auth\Principal {
 	}
 
 	public function getData() {
-		if (($this->data != NULL) && (substr($this->data, 0, 1) == '{')) return json_decode($this->data);
-		return new \stdClass;
+		if ($this->data == NULL) {
+			$this->data = new \stdClass;
+		} else if (is_string($this->data) && (substr($this->data, 0, 1) == '{')) {
+			$this->data = json_decode($this->data);
+		}
+		return $this->data;
+	}
+
+	public function setData($obj) {
+		if (is_object($obj)) $this->data = json_encode($obj);
+		else throw new \WebApp\WebAppException('Data must be an object');
+	}
+
+	public function getSecurityData() {
+		$data = $this->getData();
+		if (!isset($data->security)) {
+			$data->security = new \stdClass;
+			$data->security->failedAttempts    = 0;
+			$data->security->lastFailedAttempt = 0;
+			$data->security->blocked           = FALSE;
+			$data->security->blockedExpiryTime = 0;
+		}
+		return $data->security;
+	}
+
+	/**
+	 * Checks whether user is allowed to login.
+	 * A user can be temporarily blocked or not in status active.
+	 */
+	public function isBlocked() {
+		$rc = $this->isPermanentlyBlocked() || $this->isTemporarilyBlocked();
+	}
+
+	/**
+	 * Returns whether the user is permanently blocked from login
+	 */
+	public function isPermanentlyBlocked() {
+		return $this->status != User::STATUS_ACTIVE;
+	}
+
+	/**
+	 * Returns whether the user is temporarily blocked from login
+	 */
+	public function isTemporarilyBlocked() {
+		$rc = FALSE;
+		$data = $this->getSecurityData();
+		if ($data->blocked && (time() < $data->blockedExpiryTime)) {
+			$rc = TRUE;
+		}
+		return $rc;
+	}
+
+	/**
+	 * Registers a failed attempt to login and blocks the user for 10 minutes when more than 3 attempts were registered.
+	 * @return bool TRUE when the user is now blocked temporarily.
+	 */
+	public function registerFailedLoginAttempt() {
+		$data = $user->getSecurityData();
+		$data->failedAttempts++;
+		$data->lastFailedAttempt = time();
+		if ($data->failedAttempts > 3) {
+			$data->blocked           = TRUE;
+			$data->blockedExpiryTime = time()+10*Date::SECONDS_PER_MINUTE;
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Registers a successful login and resets the blocking values.
+	 */
+	public function registerSuccessfulLogin() {
+		$data = $this->getSecurityData();
+		$data->failedAttempts    = 0;
+		$data->blocked           = FALSE;
+		$data->blockedExpiryTime = 0;
 	}
 
 	public function __toString() {

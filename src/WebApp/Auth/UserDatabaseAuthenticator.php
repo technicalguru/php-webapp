@@ -36,7 +36,16 @@ class UserDatabaseAuthenticator extends AbstractAuthenticator {
 	public function authenticate($id, SecretData $secretData) {
 		$user = $this->dao->getByEmail($id);
 		if ($user != NULL) {
-			if (!($user->verifyPassword($secretData->password))) {
+			if (!$user->isBlocked()) {
+				if (!($user->verifyPassword($secretData->password))) {
+					$user = NULL;
+					$user->registerFailedLoginAttempt();
+					$this->dao->save($user);
+				} else {
+					$user->registerSuccessfulLogin();
+					$this->dao->save($user);
+				}
+			} else {
 				$user = NULL;
 			}
 		}
