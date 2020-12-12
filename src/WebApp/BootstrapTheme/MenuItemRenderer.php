@@ -39,7 +39,7 @@ class MenuItemRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 			if (substr($pageLink, 0, 1) != '/') {
 				$rc = $pageLink;
 			} else {
-				$rc = \WebApp\Utils::getAppPath($pageLink);
+				$rc = $this->app->router->getAbsolutePagePath($pageLink);
 			}
 		}
 		return $rc;

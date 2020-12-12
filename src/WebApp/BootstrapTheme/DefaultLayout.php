@@ -45,7 +45,7 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderNavbarBrand() {
 		$rc  = '<span class="navbar-brand mb-0 display-4">';
 		$link = $this->app->getBrandLink();
-		if ($link == null) $link = \WebApp\Utils::getAppPath('/');
+		if ($link == null) $link = $this->app->router->getAbsolutePagePath('/');
 		if ($link != null) $rc .= '<a class="navbar-brand" href="'.$link.'">';
 		$logo = $this->app->getBrandLogo();
 		if ($logo != null) {
@@ -82,7 +82,7 @@ class DefaultLayout extends \WebApp\Layout {
 				$userMenu = array();
 				$userItem = new \WebApp\Component\MenuItem($this, $principal->__toString(), '#');
 				$logoutLink = $this->app->getPageLink('logout');
-				if ($logoutLink != NULL) $logoutLink = Utils::getAppPath($logoutLink);
+				if ($logoutLink != NULL) $logoutLink = $this->app->router->getAbsolutePagePath($logoutLink);
 				else                     $logoutLink = '';
 				$userMenu[] = new \WebApp\Component\MenuItem($userItem, 'logout_label', $logoutLink.'?logout');
 				$userMenu = array($userItem);
@@ -98,7 +98,7 @@ class DefaultLayout extends \WebApp\Layout {
 			$rc  .= '</ul>';
 		} else if ($this->app->getPageLink('login') != NULL) {
 			$uri   = $this->app->request->uri;
-			$login = Utils::getAppPath($this->app->getPageLink('login'));
+			$login = $this->app->router->getAbsolutePagePath($this->app->getPageLink('login'));
 			if ($this->app->request->path == $login) {
 				$uri = $this->app->request->path;
 			} else {

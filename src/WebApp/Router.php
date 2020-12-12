@@ -191,5 +191,26 @@ class Router {
 
 		return $page;
 	}
+
+	/** Returns the absolute path to a relative app path */
+	public function getAbsolutePath($relativePath) {
+		$request = $this->app->request;
+		return $request->webRoot.$request->relativeAppPath.$relativePath;
+	}
+
+	/** 
+	 * Returns the absolute URI path for a page path from the app root. 
+	 * @param string $localPath - an appRoot-relative path without language (u
+	 * @param string $language - the language to be used
+	 * @return string the absolute path for the URI.
+	 */
+	public function getAbsolutePagePath($pagePath, $language = NULL) {
+		$request = $this->app->request;
+		if ($language == NULL) $language = $request->language;
+		if (!$request->useLanguagePath || ($language == NULL)) $language = '';
+		else $language = '/'.$language;
+
+		return $this->getAbsolutePath($language.$pagePath);
+	}
 }
 

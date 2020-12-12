@@ -5,6 +5,7 @@ namespace WebApp;
 class Renderer {
 
 	protected $parent;
+	protected $app;
 	protected $theme;
 	protected $component;
 	protected $attributes;
@@ -12,6 +13,7 @@ class Renderer {
 
 	// was __construct($theme, $parent, $component) {
 	public function __construct($theme, $component) {
+		$this->app        = $theme->app;
 		$this->theme      = $theme;
 		$this->parent     = $parent;
 		$this->component  = $component;

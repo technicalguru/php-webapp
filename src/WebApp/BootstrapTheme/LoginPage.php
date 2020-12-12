@@ -69,7 +69,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 
 		$rc[] = $form;
 		if ($this->app->getPageLink('forgot_password') != NULL) {
-			$link = Utils::getAppPath($this->app->getPageLink('forgot_password'));
+			$link = $this->app->router->getAbsolutePagePath($this->app->getPageLink('forgot_password'));
 			$forgot = new \WebApp\Component\Div($this, new \WebApp\Component\Link($this, $link, 'Passwort vergessen?'));
 			$forgot->addClass('small');
 			$forgot->setStyle('margin-top', '1em');

@@ -49,13 +49,5 @@ class Utils {
 	public function getFontBasePath($webapp = FALSE) {
 		return self::getWebRootPath($webapp).'/fonts';
 	}
-	public function getAppPath($localPath, $language = NULL) {
-		$request = Request::getRequest();
-		if ($language == NULL) $language = $request->language;
-		if (!$request->useLanguagePath || ($language == NULL)) $language = '';
-		else $language = '/'.$language;
-
-		return $request->webRoot.$language.$request->relativeAppPath.$localPath;
-	}
 }
 
