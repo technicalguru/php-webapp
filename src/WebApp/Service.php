@@ -40,7 +40,8 @@ class Service {
 
 		// Check the path info
 		$canonical = $this->app->router->getCanonicalPath();
-		if ($request->path != $canonical) {
+		$requested = $request->originalPath;
+		if ($requested != $canonical) {
 			$params  = $request->params;
 			if ($params) $params = '?'.$params;
 			header('Location: '.$canonical.$params);

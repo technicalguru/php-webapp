@@ -82,13 +82,23 @@ class Router {
 		}
 		if (($pagePath == NULL) && ($language != NULL)) $pagePath = $this->request->pagePath;
 		if ($pagePath != NULL) {
-			if ($language == NULL) $language = $this->request->language;
-			if (!$this->request->useLanguagePath || ($language == NULL)) $language = '';
-			else $language = '/'.$language;
-
-			return $this->getAbsolutePath($language.$pagePath);
+			return $this->computeCanonicalPath($pagePath, $language);
 		}
 		return $this->request->canonicalPath;
+	}
+
+	/** 
+	 * Computes the absolute canonical URI path for a page path from the app root.
+	 * @param string $pagePath - a page path
+	 * @param string $language - the language to be used
+	 * @return string the absolute, canonical path for the page with this language.
+	 */
+	protected function computeCanonicalPath($pagePath, $language) {
+		if ($language == NULL) $language = $this->request->language;
+		if (!$this->request->useLanguagePath || ($language == NULL)) $language = '';
+		else $language = '/'.$language;
+
+		return $this->getAbsolutePath($language.$pagePath);
 	}
 
 	public function getPagePath() {
