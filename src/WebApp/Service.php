@@ -40,10 +40,10 @@ class Service {
 
 		// Check the path info
 		$canonical = $this->app->router->getCanonicalPath();
-		if ($request->path != $this->app->router->getAbsolutePath($canonical)) {
+		if ($request->path != $canonical) {
 			$params  = $request->params;
 			if ($params) $params = '?'.$params;
-			header('Location: '.$this->app->router->getAbsolutePath($canonical).$params);
+			header('Location: '.$canonical.$params);
 			exit;
 		}
 

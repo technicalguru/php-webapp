@@ -92,7 +92,7 @@ class Page extends Component\Component {
 			$this->processLogoutAction();
 			$home = $this->app->getPageLink('home');
 			if ($home == NULL) $home = $this->request->path;
-			else $home = $this->app->router->getAbsolutePagePath($home);
+			else $home = $this->app->router->getCanonicalPath($home);
 			return array('redirect', $home);
 		}
 
@@ -148,7 +148,7 @@ class Page extends Component\Component {
 			$this->display = 'login';
 			$uri           = $this->app->getPageLink('login');
 			if ($uri != NULL) {
-				$uri = $this->app->router->getAbsolutePagePath($uri);
+				$uri = $this->app->router->getCanonicalPath($uri);
 				if ($uri != $this->request->path) {
 					return array('redirect', $uri.'?return='.urlencode($this->request->uri));
 				}
