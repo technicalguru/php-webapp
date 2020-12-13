@@ -20,8 +20,7 @@ class LoginPage extends \WebApp\Page {
 	}
 
 	public function getPublicMain() {
-		$rc = new \WebApp\Component\Div($this);
-		$rc->addClass('container-fluid');
+		$rc = new \WebApp\Component\MainContentContainer($this);
 		new \WebApp\Component\Title($rc, 'login_title');
 		$rc->addChild($this->getMessages());
 		$rc->addChild($this->getLoginForm());
