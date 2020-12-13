@@ -40,11 +40,12 @@ class Service {
 
 		// Check the path info
 		$canonical = $this->app->router->getCanonicalPath();
-		if ($request->path != $request->relativeAppPath.$canonical) {
+		$requested = $request->originalPath;
+		if ($requested != $canonical) {
 			$params  = $request->params;
 			if ($params) $params = '?'.$params;
-			header('Location: '.$request->webRootUri.$request->relativeAppPath.$canonical.$params);
-			//Log::debug('redirect='.$request->webRootUri.$request->relativeAppPath.$canonical.$params);
+			header('Location: '.$canonical.$params);
+			exit;
 		}
 
 		// Try to find the correct page

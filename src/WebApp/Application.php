@@ -130,11 +130,12 @@ class Application {
 					$this->dataModel->register('emails', $mailDAO);
 				}
 			}
-			$this->mailQueue     = new \TgEmail\EmailQueue(\TgEmail\EmailConfig::from($this->config->get('mailQueue')), $mailDAO);
+			$mailConfig          = \TgEmail\EmailConfig::from($this->config->get('mailQueue'));
 			$credentialsProvider = $this->config->getCredentialsProvider('mailQueue', $this->vault);
 			if ($credentialsProvider != NULL) {
-				$this->mailQueue->setCredentialsProvider($credentialsProvider);
+				$mailConfig->getSmtpConfig()->setCredentialsProvider($credentialsProvider);
 			}
+			$this->mailQueue     = new \TgEmail\EmailQueue($mainConfig, $mailDAO);
 		}
 	}
 

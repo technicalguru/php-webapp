@@ -16,9 +16,10 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderLinks() {
-		$rc  = '<link rel="stylesheet" href="'.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
-		       Bootstrap::getCssLink().
-		      '<link rel="stylesheet" href="'.Utils::getCssBaseUrl(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
+		$webroot = $this->app->request->webRoot;
+		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
+		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">'.
+		       '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
 		$rc .= parent::renderLinks();
 		return $rc;
 	}
@@ -44,7 +45,7 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderNavbarBrand() {
 		$rc  = '<span class="navbar-brand mb-0 display-4">';
 		$link = $this->app->getBrandLink();
-		if ($link == null) $link = \WebApp\Utils::getAppPath('/');
+		if ($link == null) $link = $this->app->router->getCanonicalPath('/');
 		if ($link != null) $rc .= '<a class="navbar-brand" href="'.$link.'">';
 		$logo = $this->app->getBrandLogo();
 		if ($logo != null) {
@@ -81,7 +82,7 @@ class DefaultLayout extends \WebApp\Layout {
 				$userMenu = array();
 				$userItem = new \WebApp\Component\MenuItem($this, $principal->__toString(), '#');
 				$logoutLink = $this->app->getPageLink('logout');
-				if ($logoutLink != NULL) $logoutLink = Utils::getAppPath($logoutLink);
+				if ($logoutLink != NULL) $logoutLink = $this->app->router->getCanonicalPath($logoutLink);
 				else                     $logoutLink = '';
 				$userMenu[] = new \WebApp\Component\MenuItem($userItem, 'logout_label', $logoutLink.'?logout');
 				$userMenu = array($userItem);
@@ -97,7 +98,7 @@ class DefaultLayout extends \WebApp\Layout {
 			$rc  .= '</ul>';
 		} else if ($this->app->getPageLink('login') != NULL) {
 			$uri   = $this->app->request->uri;
-			$login = Utils::getAppPath($this->app->getPageLink('login'));
+			$login = $this->app->router->getCanonicalPath($this->app->getPageLink('login'));
 			if ($this->app->request->path == $login) {
 				$uri = $this->app->request->path;
 			} else {
@@ -120,10 +121,11 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderJavascript() {
-		$rc = JQuery::getLink('3.5.1', JQuery::MINIFIED).
-		       '<script src="'.Bootstrap::getJsUri().'"></script>'.
-		       '<script src="'.Utils::getJavascriptBaseUrl(TRUE).'/webapp.js"></script>'.
-		       '<script src="'.Utils::getJavascriptBaseUrl(TRUE).'/utils.js"></script>';
+		$webroot = $this->app->request->webRoot;
+		$rc =  '<script src="'.$webroot.JQuery::getUri('3.5.1', JQuery::MINIFIED).'"></script>'.
+		       '<script src="'.$webroot.Bootstrap::getJsUri().'"></script>'.
+		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/webapp.js"></script>'.
+		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/utils.js"></script>';
 		$rc .= parent::renderJavascript();
 		return $rc;
 	}

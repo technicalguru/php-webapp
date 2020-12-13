@@ -69,11 +69,36 @@ class Router {
 		);
 	}
 
-	public function getCanonicalPath() {
+	/** 
+	 * Returns the absolute canonical URI path for a page path from the app root.
+	 * <p>Returns the canonical path for the current URI when no arguments given.</p>
+	 * @param string $localPath - an appRoot-relative path without language (u
+	 * @param string $language - the language to be used
+	 * @return string the absolute path for the URI.
+	 */
+	public function getCanonicalPath($pagePath = NULL, $language = NULL) {
 		if (!isset($this->request->canonicalPath)) {
 			$this->initPagePath();
 		}
+		if (($pagePath == NULL) && ($language != NULL)) $pagePath = $this->request->pagePath;
+		if ($pagePath != NULL) {
+			return $this->computeCanonicalPath($pagePath, $language);
+		}
 		return $this->request->canonicalPath;
+	}
+
+	/** 
+	 * Computes the absolute canonical URI path for a page path from the app root.
+	 * @param string $pagePath - a page path
+	 * @param string $language - the language to be used
+	 * @return string the absolute, canonical path for the page with this language.
+	 */
+	protected function computeCanonicalPath($pagePath, $language) {
+		if ($language == NULL) $language = $this->request->language;
+		if (!$this->request->useLanguagePath || ($language == NULL)) $language = '';
+		else $language = '/'.$language;
+
+		return $this->getAbsolutePath($language.$pagePath);
 	}
 
 	public function getPagePath() {
@@ -191,5 +216,12 @@ class Router {
 
 		return $page;
 	}
+
+	/** Returns the absolute path to a relative app path */
+	public function getAbsolutePath($relativePath) {
+		$request = $this->app->request;
+		return $request->webRoot.$request->relativeAppPath.$relativePath;
+	}
+
 }
 
