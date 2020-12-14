@@ -12,16 +12,16 @@ class LoginPage extends \WebApp\Page\LoginPage {
 	}
 
 	public function getPublicMain() {
-		$rc = new \WebApp\Component\Div($this);
-		$rc->addClass('jumbotron');
-		$rc->setStyle('margin-top', '1em');
-		$title = new \WebApp\Component\Title($rc, 'login_title');
+		$rc = new \WebApp\Component\MainContent($this);
+		$panel = new \WebApp\Component\Div($rc);
+		$panel->addClass('jumbotron');
+		$title = new \WebApp\Component\Title($panel, 'login_title');
 		$title->setStyle('margin-top', '0');
 		$title->setStyle('margin-bottom', '0.5rem');
-		$lead  = new \WebApp\Component\Subtitle($rc, 'please_login');
-		$rc->addChild('<hr class="my-4">');
-		$rc->addChild($this->getMessages());
-		$rc->addChild($this->getLoginForm());
+		$lead  = new \WebApp\Component\Subtitle($panel, 'please_login');
+		$panel->addChild('<hr class="my-4">');
+		$panel->addChild($this->getMessages());
+		$panel->addChild($this->getLoginForm());
 		return $rc;
 	}
 

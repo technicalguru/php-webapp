@@ -171,6 +171,7 @@ class Router {
 
 				// Strip of the leading part
 				$afterName = substr($pagePath, strlen($mapEntry));
+				Log::debug($this->searchPageInNamespace($afterName, $name));
 
 				// Fix special cases such as empty start or trailing slash
 				if ($afterName == '')              $afterName .= '/index';
@@ -208,13 +209,7 @@ class Router {
 			}
 		}
 
-		// Check whether the class exists
-		if ($className != NULL) {
-			if (substr($className, 0, 1) != '\\') $className = '\\'.$className;
-			if (class_exists($className)) $page = new $className($this->app);
-		}
-
-		return $page;
+		return $this->createPageInstance($className);
 	}
 
 	/** Returns the absolute path to a relative app path */
@@ -223,5 +218,50 @@ class Router {
 		return $request->webRoot.$request->relativeAppPath.$relativePath;
 	}
 
+	protected function searchPageInNamespace($pagePath, $namespace) {
+		// Fix special cases such as empty start or trailing slash
+		if ($pagePath == '')              $pagePath .= '/index';
+		if (substr($pagePath, -1) == '/') $pagePath .= 'index';
+
+		// strip of the ending .html
+		if (substr($pagePath, -5) == '.html') $pagePath = substr($pagePath, 0, strlen($pagePath)-5);
+
+		// split in parts and remove first part if it's empty
+		$names = explode('/', $pagePath);
+		if ($names[0] == '') array_shift($names);
+
+		// Replace special characters by whitespace and make it camel case and concatenate again
+		$className = $name;
+		foreach ($names AS $idx => $path) {
+			if ($idx > 0) $className .= '\\';
+			$path       = str_replace(' ', '', ucwords(str_replace(array('_','-'), array(' ', ' '), $path)));
+			$className .= ucfirst($path);
+		}
+
+		// Make a bottom-2-top search for the class as long as you are in the namespace of the mapEntry
+		$toSearch = '\\'.$className.'Page';
+		while (!class_exists($toSearch) && (strpos($toSearch, $namespace) !== FALSE)) {
+			// strip off from last backslash
+			$toSearch = substr($toSearch, 0, strrpos($toSearch, '\\')).'Page';
+		}
+		if (class_exists($toSearch)) {
+			$className = $toSearch;
+		} else {
+			$className .= 'Page';
+		}
+		Log::debug('Router::searchPageInNamespace(): '.$namespace.$className);
+		return $namespace.$className;
+	}
+
+	/** Returns the instance of the page or NULL if it doesnt exist */
+	protected function createPageInstance($className) {
+		$page = NULL;
+		// Check whether the class exists
+		if ($className != NULL) {
+			if (substr($className, 0, 1) != '\\') $className = '\\'.$className;
+			if (class_exists($className)) $page = new $className($this->app);
+		}
+		return $page;
+	}
 }
 

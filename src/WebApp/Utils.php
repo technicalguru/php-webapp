@@ -42,12 +42,13 @@ class Utils {
 		return self::getWebRootPath($webapp).'/css';
 	}
 
-	public function getFontBaseUrl($webapp = FALSE) {
+	public static function getFontBaseUrl($webapp = FALSE) {
 		return self::getWebRootUrl($webapp).'/fonts';
 	}
 
-	public function getFontBasePath($webapp = FALSE) {
+	public static function getFontBasePath($webapp = FALSE) {
 		return self::getWebRootPath($webapp).'/fonts';
 	}
+
 }
 
