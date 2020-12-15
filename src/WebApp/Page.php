@@ -143,7 +143,8 @@ class Page extends Component\Component {
 	 * Computes how to display this page (public, protected, login, redirection, forbidden)
 	 */
 	protected function computeDisplayMode() {
-		if ($this->app->getPrincipal() == NULL) {
+		$principal = $this->app->getPrincipal();
+		if ($principal == NULL) {
 			// We need a login
 			$this->display = 'login';
 			$uri           = $this->app->getPageLink('login');
@@ -160,6 +161,7 @@ class Page extends Component\Component {
 			// User is not authorized
 			$this->display = 'forbidden';
 		}
+		Log::debug('display='.$this->display);
 		return 'render';
 	}
 

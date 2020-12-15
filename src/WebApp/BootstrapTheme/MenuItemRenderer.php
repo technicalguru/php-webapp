@@ -36,11 +36,7 @@ class MenuItemRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc = '#';
 		$pageLink = $component->getPageLink();
 		if ($pageLink != NULL) {
-			if (substr($pageLink, 0, 1) != '/') {
-				$rc = $pageLink;
-			} else {
-				$rc = $this->app->router->getCanonicalPath($pageLink);
-			}
+			$rc = $pageLink;
 		}
 		return $rc;
 	}

@@ -99,10 +99,10 @@ class DefaultLayout extends \WebApp\Layout {
 		} else if ($this->app->getPageLink('login') != NULL) {
 			$uri   = $this->app->request->uri;
 			$login = $this->app->router->getCanonicalPath($this->app->getPageLink('login'));
-			if ($this->app->request->path == $login) {
-				$uri = $this->app->request->path;
+			if ($this->app->request->originalPath == $login) {
+				$uri = $this->app->request->originalPath;
 			} else {
-				$uri = $login.'?return='.urlencode($this->app->request->uri);
+				$uri = $login.'?return='.urlencode($this->app->request->originalPath);
 			}
 			$rc .= '<span class="navbar-text  align-middle"><a class="px-2" href="'.$uri.'">'.I18N::_('login_label').'</a></span>';
 		}

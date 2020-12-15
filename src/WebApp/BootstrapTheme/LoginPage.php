@@ -29,7 +29,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 		$rc = array();
 		$form   = new \WebApp\Component\Form($this, 'loginForm', \WebApp\Component\Form::HORIZONTAL);
 		$form->setMethod('POST');
-		$form->setAction($this->request->path);
+		$form->setAction($this->request->originalPath);
 
 		$userid = $this->request->getPostParam('userid', '');
 		$user   = new \WebApp\Component\TextInput($form, 'userid', $uid);
