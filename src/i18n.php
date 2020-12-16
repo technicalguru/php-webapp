@@ -53,6 +53,22 @@ return array(
 		'de' => 'Die Anmeldung war nicht erfolgreich.',
 		'en' => 'Login failed.',
 	),
+	'user_not_found' => array(
+		'de' => 'Die Anmeldung war nicht erfolgreich.',
+		'en' => 'Login failed.',
+	),
+	'user_blocked' => array(
+		'de' => 'Die Anmeldung war nicht erfolgreich.',
+		'en' => 'Login failed.',
+	),
+	'user_temporarily_blocked' => array(
+		'de' => 'Der Benutzer wurde vorübergehend gesperrt.',
+		'en' => 'The user has been blocked temporarily.',
+	),
+	'user_password_invalid' => array(
+		'de' => 'Die Anmeldung war nicht erfolgreich.',
+		'en' => 'Login failed.',
+	),
 	'access_forbidden_title' => array(
 		'de' => 'Kein Zugriff',
 		'en' => 'Access Forbidden',

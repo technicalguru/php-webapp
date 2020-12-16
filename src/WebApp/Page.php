@@ -86,8 +86,9 @@ class Page extends Component\Component {
 
 	public function processRequest() {
 		if ($this->request->getPostParam('action') == 'login') {
-			$this->processLoginAction();
-			return array('redirect', $this->request->path);
+			if ($this->processLoginAction()) {
+				return array('redirect', $this->request->path);
+			}
 		} else if ($this->request->hasGetParam('logout')) {
 			$this->processLogoutAction();
 			$home = $this->app->getPageLink('home');
@@ -106,17 +107,24 @@ class Page extends Component\Component {
 
 	/**
 	 * Process the login action.
+	 * Returns TRUE when login succeeded.
 	 */
 	protected function processLoginAction() {
 		$userid  = trim($this->request->getPostParam('userid', ''));
 		$passwd  = trim($this->request->getPostParam('password', ''));
 		$persist = $this->request->getPostParam('persist', FALSE);
+		$rc      = FALSE;
 
 		if ($userid && $passwd) {
 			$result = $this->app->authenticate($userid, new Auth\SecretData($passwd), $persist);
-			if (!$result) {
+			if ($result === FALSE) {
 				// Login failed
 				Log::register(new Error('login_failed'));
+				Log::error('Authentication not configured');
+			} else if (is_a($result, 'WebApp\\Auth\\AuthError')) {
+				// Login failed
+				Log::register(new Error($result->getMessage()));
+				Log::error('Authentication error: '.$result->errorCode);
 			} else {
 				// Return to uri if required
 				$return = $this->request->getPostParam('return');
@@ -126,12 +134,14 @@ class Page extends Component\Component {
 					exit;
 				}
 				// Is there a standard login landing page?
+				$rc = TRUE;
 			}
 		} else {
 			// Set error
 			if (!$userid) Log::register(new Error('login_userid_missing'));
 			if (!$passwd) Log::register(new Error('login_password_missing'));
 		}
+		return $rc;
 	}
 
 	/**
@@ -195,7 +205,7 @@ class Page extends Component\Component {
 		$pass->setPlaceholder('login_password_placeholder');
 		$pass->setHelp('login_password_help');
 
-		$return =  $this->request->getGetParam('return');
+		$return =  $this->request->getParam('return');
 		if ($return != NULL) {
 			$returnUri = parse_url($return);
 			if (isset($returnUri['query'])) {

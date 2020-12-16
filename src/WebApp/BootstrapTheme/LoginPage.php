@@ -45,7 +45,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 		$persist = new \WebApp\Component\Checkbox($form, 'persist', '1');
 		$persist->setLabel('persist_login_label');
 
-		$return =  $this->request->getGetParam('return');
+		$return =  $this->request->getParam('return');
 		if ($return != NULL) {
 			$returnUri = parse_url($return);
 			if (isset($returnUri['query'])) {

@@ -231,9 +231,12 @@ class Application {
 
 	public function authenticate($id, $secret, $persist = FALSE) {
 		if ($this->authentication != NULL) {
-			$this->setPrincipal($this->authentication->authenticate($id, $secret), $persist);
-			$this->sessionHandler->gc(3600);
-			return $this->principal != NULL;
+			$result = $this->authentication->authenticate($id, $secret);
+			if (!is_a($result, 'WebApp\\Auth\\AuthError')) {
+				$this->setPrincipal($result, $persist);
+				$this->sessionHandler->gc(3600);
+			}
+			return $result;
 		}
 		return FALSE;
 	}
