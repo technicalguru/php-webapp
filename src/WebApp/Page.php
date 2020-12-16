@@ -113,12 +113,14 @@ class Page extends Component\Component {
 		$persist = $this->request->getPostParam('persist', FALSE);
 
 		if ($userid && $passwd) {
-			if (!$this->app->authenticate($userid, new Auth\SecretData($passwd), $persist)) {
+			$result = $this->app->authenticate($userid, new Auth\SecretData($passwd), $persist);
+			if (!$result) {
 				// Login failed
 				Log::register(new Error('login_failed'));
 			} else {
 				// Return to uri if required
 				$return = $this->request->getPostParam('return');
+				Session\Utils::setFreshLogin();
 				if (($return != NULL) && (strlen($return) > 0)) {
 					header('Location: '.$return);
 					exit;

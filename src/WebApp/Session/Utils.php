@@ -69,5 +69,14 @@ class Utils {
 		unset($_SESSION[$key]);
 	}
 
+	public static function setFreshLogin() {
+		self::setValue('freshLogin', TRUE);
+	}
+
+	public static function isFreshLogin() {
+		$rc = self::hasValue('freshLogin');
+		self::deleteValue('freshLogin');
+		return $rc;
+	}
 }
 
