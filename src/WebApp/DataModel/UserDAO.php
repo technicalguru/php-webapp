@@ -6,8 +6,8 @@ use WebApp\WebAppException;
 
 class UserDAO extends \TgDatabase\DAO {
 
-	public function __construct($database) {
-		parent::__construct($database, '#__users', 'WebApp\\DataModel\\User');
+	public function __construct($database, $modelClass = NULL) {
+		parent::__construct($database, '#__users', $modelClass != NULL ? $modelClass : 'WebApp\\DataModel\\User');
 		$this->initialize();
 	}
 

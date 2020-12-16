@@ -10,8 +10,8 @@ use \WebApp\DataModel\UserRole;
  */
 class UserRoleAuthorizator extends AbstractAuthorizator {
 
-	public function __construct(Application $app) {
-		parent::__construct($app);
+	public function __construct(Application $app, $config = NULL) {
+		parent::__construct($app, $config);
 	}
 
 	protected function init() {

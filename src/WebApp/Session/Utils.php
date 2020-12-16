@@ -40,5 +40,34 @@ class Utils {
 		return $rc;
 	}
 
+	/**
+	 * Helper method to set a session value.
+	 */
+	public static function setValue($key, $value) {
+		$_SESSION[$key] = $value;
+	}
+
+	/**
+	 * Helper method to check on a session value.
+	 */
+	public static function hasValue($key) {
+		return isset($_SESSION[$key]);
+	}
+
+	/**
+	 * Helper method to get a session value.
+	 */
+	public static function getValue($key, $value, $defaultValue = NULL) {
+		if (isset($_SESSION[$key])) return $_SESSION[$key];
+		return $defaultValue;
+	}
+
+	/**
+	 * Helper method to remove a session value.
+	 */
+	public static function deleteValue($key) {
+		unset($_SESSION[$key]);
+	}
+
 }
 

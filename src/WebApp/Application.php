@@ -70,10 +70,21 @@ class Application {
 
 	protected function initAuthentication() {
 		if ($this->config->has('authentication')) {
-			$className = $this->config->get('authentication');
+			$authConfig = $this->config->get('authentication'); 
+			$className  = NULL;
+			$config     = NULL;
+			if (is_object($authConfig)) {
+				$className = $authConfig->class;
+				if (isset($authConfig->config)) $config = $authConfig->config;
+			} else if (is_array($authConfig)) {
+				$className = $authConfig['class'];
+				if (isset($authConfig['config'])) $config = $authConfig['config'];
+			} else {
+				$className = $authConfig;
+			}
 			if (substr($className, 0, 1) != '\\') $classname = '\\'.$className;
 			if (class_exists($className)) {
-				$this->authentication = new $className($this);
+				$this->authentication = new $className($this, $config);
 			} else {
 				throw new WebAppException('Cannot find Authentication class: '.$className);
 			}
@@ -82,10 +93,21 @@ class Application {
 
 	protected function initAuthorization() {
 		if ($this->config->has('authorization')) {
-			$className = $this->config->get('authorization');
+			$authConfig = $this->config->get('authorization'); 
+			$className  = NULL;
+			$config     = NULL;
+			if (is_object($authConfig)) {
+				$className = $authConfig->class;
+				if (isset($authConfig->config)) $config = $authConfig->config;
+			} else if (is_array($authConfig)) {
+				$className = $authConfig['class'];
+				if (isset($authConfig['config'])) $config = $authConfig['config'];
+			} else {
+				$className = $authConfig;
+			}
 			if (substr($className, 0, 1) != '\\') $classname = '\\'.$className;
 			if (class_exists($className)) {
-				$this->authorization = new $className($this);
+				$this->authorization = new $className($this, $config);
 			} else {
 				throw new WebAppException('Cannot find Authorization class: '.$className);
 			}

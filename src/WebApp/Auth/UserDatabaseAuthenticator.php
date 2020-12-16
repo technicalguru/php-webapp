@@ -12,8 +12,8 @@ use WebApp\DataModel\UserDAO;
  */
 class UserDatabaseAuthenticator extends AbstractAuthenticator {
 
-	public function __construct(Application $app) {
-		parent::__construct($app);
+	public function __construct(Application $app, $config = NULL) {
+		parent::__construct($app, $config);
 	}
 
 	protected function init() {
@@ -21,7 +21,11 @@ class UserDatabaseAuthenticator extends AbstractAuthenticator {
 		if (!$this->app->database) {
 			throw new WebAppException('A database connection is required.');
 		}
-		$this->dao = new UserDAO($this->app->database);
+		$modelClass = NULL;
+		if (($this->config != NULL) && isset($this->config['modelClass'])) {
+			$modelClass = $this->config['modelClass'];
+		}
+		$this->dao = new UserDAO($this->app->database, $modelClass);
 		if ($this->app->dataModel) {
 			$this->app->dataModel->register('users', $this->dao);
 		}
