@@ -28,7 +28,7 @@ class User implements \WebApp\Auth\Principal {
 	}
 
 	public function setPassword($password) {
-		$this->password = password_hash($password);
+		$this->password = password_hash($password, PASSWORD_DEFAULT);
 	}
 
 	/** Checks password criteria */
