@@ -31,6 +31,11 @@ class User implements \WebApp\Auth\Principal {
 		$this->password = password_hash($password);
 	}
 
+	/** Checks password criteria */
+	public function passwordCriteriaMatched($password) {
+		return strlen($password) >= 8;
+	}
+
 	public function getRoles() {
 		$rc = array();
 		if (is_string($this->roles)) {
