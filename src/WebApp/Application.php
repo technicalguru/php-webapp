@@ -157,7 +157,7 @@ class Application {
 			if ($credentialsProvider != NULL) {
 				$mailConfig->getSmtpConfig()->setCredentialsProvider($credentialsProvider);
 			}
-			$this->mailQueue     = new \TgEmail\EmailQueue($mainConfig, $mailDAO);
+			$this->mailQueue     = new \TgEmail\EmailQueue($mailConfig, $mailDAO);
 		}
 	}
 
