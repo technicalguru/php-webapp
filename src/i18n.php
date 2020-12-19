@@ -85,6 +85,30 @@ return array(
 		'de' => 'Bitte w&auml;hle Deine Datei aus.',
 		'en' => 'Please, select your file.',
 	),
+	'close_label' => array(
+		'de' => 'Schließen',
+		'en' => 'Close',
+	),
+	'create_label' => array(
+		'de' => 'Speichern',
+		'en' => 'Create',
+	),
+	'save_label' => array(
+		'de' => 'Speichern',
+		'en' => 'Save',
+	),
+	'delete_label' => array(
+		'de' => 'Löschen',
+		'en' => 'Delete',
+	),
+	'remove_label' => array(
+		'de' => 'Entfernen',
+		'en' => 'Remove',
+	),
+	'cancel_label' => array(
+		'de' => 'Abbrechen',
+		'en' => 'Cancel',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
