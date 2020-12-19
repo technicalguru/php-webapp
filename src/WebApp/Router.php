@@ -76,6 +76,17 @@ class Router {
 	 * @param string $language - the language to be used
 	 * @return string the absolute path for the URI.
 	 */
+	public function getCanonicalUri($pagePath = NULL, $language = NULL) {
+		return $this->request->rootUri.$this->getCanonicalPath($pagePath, $language);
+	}
+
+	/** 
+	 * Returns the absolute canonical URI path for a page path from the app root.
+	 * <p>Returns the canonical path for the current URI when no arguments given.</p>
+	 * @param string $localPath - an appRoot-relative path without language (u
+	 * @param string $language - the language to be used
+	 * @return string the absolute path for the URI.
+	 */
 	public function getCanonicalPath($pagePath = NULL, $language = NULL) {
 		if (!isset($this->request->canonicalPath)) {
 			$this->initPagePath();
