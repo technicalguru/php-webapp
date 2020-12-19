@@ -17,6 +17,9 @@ class UserRoleAuthorizator extends AbstractAuthorizator {
 		} else {
 			$this->roles = array();
 		}
+		// Caching
+		$this->grantResults = array();
+		$this->subroles     = array();
 	}
 
 	protected function init() {
@@ -35,16 +38,23 @@ class UserRoleAuthorizator extends AbstractAuthorizator {
 
 		// From here on we need a user object
 		if ($user != NULL) {
-			$roles = $user->getRoles();
+			if (!isset($this->grantResult[$required.'-'.$user->uid])) {
+				// Least privilege: any user
+				if ($required == UserRole::ROLE_USER) {
+					$this->grantResult[$required.'-'.$user->uid] = TRUE;
+				} else {
+					$roles = $user->getRoles();
 
-			// Least privilege: any user
-			if ($required == UserRole::ROLE_USER) return TRUE;
-
-			// Superadmins are always authorized
-			if (in_array(UserRole::ROLE_SUPERADMIN, $roles)) return TRUE;
-
-			// Search the specific role
-			return $this->isGranted($required, $roles);
+					// Superadmins are always authorized
+					if (in_array(UserRole::ROLE_SUPERADMIN, $roles)) {
+						$this->grantResult[$required.'-'.$user->uid] = TRUE;
+					} else {
+						// Search the specific role
+						$this->grantResult[$required.'-'.$user->uid] = $this->isGranted($required, $roles);
+					}
+				}
+			}
+			return $this->grantResult[$required.'-'.$user->uid];
 		}
 		return FALSE;
 	}
@@ -58,12 +68,15 @@ class UserRoleAuthorizator extends AbstractAuthorizator {
 	protected function explodeRoles($roles) {
 		$rc = array();
 		foreach ($roles AS $role) {
-			// The granted role itself of course
-			if (!in_array($role, $rc)) $rc[] = $role;
-			// And all its children
-			foreach ($this->getRoleChildren($role) AS $child) {
-				if (!in_array($child, $rc)) $rc[] = $child;
+			if (!isset($this->subroles[$role])) {
+				// The granted role itself of course
+				$this->subroles[$role] = array($role);
+				// And all its children
+				foreach ($this->getRoleChildren($role) AS $child) {
+					$this->subroles[$role][] = $child;
+				}
 			}
+			$rc = array_merge($rc, $this->subroles[$role]);
 		}
 		return $rc;
 	}
