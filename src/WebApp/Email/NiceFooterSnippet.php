@@ -4,7 +4,7 @@ namespace WebApp\Email;
 
 class NiceFooterSnippet extends AbstractSnippet {
 
-	protected function getHtml($processor) {
+	protected function getHtml($processor, $params) {
 		$rc = <<<EOT
 											<!-- ******** END CONTENT ********* -->
 
@@ -75,7 +75,7 @@ EOT;
 		return $rc; 
 	}
 
-	protected function getText($processor) {
+	protected function getText($processor, $params) {
 		return '';
 	}
 

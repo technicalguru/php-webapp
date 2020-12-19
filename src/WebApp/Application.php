@@ -114,8 +114,12 @@ class Application {
 		}
 	}
 
+	protected function getSessionCookieName() {
+		return preg_replace( '/[\W]/', '', 'WebApp'.$this->request->webRoot);
+	}
+
 	protected function initSession() {
-		$cookieName = preg_replace( '/[\W]/', '', $this->getName());
+		$cookieName = $this->getSessionCookieName();
 		if ($this->database) {
 			if ($this->dataModel) {
 				$this->sessionHandler = Session\Utils::create($cookieName, $this->dataModel);

@@ -9,7 +9,7 @@ class NiceHeaderSnippet extends AbstractSnippet {
 		$this->headerColor    = '#05164D';
 	}
 
-	protected function getHtml($processor) {
+	protected function getHtml($processor, $params) {
 		$language    = $processor->language;
 		$textColor   = $this->textColor;
 		$headerColor = $this->headerColor;
@@ -426,7 +426,7 @@ w\:* {behavior:url(#default#VML);}
                             <tr>
                                 <td valign="top" style="padding:0;">
                                     <div align="center">
-                                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="0" style="background:white;border-collapse:collapse;">
+                                        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="0" style="max-width:1010px;margin:20px;background:white;border-collapse:collapse;">
                                             <tbody>
                                                 <tr>
                                                     <td valign="top" style="padding:0;">
@@ -459,7 +459,7 @@ EOH;
 		return $rc;
 	}
 
-	protected function getText($processor) {
+	protected function getText($processor, $params) {
 		return '';
 	}
 
