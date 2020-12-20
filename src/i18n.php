@@ -121,6 +121,22 @@ return array(
 		'de' => 'Diese Seite existiert nicht oder es ist etwas Schreckliches passiert.',
 		'en' => 'This page doesn\'t exist or something terrible happened.',
 	),
+	'first_page_label' => array(
+		'de' => '<i class="fas fa-step-backward"></i>',
+		'en' => '<i class="fas fa-step-backward"></i>',
+	),
+	'previous_page_label' => array(
+		'de' => '<i class="fas fa-backward"></i>',
+		'en' => '<i class="fas fa-backward"></i>',
+	),
+	'next_page_label' => array(
+		'de' => '<i class="fas fa-forward"></i>',
+		'en' => '<i class="fas fa-forward"></i>',
+	),
+	'last_page_label' => array(
+		'de' => '<i class="fas fa-step-forward"></i>',
+		'en' => '<i class="fas fa-step-forward"></i>',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
