@@ -109,6 +109,18 @@ return array(
 		'de' => 'Abbrechen',
 		'en' => 'Cancel',
 	),
+	'page404_title' => array(
+		'de' => 'Gratulation!',
+		'en' => 'Congratulation!',
+	),
+	'page404_subtitle' => array(
+		'de' => 'Jetzt habt Ihr die Seite kaputt gemacht.',
+		'en' => 'You destroyed the page now.',
+	),
+	'page404_description' => array(
+		'de' => 'Diese Seite existiert nicht oder es ist etwas Schreckliches passiert.',
+		'en' => 'This page doesn\'t exist or something terrible happened.',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
