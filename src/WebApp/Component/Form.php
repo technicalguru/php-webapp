@@ -10,11 +10,28 @@ class Form extends Container {
 	public const INLINE     = 'inline';
 
 	protected $type;
+	protected $fieldSets;
 
 	public function __construct($parent, $id, $type = Form::VERTICAL) {
 		parent::__construct($parent);
 		$this->type = $type;
 		$this->setId($id);
+		$this->fieldSets = array();
+	}
+
+	public function addChild($child) {
+		parent::addChild($child);
+		if (is_a($child, 'WebApp\\Component\\FieldSet')) {
+			$this->fieldSets[] = $child;
+		}
+	}
+
+	public function getFieldSets() {
+		return $this->fieldSets;
+	}
+
+	public function hasFieldSets() {
+		return count($this->fieldSets) > 0;
 	}
 
 	public function getType() {
