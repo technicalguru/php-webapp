@@ -8,6 +8,7 @@ class Pagination extends Component {
 	public $itemsPerPage;
 	public $pageNumber;
 	public $firstPage;
+	public $firstItem;
 	public $lastPage;
 	public $pageParam;
 
@@ -18,6 +19,7 @@ class Pagination extends Component {
 		$this->pageNumber   = $pageNumber;
 		// Calculate now
 		$this->firstPage    = 0;
+		$this->firstItem    = $this->itemsPerPage * $pageNumber;
 		$this->lastPage     = intval(($this->totalCount-1) / $this->itemsPerPage);
 	}
 

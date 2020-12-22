@@ -93,6 +93,10 @@ return array(
 		'de' => 'Speichern',
 		'en' => 'Create',
 	),
+	'edit_label' => array(
+		'de' => 'Bearbeiten',
+		'en' => 'Edit',
+	),
 	'save_label' => array(
 		'de' => 'Speichern',
 		'en' => 'Save',
