@@ -49,6 +49,14 @@ return array(
 		'de' => 'Anmelden',
 		'en' => 'Login',
 	),
+	'login_userid_missing' => array(
+		'de' => 'Das Feld für die E-Mail-Adresse darf nicht leer bleiben.',
+		'en' => 'E-mail address fields must not be empty.',
+	),
+	'login_password_missing' => array(
+		'de' => 'Du hast kein Passwort eingegeben.',
+		'en' => 'You did not enter a password.',
+	),
 	'login_failed' => array(
 		'de' => 'Die Anmeldung war nicht erfolgreich.',
 		'en' => 'Login failed.',
