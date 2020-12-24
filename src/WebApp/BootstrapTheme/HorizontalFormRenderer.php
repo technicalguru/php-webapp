@@ -13,15 +13,33 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	public function render() {
 		$rc  = $this->renderStartTag($this->tagName);
+		if ($this->component->hasFieldSets()) {
+			$rc .= $this->renderFieldSets();
+		}
 		$rc .= $this->renderFormChildren($this->component->getChildren());
 		$rc .= $this->renderEndTag($this->tagName);
+		return $rc;
+	}
+
+	public function renderFieldSets() {
+		$rc = '';
+		// render navigation
+		foreach ($this->component->getFieldSets() AS $fieldSet) {
+		}
+
+		// render each field set
+		foreach ($this->component->getFieldSets() AS $fieldSet) {
+		}
 		return $rc;
 	}
 
 	public function renderFormChildren($children) {
 		$rc = '';
 		foreach ($children AS $child) {
-			$rc .= $this->renderFormChild($child);
+			// Field sets are rendered different
+			if (!is_a($child, 'WebApp\\Component\\FieldSet')) {
+				$rc .= $this->renderFormChild($child);
+			}
 		}
 		return $rc;
 	}
