@@ -197,6 +197,14 @@ return array(
 		'de' => 'Bis',
 		'en' => 'Until',
 	),
+	'created_on_label' => array(
+		'de' => 'Angelegt am',
+		'en' => 'Created on',
+	),
+	'user_created_on_label' => array(
+		'de' => 'Registriert am',
+		'en' => 'Registered on',
+	),
 	'german' => array(
 		'de' => 'Deutsch',
 		'en' => 'Deutsch',
