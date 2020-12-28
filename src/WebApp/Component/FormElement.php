@@ -54,6 +54,7 @@ class FormElement extends Component {
 	}
 
 	public function setValue($value) {
+		if (is_int($value)) $value = ''.$value;
 		$this->setAttribute('value', $value);
 	}
 

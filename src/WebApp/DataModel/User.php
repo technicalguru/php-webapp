@@ -4,11 +4,11 @@ namespace WebApp\DataModel;
 
 class User implements \WebApp\Auth\Principal {
 
-	public const STATUS_REGISTERD = 'registered';
-	public const STATUS_CONFIRMED = 'confirmed';
-	public const STATUS_ACTIVE    = 'active';
-	public const STATUS_DISABLED  = 'disabled';
-	public const STATUS_DELETED   = 'deleted';
+	public const STATUS_REGISTERED = 'registered';
+	public const STATUS_CONFIRMED  = 'confirmed';
+	public const STATUS_ACTIVE     = 'active';
+	public const STATUS_DISABLED   = 'disabled';
+	public const STATUS_DELETED    = 'deleted';
 
 	public function __construct() {
 	}

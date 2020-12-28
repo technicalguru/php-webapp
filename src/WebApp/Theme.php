@@ -114,7 +114,7 @@ class Theme {
 	 * <p>The return value MUST NOT be NULL.</p>
 	 */
 	// was getRenderer($parentRenderer, $component)
-	protected function getRenderer($component) {
+	public function getRenderer($component) {
 		$renderer   = NULL;
 		$themeClass = $this->class;
 		while (($renderer == NULL) && ($themeClass !== FALSE)) {

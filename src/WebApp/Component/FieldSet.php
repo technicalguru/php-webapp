@@ -2,6 +2,8 @@
 
 namespace WebApp\Component;
 
+use TgI18n\I18N;
+
 class FieldSet extends Container {
 
 	protected $name;
@@ -10,16 +12,17 @@ class FieldSet extends Container {
 	protected $enabled;
 
 	public function __construct($parent, $id, $name, $label) {
-		parent::_construct($parent);
+		parent::__construct($parent);
 		$this->setId($id);
 		$this->name    = $name;
 		$this->label   = $label;
 		$this->visible = TRUE;
 		$this->enabled = TRUE;
+		$this->active  = FALSE;
 	}
 
 	public function getName() {
-		return I18N::__($this->name);
+		return I18N::_($this->name);
 	}
 
 	public function setName($value) {
@@ -27,7 +30,7 @@ class FieldSet extends Container {
 	}
 
 	public function getLabel() {
-		return I18N::__($this->label);
+		return I18N::_($this->label);
 	}
 
 	public function setLabel($value) {
@@ -48,6 +51,14 @@ class FieldSet extends Container {
 
 	public function setEnabled($value) {
 		$this->enabled = $value;
+	}
+
+	public function isActive() {
+		return $this->active;
+	}
+
+	public function setActive($value) {
+		$this->active = $value;
 	}
 
 }

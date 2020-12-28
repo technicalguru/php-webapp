@@ -149,6 +149,110 @@ return array(
 		'de' => '<i class="fas fa-step-forward"></i>',
 		'en' => '<i class="fas fa-step-forward"></i>',
 	),
+	'user_name_label' => array(
+		'de' => 'Name',
+		'en' => 'Name',
+	),
+	'user_email_label' => array(
+		'de' => 'E-Mail',
+		'en' => 'E-mail',
+	),
+	'user_status_label' => array(
+		'de' => 'Status',
+		'en' => 'Status',
+	),
+	'status_active_label' => array(
+		'de' => 'Aktiv',
+		'en' => 'Active',
+	),
+	'status_registered_label' => array(
+		'de' => 'Registriert',
+		'en' => 'Registered',
+	),
+	'status_confirmed_label' => array(
+		'de' => 'Verifiziert',
+		'en' => 'Verified',
+	),
+	'status_disabled_label' => array(
+		'de' => 'Deaktiviert',
+		'en' => 'Disabled',
+	),
+	'status_deleted_label' => array(
+		'de' => 'Gelöscht',
+		'en' => 'Deleted',
+	),
+	'user_failed_attempts_label' => array(
+		'de' => 'Fehlgeschlagene Anmeldeversuche',
+		'en' => 'Failed Login Attempts',
+	),
+	'user_last_failed_attempt_label' => array(
+		'de' => 'Letzter Versuch',
+		'en' => 'Last Attempt',
+	),
+	'user_blocked_label' => array(
+		'de' => 'Temporär geblockt',
+		'en' => 'Temporarily blocked',
+	),
+	'user_blocked_expiry_label' => array(
+		'de' => 'Bis',
+		'en' => 'Until',
+	),
+	'german' => array(
+		'de' => 'Deutsch',
+		'en' => 'Deutsch',
+	),
+	'english' => array(
+		'de' => 'English',
+		'en' => 'English',
+	),
+	'yes_label' => array(
+		'de' => 'Ja',
+		'en' => 'Yes',
+	),
+	'no_label' => array(
+		'de' => 'Nein',
+		'en' => 'No',
+	),
+	'dateFormat' => array(
+		'de' => 'd.m.Y',
+		'en' => 'd/m/Y',
+	),
+	'timeFormat' => array(
+		'de' => 'h:i:s',
+		'en' => 'h:i:s',
+	),
+	'shortTimeFormat' => array(
+		'de' => 'h:i',
+		'en' => 'h:i',
+	),
+	'dateTimeFormat' => array(
+		'de' => 'd.m.Y h:i:s',
+		'en' => 'd/m/Y h:i:s',
+	),
+	'dateTimeFormat2' => array(
+		'de' => 'd.m.Y \\u\\m h:i:s \\U\\h\\r',
+		'en' => 'd/m/Y \\a\\t h:i:s',
+	),
+	'shortDateTimeFormat' => array(
+		'de' => 'd.m.Y h:i',
+		'en' => 'd/m/Y h:i',
+	),
+	'shortDateTimeFormat2' => array(
+		'de' => 'd.m.Y \\u\\m h:i \\U\\h\\r',
+		'en' => 'd/m/Y \\a\\t h:i',
+	),
+	'role_superadmin_label' => array(
+		'de' => 'Superuser',
+		'en' => 'Super Admin',
+	),
+	'role_guest_label' => array(
+		'de' => 'Gast',
+		'en' => 'Guest',
+	),
+	'role_user_label' => array(
+		'de' => 'Normaler Benutzer',
+		'en' => 'User',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
