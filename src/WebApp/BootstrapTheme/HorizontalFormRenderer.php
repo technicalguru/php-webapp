@@ -39,9 +39,9 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		// render each field set
 		foreach ($this->component->getFieldSets() AS $fieldSet) {
 			if ($fieldSet->isActive()) {
-				$rc .= '<div class="tab-pane fade show active" id="nav-'.$fieldSet->getId().'" role="tabpanel" aria-labelledby="nav-'.$fieldSet->getId().'-tab">';
+				$rc .= '<div class="tab-pane fade show jumbotron active" id="nav-'.$fieldSet->getId().'" role="tabpanel" aria-labelledby="nav-'.$fieldSet->getId().'-tab">';
 			} else {
-				$rc .= '<div class="tab-pane fade show" id="nav-'.$fieldSet->getId().'" role="tabpanel" aria-labelledby="nav-'.$fieldSet->getId().'-tab">';
+				$rc .= '<div class="tab-pane fade show jumbotron" id="nav-'.$fieldSet->getId().'" role="tabpanel" aria-labelledby="nav-'.$fieldSet->getId().'-tab">';
 			}
 			$rc .= $this->renderFormChildren($fieldSet->getChildren());
 			$rc .= '</div>';
