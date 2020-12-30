@@ -7,6 +7,7 @@ class BootstrapTheme extends \WebApp\DefaultTheme\DefaultTheme {
 
 	public const MULTISELECT = 'multiselect';
 	public const DATEPICKER  = 'datepicker';
+	public const FILEUPLOAD  = 'fileupload';
 
 	public function __construct($app) {
 		parent::__construct($app);

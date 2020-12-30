@@ -36,6 +36,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/filter-multi-select.css" rel="stylesheet" type="text/css">';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
+		}
 		$rc .= parent::renderLinks();
 		return $rc;
 	}
@@ -145,6 +148,10 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/filter-multi-select.bundle.js"></script>'.
 			       '<script>$(function() {$(\'.multiselect\').filterMultiSelect();});</script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bs-custom-file-input.min.js"></script>'.
+			       '<script>jQuery(document).ready(function () { bsCustomFileInput.init() })</script>';
 		}
 		$rc .= parent::renderJavascript();
 		return $rc;
