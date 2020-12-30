@@ -22,8 +22,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function renderFieldSets() {
-		$rc = '<div class="container-fluid">'.
-		         '<nav>'.
+		$rc =    '<nav>'.
 		            '<div class="nav nav-tabs nav-fill" id="nav-tab-'.$this->component->getId().'" role="tablist">';
 		// render navigation
 		foreach ($this->component->getFieldSets() AS $fieldSet) {
@@ -47,8 +46,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 			$rc .= '</div>';
 		}
 		$rc .=       '</div>'.
-		          '</nav>'.
-		       '</div>';
+		          '</nav>';
 		return $rc;
 	}
 
@@ -75,7 +73,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 			} else {
 				$rc .= $this->renderGeneralFormChild($child);
 			}
-		} else if (is_a($child, 'WebApp\\Component\\Button')) {
+		} else if (is_a($child, 'WebApp\\Component\\Button') || is_a($child, 'WebApp\\Component\\Link')) {
 			$rc .= $this->theme->renderComponent($child);
 		} else {
 			$rc .= '<div class="form-group row" id="form-row-'.$child->getId().'">';

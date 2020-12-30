@@ -9,6 +9,7 @@ class MultiSelectRenderer extends \WebApp\Renderer {
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);
 		$this->setAttribute('multiple', 'multiple', TRUE);
+		$this->addClass('multiselect');
 	}
 
 	public function render() {

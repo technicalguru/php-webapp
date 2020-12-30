@@ -11,6 +11,7 @@ class MultiSelect extends FormElement {
 		parent::__construct($parent, $id);
 		$this->options = $options;
 		$this->setValues($values);
+		$this->setName($id.'[]');
 	}
 
 	public function getOptions() {

@@ -143,7 +143,8 @@ class DefaultLayout extends \WebApp\Layout {
 		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/webapp.js"></script>'.
 		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/utils.js"></script>';
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/filter-multi-select.bundle.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/filter-multi-select.bundle.js"></script>'.
+			       '<script>$(function() {$(\'.multiselect\').filterMultiSelect();});</script>';
 		}
 		$rc .= parent::renderJavascript();
 		return $rc;

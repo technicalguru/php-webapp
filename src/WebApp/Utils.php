@@ -55,6 +55,5 @@ class Utils {
 	public static function getFontBasePath($webapp = FALSE) {
 		return self::getWebRootPath($webapp).'/fonts';
 	}
-
 }
 
