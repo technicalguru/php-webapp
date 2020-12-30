@@ -68,10 +68,25 @@ class PaginationRenderer extends \WebApp\Renderer {
 	}
 
 	protected function renderPageNavLink($label, $pageIndex, $isEnabled, $isActive) {
+		$params = $this->getParams($pageIndex);
 		return '<span class="page-item'.($isActive ? ' active' : '').'">'.
-				'<a class="page-link" href="?'.$this->component->pageParam.'='.$pageIndex.'" aria-label="'.htmlentities($label).'">'.$label.'</a>'.
+				'<a class="page-link" href="?'.$params.'" aria-label="'.htmlentities($label).'">'.$label.'</a>'.
 			 '</span>';
 	}
 
+	protected function getParams($pageIndex) {
+		$rc = urlencode($this->component->pageParam).'='.$pageIndex;
+		if (!isset($this->keptParams)) {
+			$request = $this->app->request;
+			$this->keptParams = '';
+			foreach ($this->component->keepParams AS $param) {
+				$value = $request->getGetParam($param, NULL);
+				if ($value != NULL) {
+					$this->keptParams .= '&'.urlencode($param).'='.urlencode($value);
+				}
+			}
+		}
+		return $rc.$this->keptParams;
+	}
 }
 
