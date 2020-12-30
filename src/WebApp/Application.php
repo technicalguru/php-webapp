@@ -17,6 +17,7 @@ class Application {
 	public    $sessionHandler;
 	public    $router;
 	public    $mailQueue;
+	public    $theme;
 	protected $principal;
 
 	public function __construct($config) {

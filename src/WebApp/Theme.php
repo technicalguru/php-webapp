@@ -8,13 +8,16 @@ use TgI18n\I18N;
 class Theme {
 
 	/** Information about the app */
-	public    $app   = NULL;
-	protected $page  = NULL;
-	protected $class = NULL;
+	public    $app      = NULL;
+	protected $page     = NULL;
+	protected $class    = NULL;
+	protected $features = NULL;
 
 	public function __construct($app) {
 		$this->app       = $app;
 		$this->class     = new \ReflectionClass($this);
+		$this->features  = array();
+		$app->theme      = $this;
 	}
 
 	/** The entry function for the theme. Renders the complete page in this theme.
@@ -144,6 +147,28 @@ class Theme {
 		}
 
 		return $rc;
+	}
+
+	/** Adds a feature for the theme, e.g. for CSS or JS. Interpretation up to implementations. */
+	public function addFeature($name) {
+		if (!in_array($name, $this->features)) $this->features[] = $name;
+	}
+
+	public function removeFeature($name) {
+		$newArr = array();
+		foreach ($this->features AS $f) {
+			if ($f != $name) $newArr[] = $f;
+		}
+		$this->features = $newArr;
+	}
+
+	/** Returns enabled theme features, e.g. for CSS or JS. Interpretation up to implementations. */
+	public function getFeatures() {
+		return $this->features;
+	}
+
+	public function hasFeature($name) {
+		return in_array($name, $this->features);
 	}
 
 	public function getErrorPage($htmlCode) {
