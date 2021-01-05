@@ -41,5 +41,17 @@ class Button extends Container {
 		$this->setAttribute('value', $value);
 	}
 
+	public function getEnabled() {
+		return $this->getAttribute('disabled', TRUE) != 'disabled';
+	}
+
+	public function setEnabled($value) {
+		if ($value) {
+			$this->removeAttribute('disabled');
+		} else {
+			$this->setAttribute('disabled', 'disabled');
+		}
+	}
+
 }
 
