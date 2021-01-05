@@ -98,20 +98,24 @@ return array(
 		'en' => 'Close',
 	),
 	'create_label' => array(
-		'de' => 'Speichern',
-		'en' => 'Create',
+		'de' => '<i class="fas fa-save"></i> Speichern',
+		'en' => '<i class="fas fa-save"></i> Create',
 	),
 	'edit_label' => array(
-		'de' => 'Bearbeiten',
-		'en' => 'Edit',
+		'de' => '<i class="fas fa-pen"></i> Bearbeiten',
+		'en' => '<i class="fas fa-pen"></i> Edit',
 	),
 	'save_label' => array(
-		'de' => 'Speichern',
-		'en' => 'Save',
+		'de' => '<i class="fas fa-save"></i> Speichern',
+		'en' => '<i class="fas fa-save"></i> Save',
 	),
 	'delete_label' => array(
-		'de' => 'Löschen',
-		'en' => 'Delete',
+		'de' => '<i class="fas fa-trash"></i> Löschen',
+		'en' => '<i class="fas fa-trash"></i> Delete',
+	),
+	'new_label' => array(
+		'de' => '<i class="fas fa-plus-circle"></i> Neu',
+		'en' => '<i class="fas fa-plus-circle"></i> New',
 	),
 	'remove_label' => array(
 		'de' => 'Entfernen',
