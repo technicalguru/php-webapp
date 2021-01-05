@@ -166,7 +166,7 @@ class Page extends Component\Component {
 					return array('redirect', $uri.'?return='.urlencode($this->request->uri));
 				}
 			}
-		} else if ($this->app->isAuthorized($requiredRight)) {
+		} else if ($this->app->isAuthorized($this->getRequiredRight())) {
 			// We can render
 			$this->display = 'authorized';
 		} else {
