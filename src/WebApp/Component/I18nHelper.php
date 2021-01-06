@@ -15,17 +15,19 @@ class I18nHelper {
 	protected $id;
 	protected $parent;
 	protected $attributes;
+	protected $annotations;
 	protected $styles;
 	protected $components;
 
 	public function __construct($parent, $id, $languages) {
-		$this->parent     = $parent;
-		$this->id         = $id;
-		$this->languages  = $languages;
-		$this->attributes = array();
-		$this->styles     = array();
-		$this->components = array();
-		$this->created    = FALSE;
+		$this->parent      = $parent;
+		$this->id          = $id;
+		$this->languages   = $languages;
+		$this->attributes  = array();
+		$this->annotations = array();
+		$this->styles      = array();
+		$this->components  = array();
+		$this->created     = FALSE;
 	}
 
 	public function create() {
@@ -163,5 +165,13 @@ class I18nHelper {
 
 	public function getParent() {
 		return $this->parent;
+	}
+
+	public function getAnntotation($key, $default = NULL) {
+		return isset($this->annotations[$key]) ? $this->annotations[$key] : $default;
+	}
+
+	public function setAnntotation($key, $value) {
+		$this->annotations[$key] = $value;
 	}
 }
