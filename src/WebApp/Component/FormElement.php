@@ -18,7 +18,7 @@ class FormElement extends Component {
 	}
 
 	public function getLabel() {
-		return I18N::__($this->label);
+		return I18N::_($this->label);
 	}
 
 	public function setLabel($value) {
@@ -26,7 +26,7 @@ class FormElement extends Component {
 	}
 
 	public function getHelp() {
-		return I18N::__($this->help);
+		return I18N::_($this->help);
 	}
 
 	public function setHelp($value) {

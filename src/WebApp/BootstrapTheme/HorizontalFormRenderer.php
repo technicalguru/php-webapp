@@ -92,7 +92,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		} else {
 			// TODO
 		}
-		$rc .= '<div class="col-sm-10 col-md-6 col-lg-4">'.$this->theme->renderComponent($child).'</div>';
+		$rc .= '<div class="col-sm-10 col-md-6 col-lg-4">'.$this->theme->renderComponent($child);
 		$help = $child->getHelp();
 		if ($help != NULL) {
 			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
@@ -100,7 +100,8 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		if ($error != NULL) {
 			$rc .= '<div class="invalid-feedback">'.$error.'</div>';
 		}
-		$rc .= '</div>';
+		$rc .=    '</div>'.
+		       '</div>';
 		return $rc;
 	}
 

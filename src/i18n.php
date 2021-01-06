@@ -277,6 +277,26 @@ return array(
 		'de' => 'Suchen',
 		'en' => 'Search',
 	),
+	'general_id_label' => array(
+		'de' => 'ID',
+		'en' => 'ID',
+	),
+	'general_name_label' => array(
+		'de' => 'Name',
+		'en' => 'Name',
+	),
+	'error_errors_exist' => array(
+		'de' => 'Es sind Fehler aufgetreten.',
+		'en' => 'There are errors.',
+	),
+	'error_form_errors' => array(
+		'de' => 'Das Formular enhält Fehler.',
+		'en' => 'There are form errors.',
+	),
+	'error_field_empty' => array(
+		'de' => 'Dieses Feld darf nicht leer bleiben.',
+		'en' => 'This field must not be empty.',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',

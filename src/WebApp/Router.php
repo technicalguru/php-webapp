@@ -50,6 +50,10 @@ class Router {
 		return isset($this->languages[$langCode]);
 	}
 
+	public function getLanguages() {
+		return $this->languages;
+	}
+
 	/**
 	 * Returns an array $path-fragment => $pageClassName/$namespaceName
 	 * When path mapping happens, the longest match will be used (first one)
