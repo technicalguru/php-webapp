@@ -137,6 +137,10 @@ class Component {
 		return $this->parent;
 	}
 
+	public function getAnntotations() {
+		return $this->annotations;
+	}
+
 	public function getAnntotation($key, $default = NULL) {
 		return isset($this->annotations[$key]) ? $this->annotations[$key] : $default;
 	}

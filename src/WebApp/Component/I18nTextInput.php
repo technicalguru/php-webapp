@@ -21,6 +21,9 @@ class I18nTextInput extends I18nFormElement {
 		foreach ($this->getStyles() AS $name => $v) {
 			$rc->setStyle($name, $v);
 		}
+		foreach ($this->getAnnotations() AS $name => $v) {
+			$rc->setAnnotation($name, $v);
+		}
 		if ($label != NULL) $rc->setLabel($label);
 		if ($error != NULL) $rc->setError($error);
 		$rc->setHelp($this->getHelp());
