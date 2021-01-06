@@ -167,15 +167,15 @@ class I18nHelper {
 		return $this->parent;
 	}
 
-	public function getAnntotations() {
+	public function getAnnotations() {
 		return $this->annotations;
 	}
 
-	public function getAnntotation($key, $default = NULL) {
+	public function getAnnotation($key, $default = NULL) {
 		return isset($this->annotations[$key]) ? $this->annotations[$key] : $default;
 	}
 
-	public function setAnntotation($key, $value) {
+	public function setAnnotation($key, $value) {
 		$this->annotations[$key] = $value;
 	}
 }
