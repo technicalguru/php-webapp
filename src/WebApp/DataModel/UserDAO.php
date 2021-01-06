@@ -49,10 +49,17 @@ class UserDAO extends \TgDatabase\DAO {
 		return $rc;
 	}
 		
-	public function search($s) {
-		$s = $this->database->escape(strtolower($s));
-		$where = '(LOWER(name) LIKE \'%'.$s.'%\') OR (LOWER(email) LIKE \'%'.$s.'%\')';
-		return $this->find($where);
+	public function getSearchClause($s) {
+		$rc = array();
+		if (($s != NULL) && !\TgUtils\Utils::isEmpty($s)) {
+			$where = '';
+			foreach (explode(' ', $s) AS $part) {
+				$value = $this->database->escape(strtolower($part));
+				$where .= ' OR (LOWER(`name`) LIKE \'%'.$value.'%\') OR (LOWER(`email`) LIKE \'%'.$value.'%\')';
+			}
+			$rc[] = substr($where, 4);
+		}
+		return $rc;
 	}
 }
 
