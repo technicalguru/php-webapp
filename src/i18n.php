@@ -265,6 +265,18 @@ return array(
 		'de' => 'Normaler Benutzer',
 		'en' => 'User',
 	),
+	'search_filter_label' => array(
+		'de' => 'Suche',
+		'en' => 'Search',
+	),
+	'search_placeholder' => array(
+		'de' => 'Suchwort eingeben...',
+		'en' => 'Enter search text...',
+	),
+	'search_label' => array(
+		'de' => 'Suchen',
+		'en' => 'Search',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
