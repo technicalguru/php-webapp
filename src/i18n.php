@@ -113,6 +113,10 @@ return array(
 		'de' => '<i class="fas fa-trash"></i> Löschen',
 		'en' => '<i class="fas fa-trash"></i> Delete',
 	),
+	'confirm_delete_label' => array(
+		'de' => 'Ich bestätige, dass ich dieses Objekt löschen möchte.',
+		'en' => 'I confirm that I want to delete this item.',
+	),
 	'new_label' => array(
 		'de' => '<i class="fas fa-plus-circle"></i> Neu',
 		'en' => '<i class="fas fa-plus-circle"></i> New',
@@ -225,6 +229,10 @@ return array(
 		'de' => 'Nein',
 		'en' => 'No',
 	),
+	'back_label' => array(
+		'de' => '<i class="fas fa-arrow-circle-left"></i> Zurück',
+		'en' => '<i class="fas fa-arrow-circle-left"></i> Back',
+	),
 	'dateFormat' => array(
 		'de' => 'd.m.Y',
 		'en' => 'd/m/Y',
@@ -297,6 +305,15 @@ return array(
 		'de' => 'Dieses Feld darf nicht leer bleiben.',
 		'en' => 'This field must not be empty.',
 	),
+	'success_item_deleted' => array(
+		'de' => 'Das Objekt wurde erfolgreich gelöscht.',
+		'en' => 'The item was deleted successfully.',
+	),
+	'error_delete_item_failed' => array(
+		'de' => 'Die Löschung war nicht erfolgreich. Bitte versuche es später noch einmal.',
+		'en' => 'The item could not be deleted. Please retry later.',
+	),
+	
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
