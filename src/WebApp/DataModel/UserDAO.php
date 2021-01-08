@@ -19,6 +19,7 @@ class UserDAO extends \TgDatabase\DAO {
 			$sql =
 				'CREATE TABLE '.$this->database->quoteName($this->tableName).' ('.
 					'`uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,'.
+					'`created_on` DATETIME NOT NULL,'.
 					'`email` varchar(250) COLLATE utf8mb4_bin NOT NULL,'.
 					'`password` varchar(150) COLLATE utf8mb4_bin NOT NULL,'.
 					'`name` varchar(50) COLLATE utf8mb4_bin NOT NULL,'.
