@@ -153,6 +153,9 @@ class DefaultLayout extends \WebApp\Layout {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bs-custom-file-input.min.js"></script>'.
 			       '<script>jQuery(document).ready(function () { bsCustomFileInput.init() })</script>';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
+			$rc .= '<script type="text/javascript">$("ul.nav-tabs a").click(function (e) { e.preventDefault();  $(this).tab(\'show\');});</script>';
+		}
 		$rc .= parent::renderJavascript();
 		return $rc;
 	}
