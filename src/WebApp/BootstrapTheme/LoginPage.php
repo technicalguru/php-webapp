@@ -13,8 +13,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 
 	public function getPublicMain() {
 		$rc = new \WebApp\Component\MainContent($this);
-		$panel = new \WebApp\Component\Div($rc);
-		$panel->addClass('jumbotron');
+		$panel = new \WebApp\Component\Jumbotron($rc);
 		$title = new \WebApp\Component\Title($panel, 'login_title');
 		$title->setStyle('margin-top', '0');
 		$title->setStyle('margin-bottom', '0.5rem');
