@@ -169,6 +169,10 @@ return array(
 		'de' => 'Status',
 		'en' => 'Status',
 	),
+	'user_since_label' => array(
+		'de' => 'Benutzer seit',
+		'en' => 'User since',
+	),
 	'status_active_label' => array(
 		'de' => 'Aktiv',
 		'en' => 'Active',
@@ -292,6 +296,10 @@ return array(
 	'general_name_label' => array(
 		'de' => 'Name',
 		'en' => 'Name',
+	),
+	'general_description_label' => array(
+		'de' => 'Beschreibung',
+		'en' => 'Description',
 	),
 	'error_errors_exist' => array(
 		'de' => 'Es sind Fehler aufgetreten.',
