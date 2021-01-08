@@ -1,8 +1,8 @@
 <?php
 
-namespace WebApp\BootstrapTheme;
+namespace WebApp\Component;
 
-class GridCell extends \WebApp\Component\Div {
+class GridCell extends Div {
 
 	protected $gridSizes;
 
