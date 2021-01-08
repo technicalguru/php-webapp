@@ -34,12 +34,10 @@ class LoginPage extends \WebApp\Page\LoginPage {
 		$user   = new \WebApp\Component\TextInput($form, 'userid', $uid);
 		$user->setLabel('login_userid_label');
 		$user->setPlaceholder('login_userid_placeholder');
-		$user->setHelp('login_userid_help');
 
 		$pass   = new \WebApp\Component\PasswordInput($form, 'password');
 		$pass->setLabel('login_password_label');
 		$pass->setPlaceholder('login_password_placeholder');
-		$pass->setHelp('login_password_help');
 
 		$persist = new \WebApp\Component\Checkbox($form, 'persist', '1');
 		$persist->setLabel('persist_login_label');

@@ -52,9 +52,8 @@ class TabSetRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		$rc = '<div id="'.$idPrefix.'" class="tab-content">';
 		foreach ($this->component->getChildren() AS $tab) {
 			$id  = $idPrefix.'-'.$tab->getId();
-			$rc .= '<div id="'.$id.'" class="tab-pane fade'.($tab->isActive() ? ' active show' : '').'">'.
-			          $this->theme->renderComponent($tab).
-			       '</div>';
+			$tab->setId($id);
+			$rc .= $this->theme->renderComponent($tab);
 		}
 		$rc .= '</div>';
 		return $rc;

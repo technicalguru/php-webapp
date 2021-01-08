@@ -22,6 +22,18 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function renderFieldSets() {
+		// Construct the components
+		$tabSet = new \WebApp\Component\TabSet(NULL, $this->component->getId().'fieldsets');
+		foreach ($this->component->getFieldSets() AS $fieldSet) {
+			if ($fieldSet->isVisible()) {
+				$tab = $tabSet->createTab($fieldSet->getId(), $fieldSet->getLabel(), $fieldSet);
+				$tab->addClass('jumbotron');
+			}
+		}
+
+		// Render them
+		return $this->theme->renderComponent($tabSet);
+/*
 		$rc =    '<nav>'.
 		            '<div class="nav nav-tabs nav-fill" id="nav-tab-'.$this->component->getId().'" role="tablist">';
 		// render navigation
@@ -48,6 +60,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc .=       '</div>'.
 		          '</nav>';
 		return $rc;
+*/
 	}
 
 	public function renderFormChildren($children) {
@@ -63,7 +76,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	public function renderFormChild($child) {
 		$rc = '';
-		if (is_a($child, 'WebApp\\Component\\FormElement')) {
+		if (is_a($child, 'WebApp\\Component\\FormElement') || is_a($child, 'WebApp\\Component\\NewI18nFormElement')) {
 			if (is_a($child, 'WebApp\\Component\\Checkbox')) {
 				$rc .= $this->renderCheckbox($child);
 			} else if (is_a($child, 'WebApp\\Component\\HiddenInput')) {
