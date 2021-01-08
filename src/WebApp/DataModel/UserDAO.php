@@ -31,6 +31,20 @@ class UserDAO extends \TgDatabase\DAO {
 			$res = $this->database->query($sql);
 			if ($res === FALSE) {
 				throw new WebAppException('Cannot create user table: '.$this->database->error());
+			} else {
+				// Create initial superadmin
+				$now      = new \TgUtils\Date(time(), WFW_TIMEZONE);
+				$password = \TgUtils\Utils::generateRandomString();
+				$sql = 'INSERT INTO '.$this->database->quoteName($this->tableName).' (`created_on`, `email`, `password`, `name`, `roles`, `status`, `data`) VALUES '.
+				       '('.$this->database->quote($now->toMysql()).', \'superadmin@example.com\', '.$this->database->quote($password).', \'Application Superadmin\', \'superadmin\', \'active\', \'{}\')';
+				$res = $this->database->query($sql);
+				if ($res === FALSE) {
+					throw new WebAppException('Cannot create superadmin: '.$this->database->error());
+				} else {
+					error_log('===========> Superadmin Email:    superadmin@example.com');
+					error_log('===========> Superadmin Password: '.$password);
+					error_log('===========> YOU MUST CHANGE THIS IMMEDIATELY!');
+				}
 			}
 		}
 	}
