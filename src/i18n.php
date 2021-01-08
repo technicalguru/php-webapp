@@ -301,6 +301,10 @@ return array(
 		'de' => 'Beschreibung',
 		'en' => 'Description',
 	),
+	'general_enabled_label' => array(
+		'de' => 'Aktiv',
+		'en' => 'Enabled',
+	),
 	'error_errors_exist' => array(
 		'de' => 'Es sind Fehler aufgetreten.',
 		'en' => 'There are errors.',

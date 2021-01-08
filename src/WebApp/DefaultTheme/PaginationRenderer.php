@@ -50,7 +50,7 @@ class PaginationRenderer extends \WebApp\Renderer {
 	protected function renderPreviousPageLink() {
 		$page = $this->component->pageNumber-1;
 		if ($page < $this->component->firstPage) $page = $this->component->firstPage;
-		return $this->renderPageNavLink(I18N::_('prevous_page_label'), $page , $this->component->pageNumber != $this->component->firstPage, false);
+		return $this->renderPageNavLink(I18N::_('previous_page_label'), $page , $this->component->pageNumber != $this->component->firstPage, false);
 	}
 
 	protected function renderNextPageLink() {
