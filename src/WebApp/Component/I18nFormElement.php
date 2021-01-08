@@ -2,55 +2,45 @@
 
 namespace WebApp\Component;
 
-class I18nFormElement extends I18nHelper {
+use \TgI18n\I18N;
 
-	protected $name;
-	protected $label;
-	protected $values;
-	protected $help;
+class I18nFormElement extends BasicFormElement {
+
 	protected $errors;
+	protected $languages;
+	protected $values;
 
-	public function __construct($parent, $id, $languages, $values) {
-		parent::__construct($parent, $id, $languages);
-		$this->setName($id);
+	public function __construct($parent, $id, $languages, $values = null) {
+		parent::__construct($parent, $id);
 		$this->setValues($values);
+		$this->setLanguages($languages);
 	}
 
-	protected function createComponent($languageKey, $languageLabel) {
-		$id    = $this->getId().'-'.$languageKey;
-		$label = $this->getLabel();
-		if ($label != NULL) {
-			$label = \TgI18n\I18N::_($label).' ('.$languageLabel.')';
-		}
-		$value = $this->getValue($languageKey);
-		$error = $this->getError($error);
-		return $this->createFormElement($languageKey, $id, $label, $value, $error);
+	public function getLanguages() {
+		return $this->languages;
 	}
 
-	protected function createFormElement($languageKey, $id, $label, $value, $error) {
-		throw new \WebApp\WebAppException('You must implement #createFormElement($languageKey, $id, $label, $value, $error)');
+	public function setLanguages($values) {
+		return $this->languages = $values;
 	}
 
-	public function getLabel() {
-		return $this->label;
+	public function getValue($languageKey = NULL) {
+		return I18N::__($this->values, $languageKey);
 	}
 
-	public function setLabel($value) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
-		}
-		$this->label = $value;
+	public function getValues() {
+		return $this->values;
 	}
 
-	public function getHelp() {
-		return $this->help;
+	public function setValue($languageKey, $value) {
+		if (is_int($value)) $value = ''.$value;
+		if (is_object($this->values)) $this->values->$languageKey = $value;
+		if (is_array($this->values)) $this->values[$languageKey] = $value;
+		
 	}
 
-	public function setHelp($value) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
-		}
-		$this->help = $value;
+	public function setValues($values) {
+		$this->values = $values;
 	}
 
 	public function getErrors() {
@@ -69,76 +59,13 @@ class I18nFormElement extends I18nHelper {
 	}
 
 	public function getError($languageKey = NULL) {
-		return \TgI18n\I18N::_($this->errors, $languageKey);
-	}
-
-	public function getName() {
-		return $this->getAttribute('name', TRUE, $this->getId());
-	}
-
-	public function setName($name) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
+		if ($languageKey == NULL) {
+			if (count($this->errors) > 0) {
+				$languageKey = array_keys($this->errors)[0];
+				return I18N::_($this->errors[$languageKey]);
+			}
 		}
-		$this->setAttribute('name', $name);
-	}
-
-	public function getValue($languageKey = NULL) {
-		return \TgI18n\I18N::__($this->values, $languageKey);
-	}
-
-	public function getValues() {
-		return $this->values;
-	}
-
-	public function setValue($languageKey, $value) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
-		}
-		if (is_int($value)) $value = ''.$value;
-		if (is_object($this->values)) $this->values->$languageKey = $value;
-		if (is_array($this->values)) $this->values[$languageKey] = $value;
-		
-	}
-
-	public function setValues($values) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
-		}
-		$this->values = $values;
-	}
-
-	public function isEnabled() {
-		return $this->getAttribute('disabled', TRUE) != 'disabled';
-	}
-
-	public function setEnabled($b) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
-		}
-		$this->setAttribute('disabled', $b ? NULL : 'disabled');
-	}
-
-	public function isReadOnly() {
-		return !$this->isEnabled();
-	}
-
-	public function setReadOnly($b) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
-		}
-		$this->setEnabled(!$b);
-	}
-
-	public function isRequired() {
-		return $this->getAttribute('required', TRUE) == 'required';
-	}
-
-	public function setRequired($b) {
-		if ($this->created) {
-			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
-		}
-		$this->setAttribute('required', $b ? 'required' : NULL);
+		return I18N::_($this->errors[$languageKey]);
 	}
 
 	public static function getPostValues($name, $languages) {

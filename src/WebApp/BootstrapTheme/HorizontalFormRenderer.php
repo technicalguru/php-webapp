@@ -28,39 +28,12 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 			if ($fieldSet->isVisible()) {
 				$tab = $tabSet->createTab($fieldSet->getId(), $fieldSet->getLabel(), $fieldSet);
 				$tab->addClass('jumbotron');
+				$tab->addClass('p-4');
 			}
 		}
 
 		// Render them
 		return $this->theme->renderComponent($tabSet);
-/*
-		$rc =    '<nav>'.
-		            '<div class="nav nav-tabs nav-fill" id="nav-tab-'.$this->component->getId().'" role="tablist">';
-		// render navigation
-		foreach ($this->component->getFieldSets() AS $fieldSet) {
-			if ($fieldSet->isActive()) {
-				$rc .= '<a class="nav-item nav-link active" id="nav-'.$fieldSet->getId().'-tab" data-toggle="tab" href="#nav-'.$fieldSet->getId().'" role="tab" aria-controls="nav-'.$fieldSet->getId().'" aria-selected="true">'.$fieldSet->getLabel().'</a>';
-			} else {
-				$rc .= '<a class="nav-item nav-link" id="nav-'.$fieldSet->getId().'-tab" data-toggle="tab" href="#nav-'.$fieldSet->getId().'" role="tab" aria-controls="nav-'.$fieldSet->getId().'" aria-selected="false">'.$fieldSet->getLabel().'</a>';
-			}
-		}
-		$rc .=       '</div>'.
-		             '<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent-'.$this->component->getId().'">';
-
-		// render each field set
-		foreach ($this->component->getFieldSets() AS $fieldSet) {
-			if ($fieldSet->isActive()) {
-				$rc .= '<div class="tab-pane fade show jumbotron active" id="nav-'.$fieldSet->getId().'" role="tabpanel" aria-labelledby="nav-'.$fieldSet->getId().'-tab">';
-			} else {
-				$rc .= '<div class="tab-pane fade show jumbotron" id="nav-'.$fieldSet->getId().'" role="tabpanel" aria-labelledby="nav-'.$fieldSet->getId().'-tab">';
-			}
-			$rc .= $this->renderFormChildren($fieldSet->getChildren());
-			$rc .= '</div>';
-		}
-		$rc .=       '</div>'.
-		          '</nav>';
-		return $rc;
-*/
 	}
 
 	public function renderFormChildren($children) {
@@ -76,7 +49,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	public function renderFormChild($child) {
 		$rc = '';
-		if (is_a($child, 'WebApp\\Component\\FormElement') || is_a($child, 'WebApp\\Component\\NewI18nFormElement')) {
+		if (is_a($child, 'WebApp\\Component\\FormElement') || is_a($child, 'WebApp\\Component\\I18nFormElement')) {
 			if (is_a($child, 'WebApp\\Component\\Checkbox')) {
 				$rc .= $this->renderCheckbox($child);
 			} else if (is_a($child, 'WebApp\\Component\\HiddenInput')) {

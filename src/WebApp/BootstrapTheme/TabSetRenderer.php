@@ -6,7 +6,7 @@ class TabSetRenderer extends \WebApp\DefaultTheme\DivRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);
-		$this->addClass('tabbable pt-4 pb-4');
+		$this->addClass('tabbable');
 		$theme->addFeature(BootstrapTheme::TABS);
 	}
 
@@ -33,14 +33,16 @@ class TabSetRenderer extends \WebApp\DefaultTheme\DivRenderer {
 	}
 
 	public function renderNavigation() {
-		$idPrefix  = $this->component->getId().'-nav';
-		$tabPrefix = $this->component->getId().'-tab';
+		$idPrefix       = $this->component->getId().'-nav';
+		$tabPrefix      = $this->component->getId().'-tab';
+		$navLinkClasses = implode(' ', $this->component->getNavLinkClasses());
 		$rc = '<ul id="'.$idPrefix.'" class="nav nav-tabs">';
 		foreach ($this->component->getChildren() AS $tab) {
 			$id    = $idPrefix.'-'.$tab->getId();
 			$tabId = $tabPrefix.'-'.$tab->getId();
+			$classes = implode(' ', $tab->getNavLinkClasses());
 			$rc .= '<li id="'.$id.'" '.($tab->isActive() ? 'class="active"' : '').'>'.
-			         '<a href="#'.$tabId.'" class="nav-link'.($tab->isActive() ? ' active' : '').'">'.$tab->getLabel().'</a>'.
+			         '<a href="#'.$tabId.'" class="nav-link '.$navLinkClasses.($tab->isActive() ? ' active' : '').' '.$classes.'">'.$tab->getLabel().'</a>'.
 			      '</li>';
 		}
 		$rc .= '</ul>';
@@ -48,11 +50,13 @@ class TabSetRenderer extends \WebApp\DefaultTheme\DivRenderer {
 	}
 
 	public function renderContent() {
-		$idPrefix = $this->component->getId().'-tab';
+		$idPrefix       = $this->component->getId().'-tab';
+		$tabPaneClasses = implode(' ', $this->component->getTabPaneClasses());
 		$rc = '<div id="'.$idPrefix.'" class="tab-content">';
 		foreach ($this->component->getChildren() AS $tab) {
 			$id  = $idPrefix.'-'.$tab->getId();
 			$tab->setId($id);
+			$tab->addClass($tabPaneClasses);
 			$rc .= $this->theme->renderComponent($tab);
 		}
 		$rc .= '</div>';
