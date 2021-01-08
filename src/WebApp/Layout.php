@@ -18,9 +18,11 @@ class Layout {
 	}
 
 	public function renderPage() {
+		// Render body before header so CSS registrations can happen
+		$body = $this->renderBody();
 		$rc = $this->renderDocumentBegin().
 		      $this->renderHeader().
-		      $this->renderBody().
+		      $body.
 		      $this->renderDocumentEnd();
 		return $rc;
 	}
