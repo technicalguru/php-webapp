@@ -1,8 +1,8 @@
 <?php
 
-namespace WebApp\BootstrapTheme;
+namespace WebApp\Component;
 
-class GridRow extends \WebApp\Component\Div {
+class GridRow extends Div {
 
 	public function __construct($parent) {
 		parent::__construct($parent);

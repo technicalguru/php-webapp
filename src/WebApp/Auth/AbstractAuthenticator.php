@@ -10,9 +10,12 @@ use WebApp\Application;
 abstract class AbstractAuthenticator implements Authenticator {
 
 	protected $app;
+	protected $config;
 
-	public function __construct(Application $app) {
-		$this->app = $app;
+	public function __construct(Application $app, $config = NULL) {
+		$this->app    = $app;
+		if (is_object($config)) $config = get_object_vars($config);
+		$this->config = $config;
 		$this->init();
 	}
 

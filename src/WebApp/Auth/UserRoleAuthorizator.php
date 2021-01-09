@@ -10,8 +10,16 @@ use \WebApp\DataModel\UserRole;
  */
 class UserRoleAuthorizator extends AbstractAuthorizator {
 
-	public function __construct(Application $app) {
-		parent::__construct($app);
+	public function __construct(Application $app, $config = NULL) {
+		parent::__construct($app, $config);
+		if (isset($this->config['roles'])) {
+			$this->roles = json_decode(json_encode($this->config['roles']), TRUE);
+		} else {
+			$this->roles = array();
+		}
+		// Caching
+		$this->grantResults = array();
+		$this->subroles     = array();
 	}
 
 	protected function init() {
@@ -30,17 +38,85 @@ class UserRoleAuthorizator extends AbstractAuthorizator {
 
 		// From here on we need a user object
 		if ($user != NULL) {
-			$roles = $user->getRoles();
+			if (!isset($this->grantResult[$required.'-'.$user->uid])) {
+				// Least privilege: any user
+				if ($required == UserRole::ROLE_USER) {
+					$this->grantResult[$required.'-'.$user->uid] = TRUE;
+				} else {
+					$roles = $user->getRoles();
 
-			// Least privilege: any user
-			if ($required == UserRole::ROLE_USER) return TRUE;
-
-			// Superadmins are always authorized
-			if (in_array(UserRole::ROLE_SUPERADMIN, $roles)) return TRUE;
-
-			// Search the specific role
-			return in_array($required, $roles);
+					// Superadmins are always authorized
+					if (in_array(UserRole::ROLE_SUPERADMIN, $roles)) {
+						$this->grantResult[$required.'-'.$user->uid] = TRUE;
+					} else {
+						// Search the specific role
+						$this->grantResult[$required.'-'.$user->uid] = $this->isGranted($required, $roles);
+					}
+				}
+			}
+			return $this->grantResult[$required.'-'.$user->uid];
 		}
 		return FALSE;
+	}
+
+	protected function isGranted($required, $granted) {
+		$grantedExploded = $this->explodeRoles($granted);
+		return in_array($required, $grantedExploded);
+	}
+
+	/** List all roles that are explicitely and implicitely part of the given roles */
+	protected function explodeRoles($roles) {
+		$rc = array();
+		foreach ($roles AS $role) {
+			if (!isset($this->subroles[$role])) {
+				// The granted role itself of course
+				$this->subroles[$role] = array($role);
+				// And all its children
+				foreach ($this->getRoleChildren($role) AS $child) {
+					$this->subroles[$role][] = $child;
+				}
+			}
+			$rc = array_merge($rc, $this->subroles[$role]);
+		}
+		return $rc;
+	}
+
+	protected function getRoleChildren($role) {
+		// Search the tree;
+		$tree = $this->getRoleTree($role, $this->roles);
+		// Not found => No children
+		if ($tree == NULL) return array();
+		// Flatten the hierarchy
+		return $this->collectSubRoles($tree);
+	}
+
+	/** Can return NULL when needle not found. Otherwise returns the array with children. */
+	protected function getRoleTree($needle, $treeNode) {
+		foreach ($treeNode AS $key => $value) {
+			if (is_int($key) && ($value == $needle)) {
+				// simple role name, no children
+				return array();
+			} else if (is_string($key)) {
+				if ($key == $needle) return $value;
+				else {
+					$found = $this->getRoleTree($needle, $value);
+					if ($found != NULL) return $found;
+				}
+			}
+		}
+		return NULL;
+	}
+
+	/** Takes the tree and returns all defined roles in there */
+	protected function collectSubRoles($node) {
+		$rc = array();
+		foreach ($node AS $key => $value) {
+			if (is_int($key)) $rc[] = $value;
+			else {
+				$rc[] = $key;
+				$rc   = array_merge($rc, $this->collectSubRoles($value));
+			}
+		}
+		return $rc;
 	}
 }

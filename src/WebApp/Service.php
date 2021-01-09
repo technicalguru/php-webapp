@@ -26,6 +26,7 @@ class Service {
 			Log::debug('$_SERVER=', $_SERVER);
 			Log::debug('Request=', $this->app->request);
 			$this->theme->render($this->page);
+			Session\Utils::isFreshLogin();
 		} else if ($action == 'redirect') {
 			// redirect
 			$this->app->afterRequest();

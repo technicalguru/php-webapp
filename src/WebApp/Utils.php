@@ -42,6 +42,12 @@ class Utils {
 		return self::getWebRootPath($webapp).'/css';
 	}
 
+	public static function getParametrizedCssBasePath($relativeCssFile) {
+		$request = Request::getRequest();
+		$mtime   = filemtime($request->appRoot.'/css'.$relativeCssFile);
+		return self::getCssBasePath().$relativeCssFile.'?'.$mtime;
+	}
+
 	public static function getFontBaseUrl($webapp = FALSE) {
 		return self::getWebRootUrl($webapp).'/fonts';
 	}
@@ -49,6 +55,5 @@ class Utils {
 	public static function getFontBasePath($webapp = FALSE) {
 		return self::getWebRootPath($webapp).'/fonts';
 	}
-
 }
 

@@ -86,12 +86,13 @@ class Page extends Component\Component {
 
 	public function processRequest() {
 		if ($this->request->getPostParam('action') == 'login') {
-			$this->processLoginAction();
-			return array('redirect', $this->request->path);
+			if ($this->processLoginAction()) {
+				return array('redirect', $this->request->path);
+			}
 		} else if ($this->request->hasGetParam('logout')) {
 			$this->processLogoutAction();
 			$home = $this->app->getPageLink('home');
-			if ($home == NULL) $home = $this->request->path;
+			if ($home == NULL) $home = $this->request->originalPath;
 			else $home = $this->app->router->getCanonicalPath($home);
 			return array('redirect', $home);
 		}
@@ -106,30 +107,41 @@ class Page extends Component\Component {
 
 	/**
 	 * Process the login action.
+	 * Returns TRUE when login succeeded.
 	 */
 	protected function processLoginAction() {
 		$userid  = trim($this->request->getPostParam('userid', ''));
 		$passwd  = trim($this->request->getPostParam('password', ''));
 		$persist = $this->request->getPostParam('persist', FALSE);
+		$rc      = FALSE;
 
 		if ($userid && $passwd) {
-			if (!$this->app->authenticate($userid, new Auth\SecretData($passwd), $persist)) {
+			$result = $this->app->authenticate($userid, new Auth\SecretData($passwd), $persist);
+			if ($result === FALSE) {
 				// Login failed
 				Log::register(new Error('login_failed'));
+				Log::error('Authentication not configured');
+			} else if (is_a($result, 'WebApp\\Auth\\AuthError')) {
+				// Login failed
+				Log::register(new Error($result->getMessage()));
+				Log::error('Authentication error: '.$result->errorCode);
 			} else {
 				// Return to uri if required
 				$return = $this->request->getPostParam('return');
+				Session\Utils::setFreshLogin();
 				if (($return != NULL) && (strlen($return) > 0)) {
 					header('Location: '.$return);
 					exit;
 				}
 				// Is there a standard login landing page?
+				$rc = TRUE;
 			}
 		} else {
 			// Set error
 			if (!$userid) Log::register(new Error('login_userid_missing'));
 			if (!$passwd) Log::register(new Error('login_password_missing'));
 		}
+		return $rc;
 	}
 
 	/**
@@ -143,7 +155,8 @@ class Page extends Component\Component {
 	 * Computes how to display this page (public, protected, login, redirection, forbidden)
 	 */
 	protected function computeDisplayMode() {
-		if ($this->app->getPrincipal() == NULL) {
+		$principal = $this->app->getPrincipal();
+		if ($principal == NULL) {
 			// We need a login
 			$this->display = 'login';
 			$uri           = $this->app->getPageLink('login');
@@ -153,13 +166,14 @@ class Page extends Component\Component {
 					return array('redirect', $uri.'?return='.urlencode($this->request->uri));
 				}
 			}
-		} else if ($this->app->isAuthorized($requiredRight)) {
+		} else if ($this->app->isAuthorized($this->getRequiredRight())) {
 			// We can render
 			$this->display = 'authorized';
 		} else {
 			// User is not authorized
 			$this->display = 'forbidden';
 		}
+		Log::debug('display='.$this->display);
 		return 'render';
 	}
 
@@ -184,14 +198,12 @@ class Page extends Component\Component {
 		$user   = new Component\TextInput($form, 'userid', $uid);
 		$user->setLabel('login_userid_label');
 		$user->setPlaceholder('login_userid_placeholder');
-		$user->setHelp('login_userid_help');
 
 		$pass   = new Component\PasswordInput($form, 'password');
 		$pass->setLabel('login_password_label');
 		$pass->setPlaceholder('login_password_placeholder');
-		$pass->setHelp('login_password_help');
 
-		$return =  $this->request->getGetParam('return');
+		$return =  $this->request->getParam('return');
 		if ($return != NULL) {
 			$returnUri = parse_url($return);
 			if (isset($returnUri['query'])) {

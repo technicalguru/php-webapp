@@ -34,5 +34,17 @@ class Link extends Container {
 		$this->setAttribute('target', $target);
 	}
 
+	public function getEnabled() {
+		return !$this->hasClass('disabled');
+	}
+
+	public function setEnabled($value) {
+		if ($value) {
+			$this->removeClass('disabled');
+		} else {
+			$this->addClass('disabled');
+		}
+	}
+
 }
 

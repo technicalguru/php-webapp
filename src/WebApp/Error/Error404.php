@@ -9,12 +9,19 @@ class Error404 extends \WebApp\Page {
 	}
 
 	public function getTitle() {
-		return 'Page Not Found';
+		return 'page404_title';
 	}
 
 	public function getMain() {
 		header('HTTP/1.1 404 Not Found');
-		return 'We are sorry but we couldn\'t find the page you requested. Please, re-check the URL.';
+		$rc = new \WebApp\Component\MainContent($this);
+		$rc->addClass('text-center');
+		// TODO Add this text in white on black image with broken glass
+		new \WebApp\Component\Title($rc, 'page404_title');
+		new \WebApp\Component\Subtitle($rc, 'page404_subtitle');
+		$p = new \WebApp\Component\Paragraph($rc, 'page404_description');
+		$p->addClass('small');
+		return $rc;
 	}
 }
 

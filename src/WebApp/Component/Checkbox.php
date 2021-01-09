@@ -4,6 +4,8 @@ namespace WebApp\Component;
 
 class Checkbox extends Input {
 
+	protected $legend;
+
 	public function __construct($parent, $id, $value) {
 		parent::__construct($parent, $id, 'checkbox', $value);
 	}
@@ -14,6 +16,14 @@ class Checkbox extends Input {
 
 	public function isChecked() {
 		return $this->getAttribute('checked', TRUE) == 'checked';
+	}
+
+	public function setLegend($value) {
+		$this->legend = $value;
+	}
+
+	public function getLegend() {
+		return $this->legend;
 	}
 }
 

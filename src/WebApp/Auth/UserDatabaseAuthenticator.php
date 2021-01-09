@@ -12,8 +12,8 @@ use WebApp\DataModel\UserDAO;
  */
 class UserDatabaseAuthenticator extends AbstractAuthenticator {
 
-	public function __construct(Application $app) {
-		parent::__construct($app);
+	public function __construct(Application $app, $config = NULL) {
+		parent::__construct($app, $config);
 	}
 
 	protected function init() {
@@ -21,7 +21,11 @@ class UserDatabaseAuthenticator extends AbstractAuthenticator {
 		if (!$this->app->database) {
 			throw new WebAppException('A database connection is required.');
 		}
-		$this->dao = new UserDAO($this->app->database);
+		$modelClass = NULL;
+		if (($this->config != NULL) && isset($this->config['modelClass'])) {
+			$modelClass = $this->config['modelClass'];
+		}
+		$this->dao = new UserDAO($this->app->database, $modelClass);
 		if ($this->app->dataModel) {
 			$this->app->dataModel->register('users', $this->dao);
 		}
@@ -40,16 +44,18 @@ class UserDatabaseAuthenticator extends AbstractAuthenticator {
 				if (!($user->verifyPassword($secretData->password))) {
 					$user->registerFailedLoginAttempt();
 					$this->dao->save($user);
-					$user = NULL;
+					return new AuthError(AuthError::PASSWORD_INVALID, 'user_password_invalid');
 				} else {
 					$user->registerSuccessfulLogin();
 					$this->dao->save($user);
+					return $user;
 				}
-			} else {
-				$user = NULL;
+			} else if ($user->isPermanentlyBlocked()) {
+				return new AuthError(AuthError::USER_BLOCKED, 'user_blocked');
 			}
+			return new AuthError(AuthError::USER_TEMPORARILY_BLOCKED, 'user_temporarily_blocked');
 		}
-		return $user;
+		return new AuthError(AuthError::USER_NOT_FOUND, 'user_not_found');
 	}
 
 	/**

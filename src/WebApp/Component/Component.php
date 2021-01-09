@@ -10,15 +10,17 @@ class Component {
 	protected $id;
 	protected $parent;
 	protected $attributes;
+	protected $annotations;
 	protected $styles;
 
 	public function __construct($parent) {
-		$this->parent     = $parent;
-		$this->uid        = self::createUid();
-		$this->id         = $this->uid;
-		if ($this->parent != NULL && method_exists($this->parent, 'addChild')) $this->parent->addChild($this);
-		$this->attributes = array();
-		$this->styles     = array();
+		$this->parent      = $parent;
+		$this->uid         = self::createUid();
+		$this->id          = $this->uid;
+		if ($this->parent  != NULL && method_exists($this->parent, 'addChild')) $this->parent->addChild($this);
+		$this->attributes  = array();
+		$this->annotations = array();
+		$this->styles      = array();
 	}
 
 	private static function createUid() {
@@ -133,6 +135,18 @@ class Component {
 
 	public function getParent() {
 		return $this->parent;
+	}
+
+	public function getAnnotations() {
+		return $this->annotations;
+	}
+
+	public function getAnnotation($key, $default = NULL) {
+		return isset($this->annotations[$key]) ? $this->annotations[$key] : $default;
+	}
+
+	public function setAnnotation($key, $value) {
+		$this->annotations[$key] = $value;
 	}
 }
 

@@ -50,6 +50,10 @@ class Router {
 		return isset($this->languages[$langCode]);
 	}
 
+	public function getLanguages() {
+		return $this->languages;
+	}
+
 	/**
 	 * Returns an array $path-fragment => $pageClassName/$namespaceName
 	 * When path mapping happens, the longest match will be used (first one)
@@ -67,6 +71,17 @@ class Router {
 		return array(
 			'/' => 'WebApp\\Page\\',
 		);
+	}
+
+	/** 
+	 * Returns the absolute canonical URI path for a page path from the app root.
+	 * <p>Returns the canonical path for the current URI when no arguments given.</p>
+	 * @param string $localPath - an appRoot-relative path without language (u
+	 * @param string $language - the language to be used
+	 * @return string the absolute path for the URI.
+	 */
+	public function getCanonicalUri($pagePath = NULL, $language = NULL) {
+		return $this->request->rootUri.$this->getCanonicalPath($pagePath, $language);
 	}
 
 	/** 

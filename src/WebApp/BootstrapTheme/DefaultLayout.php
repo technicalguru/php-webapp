@@ -18,8 +18,27 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderLinks() {
 		$webroot = $this->app->request->webRoot;
 		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
-		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">'.
-		       '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
+		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">';
+		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">'.
+		           '<style>'.
+		              '.dropdown-item.nav-link {'.
+		                 'padding: .25rem 1.5rem !important;'.
+		              '}'.
+		              '.navbar-dark .dropdown-item.nav-link:hover,'.
+		              '.navbar-dark .dropdown-item.nav-link:active,'.
+		              '.navbar-dark .dropdown-item.nav-link:focus {'.
+		                 'color: #333333 !important;'.
+		                 'background-color: #f8f9fa !important;'.
+		              '}'.
+		           '</style>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/filter-multi-select.css" rel="stylesheet" type="text/css">';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
+		}
 		$rc .= parent::renderLinks();
 		return $rc;
 	}
@@ -99,10 +118,10 @@ class DefaultLayout extends \WebApp\Layout {
 		} else if ($this->app->getPageLink('login') != NULL) {
 			$uri   = $this->app->request->uri;
 			$login = $this->app->router->getCanonicalPath($this->app->getPageLink('login'));
-			if ($this->app->request->path == $login) {
-				$uri = $this->app->request->path;
+			if ($this->app->request->originalPath == $login) {
+				$uri = $this->app->request->originalPath;
 			} else {
-				$uri = $login.'?return='.urlencode($this->app->request->uri);
+				$uri = $login.'?return='.urlencode($this->app->request->originalPath);
 			}
 			$rc .= '<span class="navbar-text  align-middle"><a class="px-2" href="'.$uri.'">'.I18N::_('login_label').'</a></span>';
 		}
@@ -126,6 +145,17 @@ class DefaultLayout extends \WebApp\Layout {
 		       '<script src="'.$webroot.Bootstrap::getJsUri().'"></script>'.
 		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/webapp.js"></script>'.
 		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/utils.js"></script>';
+		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/filter-multi-select.bundle.js"></script>'.
+			       '<script>$(function() {$(\'.multiselect\').filterMultiSelect();});</script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bs-custom-file-input.min.js"></script>'.
+			       '<script>jQuery(document).ready(function () { bsCustomFileInput.init() })</script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
+			$rc .= '<script type="text/javascript">$("ul.nav-tabs a").click(function (e) { e.preventDefault();  $(this).tab(\'show\');});</script>';
+		}
 		$rc .= parent::renderJavascript();
 		return $rc;
 	}

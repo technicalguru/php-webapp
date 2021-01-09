@@ -13,8 +13,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 
 	public function getPublicMain() {
 		$rc = new \WebApp\Component\MainContent($this);
-		$panel = new \WebApp\Component\Div($rc);
-		$panel->addClass('jumbotron');
+		$panel = new \WebApp\Component\Jumbotron($rc);
 		$title = new \WebApp\Component\Title($panel, 'login_title');
 		$title->setStyle('margin-top', '0');
 		$title->setStyle('margin-bottom', '0.5rem');
@@ -29,23 +28,21 @@ class LoginPage extends \WebApp\Page\LoginPage {
 		$rc = array();
 		$form   = new \WebApp\Component\Form($this, 'loginForm', \WebApp\Component\Form::HORIZONTAL);
 		$form->setMethod('POST');
-		$form->setAction($this->request->path);
+		$form->setAction($this->request->originalPath);
 
 		$userid = $this->request->getPostParam('userid', '');
 		$user   = new \WebApp\Component\TextInput($form, 'userid', $uid);
 		$user->setLabel('login_userid_label');
 		$user->setPlaceholder('login_userid_placeholder');
-		$user->setHelp('login_userid_help');
 
 		$pass   = new \WebApp\Component\PasswordInput($form, 'password');
 		$pass->setLabel('login_password_label');
 		$pass->setPlaceholder('login_password_placeholder');
-		$pass->setHelp('login_password_help');
 
 		$persist = new \WebApp\Component\Checkbox($form, 'persist', '1');
 		$persist->setLabel('persist_login_label');
 
-		$return =  $this->request->getGetParam('return');
+		$return =  $this->request->getParam('return');
 		if ($return != NULL) {
 			$returnUri = parse_url($return);
 			if (isset($returnUri['query'])) {

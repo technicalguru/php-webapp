@@ -12,8 +12,8 @@ use WebApp\DataModel\UserRoleDAO;
  */
 class PrivilegeDatabaseAuthorizator extends AbstractAuthorizator {
 
-	public function __construct(Application $app) {
-		parent::__construct($app);
+	public function __construct(Application $app, $config = NULL) {
+		parent::__construct($app, $config);
 	}
 
 	protected function init() {
@@ -21,7 +21,11 @@ class PrivilegeDatabaseAuthorizator extends AbstractAuthorizator {
 		if (!$this->app->database) {
 			throw new WebAppException('A database connection is required.');
 		}
-		$this->dao = new UserRoleDAO($this->app->database);
+		$modelClass = NULL;
+		if (($this->config != NULL) && isset($this->config['modelClass'])) {
+			$modelClass = $this->config['modelClass'];
+		}
+		$this->dao = new UserRoleDAO($this->app->database, $modelClass);
 		if ($this->app->dataModel) {
 			$this->app->dataModel->register('userRoles', $this->dao);
 		}

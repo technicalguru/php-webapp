@@ -4,13 +4,14 @@ namespace WebApp\DataModel;
 
 class User implements \WebApp\Auth\Principal {
 
-	public const STATUS_REGISTERD = 'registered';
-	public const STATUS_CONFIRMED = 'confirmed';
-	public const STATUS_ACTIVE    = 'active';
-	public const STATUS_DISABLED  = 'disabled';
-	public const STATUS_DELETED   = 'deleted';
+	public const STATUS_REGISTERED = 'registered';
+	public const STATUS_CONFIRMED  = 'confirmed';
+	public const STATUS_ACTIVE     = 'active';
+	public const STATUS_DISABLED   = 'disabled';
+	public const STATUS_DELETED    = 'deleted';
 
 	public function __construct() {
+		$this->created_on = new \TgUtils\Date($this->created_on, WFW_TIMEZONE);
 	}
 
 	/**
@@ -28,15 +29,19 @@ class User implements \WebApp\Auth\Principal {
 	}
 
 	public function setPassword($password) {
-		$this->password = password_hash($password);
+		$this->password = password_hash($password, PASSWORD_DEFAULT);
+	}
+
+	/** Checks password criteria */
+	public function passwordCriteriaMatched($password) {
+		return strlen($password) >= 8;
 	}
 
 	public function getRoles() {
-		$rc = array();
-		if (is_string($this->roles)) {
-			$rc = explode(',', $this->roles);
+		if (!isset($this->_roles)) {
+			$this->_roles = explode(',', $this->roles);
 		}
-		return $rc;
+		return $this->_roles;
 	}
 
 	public function hasRole($s) {
@@ -54,6 +59,7 @@ class User implements \WebApp\Auth\Principal {
 	public function setRoles($arr) {
 		if (is_string($arr)) $this->roles = $arr;
 		else if (is_array($arr)) $this->roles = implode(',', $arr);
+		$this->_roles = explode(',', $this->roles);
 	}
 
 	public function isActive() {
