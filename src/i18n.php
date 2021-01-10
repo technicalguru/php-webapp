@@ -141,6 +141,18 @@ return array(
 		'de' => 'Diese Seite existiert nicht oder es ist etwas Schreckliches passiert.',
 		'en' => 'This page doesn\'t exist or something terrible happened.',
 	),
+	'page500_title' => array(
+		'de' => 'Na toll!',
+		'en' => 'Oh great!',
+	),
+	'page500_subtitle' => array(
+		'de' => 'Jetzt habt Ihr die Seite kaputt gemacht.',
+		'en' => 'You destroyed the page now.',
+	),
+	'page500_description' => array(
+		'de' => 'Es ist etwas Schreckliches passiert.',
+		'en' => 'Something terrible happened.',
+	),
 	'first_page_label' => array(
 		'de' => '<i class="fas fa-step-backward"></i>',
 		'en' => '<i class="fas fa-step-backward"></i>',

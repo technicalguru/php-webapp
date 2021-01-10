@@ -15,7 +15,7 @@ try {
 	echo '<h1>Internal Error</h1>';
 	echo '<p>Cannot create application.</p>';
 	if ($DEBUG) {
-		echo '<pre>'.$e->getMessage()."\n".$e->getTraceAsString().'</pre>';
+		echo('<pre>'.\TgUtils\FormatUtils::getTraceAsString($e).'</pre>');
 	}
 }
 
