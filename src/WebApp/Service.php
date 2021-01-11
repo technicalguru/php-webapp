@@ -35,7 +35,7 @@ class Service {
 			}
 		} catch (\Throwable $e) {
 			\TgLog\Log::error('Cannot create application', $e);
-			$page = new Error\Error500($this->app, $e);
+			$page = new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
 			$page->processRequest();
 			$this->theme->render($page);
 		}
@@ -68,12 +68,12 @@ class Service {
 
 			// Get the default error page
 			if ($page == NULL) {
-				$page = new Error\Error404($this->app);
+				$page = new Error\ErrorPage($this->app, 404, 'Not Found');
 			}
 			return $page;
 		} catch (\Throwable $e) {
 			\TgLog\Log::error('Cannot create application', $e);
-			return new Error\Error500($this->app, $e);
+			return new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
 		}
 	}
 

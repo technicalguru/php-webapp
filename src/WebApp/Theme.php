@@ -172,8 +172,8 @@ class Theme {
 	}
 
 	public function getErrorPage($htmlCode) {
-		$name = '\\WebApp\\Error\\Error'.$htmlCode;
-		return new $name($this->app);
+		$name = '\\WebApp\\Error\\ErrorPage';
+		return new $name($this->app, $htmlCode, 'Error');
 	}
 }
 

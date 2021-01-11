@@ -129,6 +129,18 @@ return array(
 		'de' => 'Abbrechen',
 		'en' => 'Cancel',
 	),
+	'error_page_title' => array(
+		'de' => 'Gratulation!',
+		'en' => 'Congratulation!',
+	),
+	'error_page_subtitle' => array(
+		'de' => 'Jetzt habt Ihr die Seite kaputt gemacht.',
+		'en' => 'You finally destroyed the website.',
+	),
+	'error_page_description' => array(
+		'de' => 'Diese Seite existiert nicht oder es ist etwas Schreckliches passiert. Aber wir kriegen raus, was es ist...',
+		'en' => 'This page doesn\'t exist or something terrible happened. But we\'ll find out what it was...',
+	),
 	'page404_title' => array(
 		'de' => 'Gratulation!',
 		'en' => 'Congratulation!',
