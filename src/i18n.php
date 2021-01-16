@@ -266,12 +266,12 @@ return array(
 		'en' => 'd/m/Y',
 	),
 	'timeFormat' => array(
-		'de' => 'h:i:s',
-		'en' => 'h:i:s',
+		'de' => 'H:i:s',
+		'en' => 'H:i:s',
 	),
 	'shortTimeFormat' => array(
-		'de' => 'h:i',
-		'en' => 'h:i',
+		'de' => 'H:i',
+		'en' => 'H:i',
 	),
 	'dateTimeFormat' => array(
 		'de' => 'd.m.Y h:i:s',
@@ -348,6 +348,10 @@ return array(
 	'error_delete_item_failed' => array(
 		'de' => 'Die Löschung war nicht erfolgreich. Bitte versuche es später noch einmal.',
 		'en' => 'The item could not be deleted. Please retry later.',
+	),
+	'datepicker_format' => array(
+		'de' => 'dd.mm.yyyy',
+		'en' => 'dd/mm/yyyy',
 	),
 	
 	/* Copy these 4 lines 
