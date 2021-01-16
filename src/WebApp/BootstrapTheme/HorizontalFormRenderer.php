@@ -9,6 +9,16 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component, 'form');
 		$this->addClass('horizontal');
+		$this->labelSizes     = explode(' ', $component->getAnnotation('horizontal-form/label-size', 'sm-12 md-4 lg-2'));
+		$this->componentSizes = explode(' ', $component->getAnnotation('horizontal-form/component-size', 'sm-10 md-8 lg-10'));
+	}
+
+	protected function getLabelSizeClasses() {
+		return 'col-'.implode(' col-', $this->labelSizes);
+	}
+
+	protected function getComponentSizeClasses() {
+		return 'col-'.implode(' col-', $this->componentSizes);
 	}
 
 	public function render() {
@@ -74,11 +84,11 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
 		$label = $child->getLabel();
 		if ($label != NULL) {
-			$rc .= '<label for="'.htmlentities($child->getId()).'" class="col-sm-2 col-form-label">'.$label.'</label>';
+			$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses().' col-form-label">'.$label.'</label>';
 		} else {
 			// TODO
 		}
-		$rc .= '<div class="col-sm-10 col-md-6 col-lg-4">'.$this->theme->renderComponent($child);
+		$rc .= '<div class="'.$this->getComponentSizeClasses().'">'.$this->theme->renderComponent($child);
 		$help = $child->getHelp();
 		if ($help != NULL) {
 			$rc .= '<small class="form-text text-muted">'.$help.'</small>';

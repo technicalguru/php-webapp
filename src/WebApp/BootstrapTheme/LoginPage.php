@@ -28,6 +28,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 		$rc = array();
 		$form   = new \WebApp\Component\Form($this, 'loginForm', \WebApp\Component\Form::HORIZONTAL);
 		$form->setMethod('POST');
+		$form->setAnnotation('horizontal-form/component-size', 'sm-12 md-6 lg-4');
 		$form->setAction($this->request->originalPath);
 
 		$userid = $this->request->getPostParam('userid', '');
