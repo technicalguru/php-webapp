@@ -9,16 +9,26 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component, 'form');
 		$this->addClass('horizontal');
-		$this->labelSizes     = explode(' ', $component->getAnnotation('horizontal-form/label-size', 'sm-12 md-4 lg-2'));
-		$this->componentSizes = explode(' ', $component->getAnnotation('horizontal-form/component-size', 'sm-10 md-8 lg-10'));
 	}
 
-	protected function getLabelSizeClasses() {
-		return 'col-'.implode(' col-', $this->labelSizes);
+	protected function getLabelSizeClasses($child) {
+		$annotation = explode(' ', $this->searchAnnotation($child, 'horizontal-form/label-size', 'sm-12 md-4 lg-2'));
+		return 'col-'.implode(' col-', $annotation);
 	}
 
-	protected function getComponentSizeClasses() {
-		return 'col-'.implode(' col-', $this->componentSizes);
+	protected function getComponentSizeClasses($child) {
+		$annotation = explode(' ', $this->searchAnnotation($child, 'horizontal-form/component-size', 'sm-12 md-8 lg-10'));
+		return 'col-'.implode(' col-', $annotation);
+	}
+
+	protected function searchAnnotation($child, $key, $default) {
+		$rc = $child->getAnnotation($key);
+		if ($rc == NULL) {
+			$parent = $child->getParent();
+			if ($parent != NULL) return $this->searchAnnotation($parent, $key, $default);
+			return $default;
+		}
+		return $rc;
 	}
 
 	public function render() {
@@ -84,11 +94,11 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
 		$label = $child->getLabel();
 		if ($label != NULL) {
-			$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses().' col-form-label">'.$label.'</label>';
+			$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</label>';
 		} else {
 			// TODO
 		}
-		$rc .= '<div class="'.$this->getComponentSizeClasses().'">'.$this->theme->renderComponent($child);
+		$rc .= '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child);
 		$help = $child->getHelp();
 		if ($help != NULL) {
 			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
