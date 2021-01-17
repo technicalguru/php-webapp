@@ -9,13 +9,13 @@
 }
 .preview-images-zone > .preview-image:first-child {
     height: 185px;
-    width: 185px;
+/*    width: 185px; */
     position: relative;
     margin-right: 5px;
 }
 .preview-images-zone > .preview-image {
     height: 90px;
-    width: 90px;
+/*    width: 90px; */
     position: relative;
     margin-right: 5px;
     float: left;
@@ -65,9 +65,14 @@
     display: none;
     z-index: 100;
 }
+/* Only required with edit
 .preview-image:hover > .image-zone {
     cursor: move;
     opacity: .5;
+}
+*/
+.preview-image .image-cancel {
+	font-size: 150%;
 }
 .preview-image:hover > .tools-edit-image,
 .preview-image:hover > .image-cancel {

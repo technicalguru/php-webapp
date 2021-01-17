@@ -29,9 +29,9 @@ function readImage() {
             picReader.addEventListener('load', function (event) {
                 var picFile = event.target;
                 var html =  '<div id="miu-preview-' + miu_num + '" class="preview-image">' +
-                            '<div class="image-cancel" data-id="' + miu_num + '" data-miu-name="' + miuName + '" data-miu-picname="' + picName + '">x</div>' +
+                            '<div class="image-cancel" data-id="' + miu_num + '" data-miu-name="' + miuName + '" data-miu-picname="' + picName + '"><span class="badge badge-pill badge-danger"><i class="fas fa-trash-alt"></i></span></div>' +
                             '<div class="image-zone"><img id="img-' + miu_num + '" src="' + picFile.result + '"></div>' +
-                            '<div class="tools-edit-image"><a href="javascript:void(0)" data-id="' + miu_num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
+                            //'<div class="tools-edit-image"><a href="javascript:void(0)" data-id="' + miu_num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
                             '</div>';
 
                 $(html).insertBefore(output);

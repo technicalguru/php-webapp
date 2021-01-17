@@ -31,9 +31,9 @@ class MultiImageUploadRenderer extends \WebApp\Renderer {
 	protected function createImagePreview($image) {
 		$rc = 
 			'<div id="miu-preview-'.$image->id.'" class="preview-image">'.
-				'<div class="image-cancel" data-id="'.$image->id.'" data-miu-name="'.$this->component->getName().'" data-miu-picname="'.$image->id.'">x</div>'.
+				'<div class="image-cancel" data-id="'.$image->id.'" data-miu-name="'.$this->component->getName().'" data-miu-picname="'.$image->id.'"><span class="badge badge-pill badge-danger"><i class="fas fa-trash-alt"></i></span></div>'.
 				'<div class="image-zone"><img id="img-'.$image->id.'" src="'.$image->path.'"></div>'.
-				'<div class="tools-edit-image"><a href="javascript:void(0)" data-id="'.$image->id.'" class="btn btn-light btn-edit-image">edit</a></div>'.
+			//	'<div class="tools-edit-image"><a href="javascript:void(0)" data-id="'.$image->id.'" class="btn btn-light btn-edit-image">edit</a></div>'.
 			'</div>';
 		return $rc;
 	}
