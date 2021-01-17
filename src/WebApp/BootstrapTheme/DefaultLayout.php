@@ -39,6 +39,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/multi-image-upload.css" rel="stylesheet" type="text/css">';
+		}
 		$rc .= parent::renderLinks();
 		return $rc;
 	}
@@ -152,6 +155,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bs-custom-file-input.min.js"></script>'.
 			       '<script>jQuery(document).ready(function () { bsCustomFileInput.init() })</script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/multi-image-upload.js"></script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bootstrap-datepicker.js"></script>'.
