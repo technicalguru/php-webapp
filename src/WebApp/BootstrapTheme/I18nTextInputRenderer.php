@@ -9,6 +9,9 @@ class I18nTextInputRenderer extends I18nFormElementRenderer {
 	}
 
 	protected function createFormElement($languageKey, $id) {
-		return new \WebApp\Component\TextInput(NULL, $id, $this->component->getValue($languageKey));
+		$rc = new \WebApp\Component\TextInput(NULL, $id, $this->component->getValue($languageKey));
+		$rc->setEnabled($this->component->isEnabled());
+		$rc->setRequired($this->component->isRequired());
+		return $rc;
 	}
 }
