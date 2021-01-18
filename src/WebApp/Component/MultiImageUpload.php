@@ -21,7 +21,7 @@ class MultiImageUpload extends FormElement {
 						$file = array(
 							'name'      => $values['name'][$i],
 							'type'      => $values['type'][$i],
-							'suffix'    => self::getFileSuffix($values['name'][$i], $values['type'][$i]),
+							'suffix'    => ImageUpload::getFileSuffix($values['name'][$i], $values['type'][$i]),
 							'tmp_name'  => $values['tmp_name'][$i],
 							'error'     => $values['error'][$i],
 							'errorText' => FileInput::getErrorText($values['error'][$i]),
@@ -35,15 +35,6 @@ class MultiImageUpload extends FormElement {
 		return $rc;
 	}
 
-	public static function getFileSuffix($filename, $type = NULL) {
-		$pos = strrpos($name, '.');
-		if ($pos > 0) {
-			return strtolower(substr($name, $pos+1));
-		} else if (($type != NULL) && (strpos($type, 'image/') === 0)) {
-			return substr($type, 6);
-		}
-		return 'unknown';
-	}
 	public static function getRemovedImages($name) {
 		$rc = array();
 		$ignoreList = explode(',', \TgUtils\Request::getRequest()->getPostParam('miu-ignore-'.$name, ''));

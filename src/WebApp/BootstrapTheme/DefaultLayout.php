@@ -39,7 +39,7 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
 		}
-		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD)) {
+		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD) || $this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/multi-image-upload.css" rel="stylesheet" type="text/css">';
 		}
 		$rc .= parent::renderLinks();
@@ -158,6 +158,9 @@ class DefaultLayout extends \WebApp\Layout {
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/multi-image-upload.js"></script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/image-upload.js"></script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bootstrap-datepicker.js"></script>'.

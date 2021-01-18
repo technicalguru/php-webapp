@@ -15,7 +15,7 @@ class MultiImageUploadRenderer extends \WebApp\Renderer {
 		$rc = 
 			'<div class="container multi-image-upload">'.
 				'<fieldset class="form-group">'.
-					'<input type="file" id="miu-'.$this->component->getName().'" data-miu-name="'.$this->component->getName().'" name="miu-'.$this->component->getName().'[]" accept="image/*" style="display: none;" class="form-control" multiple>'.
+					'<input type="file" id="miu-'.$this->component->getName().'" class="miu-uploads" data-miu-name="'.$this->component->getName().'" name="miu-'.$this->component->getName().'[]" accept="image/*" style="display: none;" class="form-control" multiple>'.
 					'<input type="hidden" id="miu-ignore-'.$this->component->getName().'" name="miu-ignore-'.$this->component->getName().'">'.
 				'</fieldset>'.
 				'<div id="preview-images-'.$this->component->getName().'" class="preview-images-zone">';

@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    document.querySelector('input[type=file]').addEventListener('change', readImage, false);
+    document.querySelector('.miu-uploads').addEventListener('change', readMultiImage, false);
     
-    $(document).on('click', '.image-cancel', function() {
+    $(document).on('click', '.multi-image-upload .image-cancel', function() {
 		let miuName = $(this).data('miu-name');
 		let picName = $(this).data('miu-picname');
         let id      = $(this).data('id');
@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 var miu_num = 1;
 var ignoreList = [];
-function readImage() {
+function readMultiImage() {
     if (window.File && window.FileList && window.FileReader) {
         var files = event.target.files; //FileList object
 		var miuName = $(event.target).data('miu-name');

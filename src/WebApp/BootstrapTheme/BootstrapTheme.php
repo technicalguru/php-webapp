@@ -8,6 +8,7 @@ class BootstrapTheme extends \WebApp\DefaultTheme\DefaultTheme {
 	public const MULTISELECT       = 'multiselect';
 	public const DATEPICKER        = 'datepicker';
 	public const FILEUPLOAD        = 'fileupload';
+	public const IMAGEUPLOAD       = 'imageupload';
 	public const MULTIIMAGEUPLOAD  = 'multiimageupload';
 	public const TABS              = 'tabs';
 
