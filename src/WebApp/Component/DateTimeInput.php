@@ -26,6 +26,16 @@ class DateTimeInput extends Input {
 		return '';
 	}
 
+	public static function getPostValue($name, $timezoneId) {
+		$request = \TgUtils\Request::getRequest();
+		$date    = $request->getPostParam($name.'-date');
+		$time    = $request->getPostParam($name.'-time');
+		if ($date != NULL) {
+			if ($time == NULL) $time = '00:00';
+			return \TgUtils\Date::createFromFormat('Y-m-d H:i', $date.' '.$time, $timezoneId);
+		}
+		return NULL;
+	}
 }
 
 

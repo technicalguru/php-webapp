@@ -13,5 +13,13 @@ class DateInput extends Input {
 		}
 	}
 
+	public static function getPostValue($name, $timezoneId) {
+		$request = \TgUtils\Request::getRequest();
+		$date    = $request->getPostParam($name.'-date');
+		if ($date != NULL) {
+			return \TgUtils\Date::createFromFormat('Y-m-d H:i', $date.' 00:00', $timezoneId);
+		}
+		return NULL;
+	}
 }
 
