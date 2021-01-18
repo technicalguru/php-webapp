@@ -2,9 +2,9 @@ $(document).ready(function() {
     document.querySelector('input[type=file]').addEventListener('change', readImage, false);
     
     $(document).on('click', '.image-cancel', function() {
-		let miuName = $(event.target).data('miu-name');
-		let picName = $(event.target).data('miu-picname');
-        let id = $(this).data('id');
+		let miuName = $(this).data('miu-name');
+		let picName = $(this).data('miu-picname');
+        let id      = $(this).data('id');
         $('#miu-preview-'+id).remove();
 		ignoreList.push(picName);
         $('#miu-ignore-'+miuName).val(ignoreList.join(','));
