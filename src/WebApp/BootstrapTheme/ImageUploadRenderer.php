@@ -15,7 +15,7 @@ class ImageUploadRenderer extends \WebApp\Renderer {
 		$rc = 
 			'<div class="container image-upload">'.
 				'<fieldset class="form-group">'.
-					'<input type="file" id="iu-'.$this->component->getName().'" data-iu-name="'.$this->component->getName().'" name="iu-'.$this->component->getName().'" accept="image/*" style="display: none;" class="form-control">'.
+					'<input type="file" id="iu-'.$this->component->getName().'" class="iu-image-input" data-iu-name="'.$this->component->getName().'" name="iu-'.$this->component->getName().'" accept="image/*" style="display: none;" class="form-control">'.
 					'<input type="hidden" id="iu-remove-'.$this->component->getName().'" name="iu-remove-'.$this->component->getName().'">'.
 				'</fieldset>'.
 				'<div id="preview-images-'.$this->component->getName().'" class="preview-images-zone">';
@@ -40,7 +40,7 @@ class ImageUploadRenderer extends \WebApp\Renderer {
 	protected function createImageUpload($show) {
 		$showStyle = $show ? '' : ' style="display:none"';
 		$rc = 
-			'<div id="iu-new" class="preview-image preview-image-new"'.$showStyle.'>'.
+			'<div id="iu-new-'.$this->component->getName().'" class="preview-image preview-image-new"'.$showStyle.'>'.
 				'<div class="image-zone"><img id="img-new" src="'.Utils::getImageBasePath(TRUE).'/multi-image-upload-new.png"></div>'.
 				'<div class="tools-upload-image"><a href="javascript:void(0)" onclick="$(\'#iu-'.$this->component->getName().'\').click()" class="">&nbsp</a></div>'.
 			'</div>';

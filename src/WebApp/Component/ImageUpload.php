@@ -18,30 +18,11 @@ class ImageUpload extends FormElement {
 	}
 
 	public static function getImage($name) {
-		$rc = NULL;
-		if (isset($_FILES['iu-'.$name]) && ($_FILES['iu-'.$name]['error'] != 4)) {
-			$rc = array(
-				'name'      => $_FILES['iu-'.$name]['name'],
-				'type'      => $_FILES['iu-'.$name]['type'],
-				'suffix'    => self::getFileSuffix($_FILES['iu-'.$name]['name'], $_FILES['iu-'.$name]['type']),
-				'tmp_name'  => $_FILES['iu-'.$name]['tmp_name'],
-				'error'     => $_FILES['iu-'.$name]['error'],
-				'errorText' => FileInput::getErrorText($_FILES['iu-'.$name]['error']),
-				'size'      => $_FILES['iu-'.$name]['size'],
-			);
-		}
-		return $rc;
+		return FileInput::getFile('iu-'.$name);
 	}
 
-	public static function getFileSuffix($filename, $type = NULL) {
-		$pos = strrpos($name, '.');
-		if ($pos > 0) {
-			return strtolower(substr($name, $pos+1));
-		} else if (($type != NULL) && (strpos($type, 'image/') === 0)) {
-			return substr($type, 6);
-		}
-		return 'unknown';
+	public static function handleImageUpload($name, $targetDir) {
+		return FileInput::handleFileUpload('iu-'.$name, $targetDir);
 	}
-
 }
 

@@ -1,12 +1,15 @@
 $(document).ready(function() {
-    document.querySelector('#iu-image').addEventListener('change', readSingleImage, false);
-    
+    let inputs = document.querySelectorAll('.iu-image-input');
+	for (let i = 0; i < inputs.length; i++) {
+		inputs[i].addEventListener('change', readSingleImage, false);
+	}
+
     $(document).on('click', '.image-upload .image-cancel', function() {
 		let iuName  = $(this).data('iu-name');
 		let picName = $(this).data('iu-picname');
         let id      = $(this).data('id');
         let output  = $('#iu-preview-'+id);
-		let addImage = $('#iu-new');
+		let addImage = $('#iu-new-'+iuName);
 		addImage.show();
 		output.remove();
 		$('#iu-'+iuName).val('');
@@ -26,7 +29,7 @@ function readSingleImage() {
             
 				var picReader = new FileReader();
 				var picName   = file.name;
-				var addImage = $('#iu-new');
+				var addImage = $('#iu-new-'+iuName);
 				picReader.addEventListener('load', function (event) {
 					var picFile = event.target;
 					var html =  '<div id="iu-preview-new" class="preview-image">' +
