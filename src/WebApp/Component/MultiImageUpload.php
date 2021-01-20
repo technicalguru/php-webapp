@@ -21,7 +21,7 @@ class MultiImageUpload extends FormElement {
 						$file = array(
 							'name'      => $values['name'][$i],
 							'type'      => $values['type'][$i],
-							'suffix'    => ImageUpload::getFileSuffix($values['name'][$i], $values['type'][$i]),
+							'suffix'    => FileInput::getFileSuffix($values['name'][$i], $values['type'][$i]),
 							'tmp_name'  => $values['tmp_name'][$i],
 							'error'     => $values['error'][$i],
 							'errorText' => FileInput::getErrorText($values['error'][$i]),
