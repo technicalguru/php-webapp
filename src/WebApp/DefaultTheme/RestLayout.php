@@ -13,7 +13,7 @@ class RestLayout extends \WebApp\Layout {
 		header('Content-Type: application/json');
 		$rc = $this->page->getMain();
 		if ($rc == NULL) $rc = '';
-		if (is_object($rc) && !is_a($rc, 'WebApp\\RestResult')) {
+		if (!is_object($rc) || !is_a($rc, 'WebApp\\RestResult')) {
 			$rc = \WebApp\RestResult::success($rc);
 		}
 		if (!is_string($rc)) $rc = json_encode($rc);
