@@ -65,7 +65,7 @@ class Theme {
      */
 	protected function getLayout($name) {
 		if ($name == NULL) $name = 'default';
-		$className = $this->class->getNamespaceName().'\\'.ucfirst($name).'Layout';
+		$className = strpos($name, '\\') === FALSE ? $this->class->getNamespaceName().'\\'.ucfirst($name).'Layout' : $name;
 		if (class_exists($className)) {
 			$className = '\\'.$className;
 			return new $className($this, $this->page);

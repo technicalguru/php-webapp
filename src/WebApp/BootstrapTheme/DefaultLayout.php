@@ -170,6 +170,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
 			$rc .= '<script type="text/javascript">$("ul.nav-tabs a").click(function (e) { e.preventDefault();  $(this).tab(\'show\');});</script>';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/remote-search.js"></script>';
+		}
 		$rc .= parent::renderJavascript();
 		return $rc;
 	}
