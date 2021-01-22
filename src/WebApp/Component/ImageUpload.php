@@ -22,7 +22,15 @@ class ImageUpload extends FormElement {
 	}
 
 	public static function handleImageUpload($name, $targetDir) {
-		return FileInput::handleFileUpload('iu-'.$name, $targetDir);
+		$rc = FileInput::handleFileUpload('iu-'.$name, $targetDir);
+		if (($rc != NULL) && ($rc['filename'] != NULL)) {
+			$info = getimagesize($targetDir.'/'.$rc['filename']);
+			$rc['mime']   = $info['mime'];
+			$rc['width']  = $info[0];
+			$rc['height'] = $info[1];
+			$rc['ratio']  = $info[0] / $info[1];
+		}
+		return $rc;
 	}
 }
 
