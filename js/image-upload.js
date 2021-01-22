@@ -34,7 +34,7 @@ function readSingleImage() {
 					var picFile = event.target;
 					var html =  '<div id="iu-preview-new" class="preview-image">' +
 								'<div class="image-cancel" data-id="new" data-iu-name="' + iuName + '" data-iu-picname="' + picName + '"><span class="badge badge-pill badge-danger"><i class="fas fa-trash-alt"></i></span></div>' +
-								'<div class="image-zone"><img id="img-new" src="' + picFile.result + '"></div>' +
+								'<div class="image-zone"><img id="img-new-'+iuName+'" src="' + picFile.result + '"></div>' +
 								'</div>';
 
 					$(html).insertBefore(output);
