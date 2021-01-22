@@ -11,6 +11,7 @@ class BootstrapTheme extends \WebApp\DefaultTheme\DefaultTheme {
 	public const IMAGEUPLOAD       = 'imageupload';
 	public const MULTIIMAGEUPLOAD  = 'multiimageupload';
 	public const TABS              = 'tabs';
+	public const REMOTESEARCH      = 'remotesearch';
 
 	public function __construct($app) {
 		parent::__construct($app);

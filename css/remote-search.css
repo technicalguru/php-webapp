@@ -1,0 +1,31 @@
+.search-dropdown {
+	max-height: 10em;
+	overflow-y: auto;
+}
+
+.search-dropdown .custom-control {
+	cursor: pointer;
+}
+
+.remote-search-values {
+	padding: 0.1em 0.3em;
+	height: 3.5em;
+	overflow-y: auto;
+	border: solid 1px #cccccc;
+	margin-top: 0.5em;
+}
+
+.remote-search-values .badge {
+	margin: 0 0.4em 0 0;
+}
+
+.remote-search-values a,
+.remote-search-values a:link,
+.remote-search-values a:visited,
+.remote-search-values a:hover,
+.remote-search-values a:active,
+.remote-search-values a {
+	color: white;
+	text-decoration: none;
+}
+
