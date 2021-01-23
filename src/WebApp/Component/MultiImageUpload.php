@@ -2,6 +2,10 @@
 
 namespace WebApp\Component;
 
+use TgI18n\I18N;
+use TgLog\Log;
+use TgLog\Error;
+
 class MultiImageUpload extends FormElement {
 
 	public $images;
@@ -52,6 +56,40 @@ class MultiImageUpload extends FormElement {
 				if ($found) break;
 			}
 			if (!$found) $rc[] = $ignored;
+		}
+		return $rc;
+	}
+
+	public static function handleImageUpload($name, $targetDir) {
+		$files = self::getImages($name);
+		$rc    = array();
+		foreach ($files AS $file) {
+			$file['filename'] = NULL;
+			if ($file['error'] == 0) {
+				$fileUid    = \TgUtils\Utils::generateRandomString(10);
+				$targetFile  = $targetDir.'/'.$fileUid.'.'.$file['suffix'];
+				while (file_exists($targetFile)) {
+					$fileUid    = \TgUtils\Utils::generateRandomString(10);
+					$targetFile  = $targetDir.'/'.$fileUid.'.'.$file['suffix'];
+				}
+				if (move_uploaded_file($file['tmp_name'], $targetFile)) {
+					$file['id']       = $fileUid;
+					$file['filename'] = $fileUid.'.'.$file['suffix'];
+
+					// Enrich with metadata
+					$info           = getimagesize($targetDir.'/'.$file['filename']);
+					$file['mime']   = $info['mime'];
+					$file['width']  = $info[0];
+					$file['height'] = $info[1];
+					$file['ratio']  = $info[0] / $info[1];
+				} else {
+					Log::register(new Error('<b>'.$file['name'].':</b> '.I18N::_('error_cannot_store_image')));
+					Log::error('move_uploaded_file('.$file['tmp_name'].','.$targetFile.')');
+				}
+			} else {
+				Log::register(new Error('<b>'.$file['name'].':</b> '.$file['errorText']));
+			}
+			$rc[] = $file;
 		}
 		return $rc;
 	}
