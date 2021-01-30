@@ -39,6 +39,18 @@ class BasicFormElement extends Component {
 		$this->setAttribute('name', $name);
 	}
 
+	public function getBaseName() {
+		$rc = $this->getName();
+		if (strpos($this->getName(), '[]') > 0) {
+			$rc = substr($rc, 0, strlen($rc)-2);
+		}
+		return $rc;
+	}
+
+	public function isArray() {
+		return strpos($this->getName(), '[]') > 0;
+	}
+
 	public function isEnabled() {
 		return $this->getAttribute('disabled', TRUE) != 'disabled';
 	}

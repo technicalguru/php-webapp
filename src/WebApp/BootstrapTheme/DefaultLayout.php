@@ -45,6 +45,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/remote-search.css" rel="stylesheet" type="text/css">';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/dynamic-fields.css" rel="stylesheet" type="text/css">';
+		}
 		$rc .= parent::renderLinks();
 		return $rc;
 	}
@@ -171,10 +174,13 @@ class DefaultLayout extends \WebApp\Layout {
 			       '<script>jQuery(document).ready(function () { $(\'.datepicker\').datepicker({ format: \''.I18N::_('datepicker_format').'\'}) })</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
-			$rc .= '<script type="text/javascript">$("ul.nav-tabs a").click(function (e) { e.preventDefault();  $(this).tab(\'show\');});</script>';
+			$rc .= '<script type="text/javascript">jQuery(document).on(\'click\', \'ul.nav-tabs a\', function(e) { e.preventDefault(); jQuery(this).tab(\'show\');});</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/remote-search.js"></script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/dynamic-fields.js"></script>';
 		}
 		$rc .= parent::renderJavascript();
 		return $rc;

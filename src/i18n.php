@@ -353,6 +353,46 @@ return array(
 		'de' => 'dd.mm.yyyy',
 		'en' => 'dd/mm/yyyy',
 	),
+	'full_name_label' => array(
+		'de' => 'Vollständiger Name',
+		'en' => 'Full Name',
+	),
+	'first_name_label' => array(
+		'de' => 'Vorname',
+		'en' => 'First Name',
+	),
+	'last_name_label' => array(
+		'de' => 'Nachname',
+		'en' => 'Family Name',
+	),
+	'email_label' => array(
+		'de' => 'E-Mail-Adresse',
+		'en' => 'E-mail Address',
+	),
+	'gender_label' => array(
+		'de' => 'Geschlecht',
+		'en' => 'Gender',
+	),
+	'gender_male_label' => array(
+		'de' => 'Männlich',
+		'en' => 'Male',
+	),
+	'gender_female_label' => array(
+		'de' => 'Weiblich',
+		'en' => 'Female',
+	),
+	'gender_other_label' => array(
+		'de' => 'Divers',
+		'en' => 'Diverse',
+	),
+	'date_label' => array(
+		'de' => 'Datum',
+		'en' => 'Date',
+	),
+	'yesno_label' => array(
+		'de' => 'Ja/Nein',
+		'en' => 'Yes/No',
+	),
 	
 	/* Copy these 4 lines 
 	'' => array(
