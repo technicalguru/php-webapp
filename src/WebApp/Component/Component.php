@@ -69,7 +69,7 @@ class Component {
 	}
 
 	public function setStyle($name, $value) {
-		if ($value != NULL) {
+		if ($value !== NULL) {
 			$this->styles[$name] = $value;
 		} else {
 			unset($this->styles[$name]);
