@@ -393,6 +393,14 @@ return array(
 		'de' => 'Ja/Nein',
 		'en' => 'Yes/No',
 	),
+	'text_label' => array(
+		'de' => 'Text',
+		'en' => 'Text',
+	),
+	'numeric_label' => array(
+		'de' => 'Numerisch',
+		'en' => 'Numeric',
+	),
 	
 	/* Copy these 4 lines 
 	'' => array(
