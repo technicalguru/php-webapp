@@ -11,9 +11,10 @@ class DateTimeInputRenderer extends \WebApp\DefaultTheme\InputRenderer {
 	}
 
 	public function render() {
-		$date = $this->component->getDate();
-		$time = $this->component->getTime();
-		$name = $this->component->getName();
+		$date  = $this->component->getDate();
+		$time  = $this->component->getTime();
+		$name  = $this->component->getName();
+		$error = $this->component->getError();
 
 		// Date
 		$this->component->setValue($date);
@@ -31,8 +32,14 @@ class DateTimeInputRenderer extends \WebApp\DefaultTheme\InputRenderer {
 		$this->component->setId($name.'-time');
 		//$this->removeClass('datepicker');
 		$this->component->setType('time');
-		$rc .= $this->renderStartTag('input').
-		       '</div>';
+		$rc .= $this->renderStartTag('input');
+
+		// Error must go here
+		if ($error != NULL) {
+			$rc .= '<div id="validationFeedback-'.$name.'" class="invalid-feedback">'.$error.'</div>';
+			$this->component->setError(NULL); // Do not render again
+		}
+		$rc .= '</div>';
 
 		return $rc;
 	}

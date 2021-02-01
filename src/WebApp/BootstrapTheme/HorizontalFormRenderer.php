@@ -98,13 +98,19 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		} else {
 			// TODO
 		}
+		$child->addClass('form-control');
+		if ($error != NULL) {
+			$child->addClass('is-invalid');
+			$child->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
+		}
 		$rc .= '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child);
 		$help = $child->getHelp();
 		if ($help != NULL) {
 			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
 		}
+		$error = $child->getError(); // Could have been rendered already
 		if ($error != NULL) {
-			$rc .= '<div class="invalid-feedback">'.$error.'</div>';
+			$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
 		}
 		$rc .=    '</div>'.
 		       '</div>';
