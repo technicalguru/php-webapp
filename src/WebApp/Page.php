@@ -97,11 +97,16 @@ class Page extends Component\Component {
 			return array('redirect', $home);
 		}
 
+		return $this->processAuthorization();
+	}
+
+	protected function processAuthorization() {
 		$requiredRight = $this->getRequiredRight();
 		if (($requiredRight != NULL) && ($requiredRight != 'guest')) {
-			return $this->computeDisplayMode();
+			$rc = $this->computeDisplayMode();
+			Log::debug('display='.$this->display);
+			return $rc;
 		}
-		Log::debug('display='.$this->display);
 		return 'render';
 	}
 
@@ -173,7 +178,6 @@ class Page extends Component\Component {
 			// User is not authorized
 			$this->display = 'forbidden';
 		}
-		Log::debug('display='.$this->display);
 		return 'render';
 	}
 
