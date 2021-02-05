@@ -14,7 +14,6 @@ class SelectRenderer extends \WebApp\Renderer {
 		$rc    = $this->renderStartTag('select');
 		$value = $this->component->getAttribute('value', TRUE);
 		$emptyOption = $this->component->getEmptyOption();
-		\TgLog\Log::debug('('.$this->component->getId().') emptyOption='.$emptyOption.'  NULL='.($emptyOption === NULL ? 'YES' : 'NO'));
 		if ($emptyOption !== NULL) {
 			$rc .= self::renderOption('', $emptyOption, $value == '');
 		}
