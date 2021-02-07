@@ -3,6 +3,7 @@
 namespace WebApp;
 
 use TgUtils\Request;
+use TgUtils\Date;
 use TgLog\Log;
 use TgI18n\I18N;
 
@@ -303,7 +304,7 @@ class Application {
 					}
 				}
 				$log->log_date = Date::getInstance(time(), WFW_TIMEZONE);
-				$this->dataModel_>get('log')->create($log);
+				$this->dataModel->get('log')->create($log);
 			}
 		}
 	}
