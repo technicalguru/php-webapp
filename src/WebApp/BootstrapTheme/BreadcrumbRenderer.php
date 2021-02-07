@@ -11,9 +11,13 @@ class BreadcrumbRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	public function render() {
 		$rc  = $this->renderStartTag('nav').
-		       '<ol class="breadcrumb">'.
-		          $this->renderChildren().
-		       '</ol>'.
+		       '<ol class="breadcrumb">';
+		foreach ($this->component->getChildren() AS $child) {
+			$rc .= '<li class="breadcrumb-item">'.
+			          $this->theme->renderComponent($child).
+			       '</li>';
+		}
+		$rc .= '</ol>';
 		       $this->renderEndTag('nav');
 		return $rc;
 	}

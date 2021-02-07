@@ -23,6 +23,10 @@ class Page extends Component\Component {
 		return 'hello_world_title';
 	}
 
+	public function getBreadcrumbs() {
+		return array();
+	}
+
 	public function getMain() {
 		switch ($this->display) {
 		case 'public':     return $this->getPublicMain();

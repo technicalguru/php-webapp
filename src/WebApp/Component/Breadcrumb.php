@@ -8,8 +8,8 @@ class Breadcrumb extends Container {
 		parent::__construct($parent);
 	}
 
-	public function addLink($label, $link = NULL) {
-		return new BreadcrumbLink($this, $label, $link, $link == NULL);
+	public function addLink($label, $link, $target = NULL) {
+		return new Link($this, $link, $label, $target);
 	}
 	
 }

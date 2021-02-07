@@ -141,11 +141,24 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderContent() {
 		$rc = '<div class="pageContent">'.
 		         '<div class="container">'.
+		            $this->renderBreadcrumbs().
 		            $this->theme->renderComponent($this->page->getMain()).
 		            $this->theme->renderComponent($this->renderLog()).
 		         '</div>'.
 		      '</div>';
 		return $rc;
+	}
+
+	protected function renderBreadcrumbs() {
+		$breadcrumbs = $this->page->getBreadcrumbs();
+		if (count($breadcrumbs) > 0) {
+			$nav = new \WebApp\Component\Breadcrumb($parent);
+			foreach ($breadcrumbs AS $breadcrumb) {
+				$nav->addChild($breadcrumb);
+			}
+			return $this->theme->renderComponent($nav);
+		}
+		return '';
 	}
 
 	protected function renderJavascript() {
