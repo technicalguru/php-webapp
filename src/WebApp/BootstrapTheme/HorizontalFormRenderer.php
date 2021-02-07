@@ -11,6 +11,26 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$this->addClass('horizontal');
 	}
 
+	protected function getLabelSizeClasses($child) {
+		$annotation = explode(' ', $this->searchAnnotation($child, 'horizontal-form/label-size', 'sm-12 md-4 lg-2'));
+		return 'col-'.implode(' col-', $annotation);
+	}
+
+	protected function getComponentSizeClasses($child) {
+		$annotation = explode(' ', $this->searchAnnotation($child, 'horizontal-form/component-size', 'sm-12 md-8 lg-10'));
+		return 'col-'.implode(' col-', $annotation);
+	}
+
+	protected function searchAnnotation($child, $key, $default) {
+		$rc = $child->getAnnotation($key);
+		if ($rc == NULL) {
+			$parent = $child->getParent();
+			if ($parent != NULL) return $this->searchAnnotation($parent, $key, $default);
+			return $default;
+		}
+		return $rc;
+	}
+
 	public function render() {
 		$rc  = $this->renderStartTag($this->tagName);
 		if ($this->component->hasFieldSets()) {
@@ -74,17 +94,23 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
 		$label = $child->getLabel();
 		if ($label != NULL) {
-			$rc .= '<label for="'.htmlentities($child->getId()).'" class="col-sm-2 col-form-label">'.$label.'</label>';
+			$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</label>';
 		} else {
 			// TODO
 		}
-		$rc .= '<div class="col-sm-10 col-md-6 col-lg-4">'.$this->theme->renderComponent($child);
+		$child->addClass('form-control');
+		if ($error != NULL) {
+			$child->addClass('is-invalid');
+			$child->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
+		}
+		$rc .= '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child);
 		$help = $child->getHelp();
 		if ($help != NULL) {
 			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
 		}
+		$error = $child->getError(); // Could have been rendered already
 		if ($error != NULL) {
-			$rc .= '<div class="invalid-feedback">'.$error.'</div>';
+			$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
 		}
 		$rc .=    '</div>'.
 		       '</div>';

@@ -1,0 +1,30 @@
+[data-role="dynamic-fields"] > .form-inline + .form-inline {
+    margin-top: 0.5em;
+}
+
+[data-role="dynamic-fields"] > .form-inline [data-role="add"] {
+    display: none;
+}
+
+[data-role="dynamic-fields"] > .form-inline:last-child [data-role="add"] {
+    display: inline-block;
+}
+
+[data-role="dynamic-fields"] > .form-inline:first-child [data-role="remove"] {
+    display: none;
+}
+
+.row > [data-role="dynamic-fields"] {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.dynamic-fields .form-inline {
+	align-items: last baseline;
+}
+
+.dynamic-fields .form-inline select,
+.dynamic-fields .form-inline input,
+.dynamic-fields .form-inline button {
+	margin-right: 5px;
+}

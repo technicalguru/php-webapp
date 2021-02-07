@@ -4,7 +4,7 @@ namespace WebApp\Component;
 
 use \TgI18n\I18N;
 
-class FormElement extends BasicFormElement {
+class FormElement extends BasicFormElement implements SingleValueComponent {
 
 	protected $error;
 

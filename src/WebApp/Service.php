@@ -17,51 +17,64 @@ class Service {
 	}
 
 	public function run() {
-		// Process the request first
-		$rc     = $this->page->processRequest();
-		$action = is_array($rc) ? $rc[0] : $rc;
+		try {
+			// Process the request first
+			$rc     = $this->page->processRequest();
+			$action = is_array($rc) ? $rc[0] : $rc;
 
-		// Render when required
-		if ($action == 'render') {
-			Log::debug('$_SERVER=', $_SERVER);
-			Log::debug('Request=', $this->app->request);
-			$this->theme->render($this->page);
-			Session\Utils::isFreshLogin();
-		} else if ($action == 'redirect') {
-			// redirect
-			$this->app->afterRequest();
-			header('Location: '.$rc[1]);
+			// Render when required
+			if ($action == 'render') {
+				Log::debug('$_SERVER=', $_SERVER);
+				Log::debug('Request=', $this->app->request);
+				$this->theme->render($this->page);
+				Session\Utils::isFreshLogin();
+			} else if ($action == 'redirect') {
+				// redirect
+				$this->app->afterRequest();
+				header('Location: '.$rc[1]);
+			}
+		} catch (\Throwable $e) {
+			\TgLog\Log::error('Cannot create application', $e);
+			$page = new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
+			$page->processRequest();
+			$this->theme->render($page);
 		}
+
 		$this->app->afterRequest();
 	}
 
 
 	protected function createPage() {
-		$request = $this->app->request;
+		try {
+			$request = $this->app->request;
 
-		// Check the path info
-		$canonical = $this->app->router->getCanonicalPath();
-		$requested = $request->originalPath;
-		if ($requested != $canonical) {
-			$params  = $request->params;
-			if ($params) $params = '?'.$params;
-			header('Location: '.$canonical.$params);
-			exit;
+			// Check the path info
+			$canonical = $this->app->router->getCanonicalPath();
+			$requested = $request->originalPath;
+			if ($requested != $canonical) {
+				$params  = $request->params;
+				if ($params) $params = '?'.$params;
+				header('Location: '.$canonical.$params);
+				exit;
+			}
+
+			// Try to find the correct page
+			$page  = $this->app->router->getPage();
+
+			// Get a specific error page from the theme
+			if ($page == NULL) {
+				$page = $this->theme->getErrorPage(404);
+			}
+
+			// Get the default error page
+			if ($page == NULL) {
+				$page = new Error\ErrorPage($this->app, 404, 'Not Found');
+			}
+			return $page;
+		} catch (\Throwable $e) {
+			\TgLog\Log::error('Cannot create application', $e);
+			return new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
 		}
-
-		// Try to find the correct page
-		$page  = $this->app->router->getPage();
-
-		// Get a specific error page from the theme
-		if ($page == NULL) {
-			$page = $this->theme->getErrorPage(404);
-		}
-
-		// Get the default error page
-		if ($page == NULL) {
-			$page = new Error\Error404($this->app);
-		}
-		return $page;
 	}
 
 	protected function createApp() {

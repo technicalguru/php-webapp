@@ -38,6 +38,19 @@ WebApp.prototype.ajax = function(ajaxParams, ajaxController) {
 		});
 };
 
+/** A standard REST HEAD call */
+WebApp.prototype.HEAD = function(url, ajaxController, dataType) {
+	if (typeof dataType == 'undefined') dataType = 'json';
+	this.ajax(
+		{
+			type:     'HEAD',
+			dataType: dataType,
+			url:      url,
+		},
+		ajaxController
+	);
+};
+
 /** A standard REST GET call */
 WebApp.prototype.GET = function(url, ajaxController, dataType) {
 	if (typeof dataType == 'undefined') dataType = 'json';
@@ -70,6 +83,20 @@ WebApp.prototype.POST = function(url, data, ajaxController) {
 	this.ajax(
 		{
 			type:        'POST',
+			dataType:    'json',
+			url:         url,
+			contentType: 'application/json; charset=utf-8',
+			data:        JSON.stringify(data)
+		},
+		ajaxController
+	);
+};
+
+/** A standard REST PATCH call */
+WebApp.prototype.PATCH = function(url, data, ajaxController) {
+	this.ajax(
+		{
+			type:        'PATCH',
 			dataType:    'json',
 			url:         url,
 			contentType: 'application/json; charset=utf-8',
@@ -112,7 +139,7 @@ WebApp.prototype.i18n = function(key, defaultValue) {
 };
 
 // Instantiate this class as singleton
-var rsWebApp = new WebApp();
+var webApp = new WebApp();
 
 /** A basic skeleton of a DomAjaxController
  ****************************************************************************************/

@@ -18,6 +18,7 @@ class Pagination extends Component {
 		$this->totalCount   = $totalItemCount;
 		$this->itemsPerPage = $itemsPerPage;
 		$this->pageNumber   = $pageNumber;
+		$this->pageParam    = $pageParam;
 		// Calculate now
 		$this->firstPage    = 0;
 		$this->firstItem    = $this->itemsPerPage * $pageNumber;

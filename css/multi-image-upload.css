@@ -1,0 +1,95 @@
+.preview-images-zone {
+    width: 100%;
+    border: 1px solid #ddd;
+    min-height: 180px;
+    /* display: flex; */
+    padding: 5px 5px 0px 5px;
+    position: relative;
+    overflow:auto;
+}
+.preview-images-zone > .preview-image:first-child {
+    height: 185px;
+/*    width: 185px; */
+    position: relative;
+    margin-right: 5px;
+	min-width: 185px;
+	text-align: center;
+}
+.preview-images-zone > .preview-image {
+    height: 90px;
+/*    width: 90px; */
+    position: relative;
+    margin-right: 5px;
+    float: left;
+    margin-bottom: 5px;
+	background-color: #e2e2e2;
+}
+.preview-images-zone > .preview-image > .image-zone {
+    width: 100%;
+    height: 100%;
+	display: flex;
+}
+.preview-images-zone > .preview-image > .image-zone > img {
+    max-width: 100%;
+    max-height: 100%;
+	margin: auto;
+}
+.preview-images-zone > .preview-image > .tools-edit-image {
+    position: absolute;
+    z-index: 100;
+    color: #fff;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    display: none;
+}
+.preview-images-zone > .preview-image > .tools-upload-image {
+    position: absolute;
+    z-index: 100;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.preview-images-zone > .preview-image > .tools-upload-image > a {
+	width: 100%;
+	display: inline-block;
+	height: 100%;
+}
+
+.preview-images-zone > .preview-image > .image-cancel {
+    font-size: 18px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    margin-right: 10px;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
+}
+/* Only required with edit
+.preview-image:hover > .image-zone {
+    cursor: move;
+    opacity: .5;
+}
+*/
+.preview-image .image-cancel {
+	font-size: 150%;
+}
+.preview-image:hover > .tools-edit-image,
+.preview-image:hover > .image-cancel {
+    display: block;
+}
+.ui-sortable-helper {
+    width: 90px !important;
+    height: 90px !important;
+}
+
+.multi-image-upload {
+    padding-top: 50px;
+}
+
+

@@ -64,8 +64,12 @@ class Component {
 		return $this->styles;
 	}
 
+	public function getStyle($name) {
+		return isset($this->styles[$name]) ? $this->styles[$name] : NULL;
+	}
+
 	public function setStyle($name, $value) {
-		if ($value != NULL) {
+		if ($value !== NULL) {
 			$this->styles[$name] = $value;
 		} else {
 			unset($this->styles[$name]);

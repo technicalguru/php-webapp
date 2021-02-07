@@ -65,7 +65,7 @@ class Theme {
      */
 	protected function getLayout($name) {
 		if ($name == NULL) $name = 'default';
-		$className = $this->class->getNamespaceName().'\\'.ucfirst($name).'Layout';
+		$className = strpos($name, '\\') === FALSE ? $this->class->getNamespaceName().'\\'.ucfirst($name).'Layout' : $name;
 		if (class_exists($className)) {
 			$className = '\\'.$className;
 			return new $className($this, $this->page);
@@ -118,7 +118,8 @@ class Theme {
 	 */
 	// was getRenderer($parentRenderer, $component)
 	public function getRenderer($component) {
-		$renderer   = NULL;
+		// An annotation can overwrite the renderer
+		$renderer   = $this->getAnnotatedRenderer($component);
 		$themeClass = $this->class;
 		while (($renderer == NULL) && ($themeClass !== FALSE)) {
 			$namespace  = $themeClass->getNamespaceName();
@@ -130,6 +131,14 @@ class Theme {
 			$renderer = new Renderer($this, $component);
 		}
 		return $renderer;
+	}
+
+	protected function getAnnotatedRenderer($component) {
+		$rc = $component->getAnnotation('webapp/renderer');
+		if (($rc != NULL) && is_string($rc)) {
+			$rc = new $rc($this, $component);
+		}
+		return $rc;
 	}
 
 	protected function searchRendererInNamespace($namespace, $component) {
@@ -172,8 +181,8 @@ class Theme {
 	}
 
 	public function getErrorPage($htmlCode) {
-		$name = '\\WebApp\\Error\\Error'.$htmlCode;
-		return new $name($this->app);
+		$name = '\\WebApp\\Error\\ErrorPage';
+		return new $name($this->app, $htmlCode, 'Error');
 	}
 }
 

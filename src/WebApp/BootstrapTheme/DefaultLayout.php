@@ -18,26 +18,35 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderLinks() {
 		$webroot = $this->app->request->webRoot;
 		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
-		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">';
+		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">'.
+			   '<style>'.
+				  '.dropdown-item.nav-link {'.
+					 'padding: .25rem 1.5rem !important;'.
+				  '}'.
+				  '.navbar-dark .dropdown-item.nav-link:hover,'.
+				  '.navbar-dark .dropdown-item.nav-link:active,'.
+				  '.navbar-dark .dropdown-item.nav-link:focus {'.
+					 'color: #333333 !important;'.
+					 'background-color: #f8f9fa !important;'.
+				  '}'.
+			   '</style>';
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">'.
-		           '<style>'.
-		              '.dropdown-item.nav-link {'.
-		                 'padding: .25rem 1.5rem !important;'.
-		              '}'.
-		              '.navbar-dark .dropdown-item.nav-link:hover,'.
-		              '.navbar-dark .dropdown-item.nav-link:active,'.
-		              '.navbar-dark .dropdown-item.nav-link:focus {'.
-		                 'color: #333333 !important;'.
-		                 'background-color: #f8f9fa !important;'.
-		              '}'.
-		           '</style>';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/filter-multi-select.css" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD) || $this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/multi-image-upload.css" rel="stylesheet" type="text/css">';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/remote-search.css" rel="stylesheet" type="text/css">';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/dynamic-fields.css" rel="stylesheet" type="text/css">';
 		}
 		$rc .= parent::renderLinks();
 		return $rc;
@@ -47,6 +56,7 @@ class DefaultLayout extends \WebApp\Layout {
 		$rc = '<body>'.
 		      $this->renderNavbar().
 		      $this->renderContent().
+		      $this->renderFooter().
 		      $this->renderJavascript().
 		      '</body>';
 		return $rc;
@@ -132,11 +142,32 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderContent() {
 		$rc = '<div class="pageContent">'.
 		         '<div class="container">'.
+		            $this->renderBreadcrumbs().
 		            $this->theme->renderComponent($this->page->getMain()).
 		            $this->theme->renderComponent($this->renderLog()).
 		         '</div>'.
 		      '</div>';
 		return $rc;
+	}
+
+	protected function renderBreadcrumbs() {
+		$breadcrumbs = $this->page->getBreadcrumbs();
+		if (count($breadcrumbs) > 0) {
+			$nav = new \WebApp\Component\Breadcrumb($parent);
+			foreach ($breadcrumbs AS $breadcrumb) {
+				$nav->addChild($breadcrumb);
+			}
+			return $this->theme->renderComponent($nav);
+		}
+		return '';
+	}
+
+	protected function renderFooter() {
+		$footer = $this->app->getFooter();
+		if (is_object($footer) || (is_array($footer) && count($footer) > 0) || is_string($footer)) {
+			return '<footer>'.$this->theme->renderComponent($footer).'</footer>';
+		}
+		return '';
 	}
 
 	protected function renderJavascript() {
@@ -153,8 +184,25 @@ class DefaultLayout extends \WebApp\Layout {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bs-custom-file-input.min.js"></script>'.
 			       '<script>jQuery(document).ready(function () { bsCustomFileInput.init() })</script>';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/multi-image-upload.js"></script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/image-upload.js"></script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bootstrap-datepicker.js"></script>'.
+			       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bootstrap-datepicker-locales.min.js"></script>'.
+			       '<script>jQuery(document).ready(function () { $(\'.datepicker\').datepicker({ format: \''.I18N::_('datepicker_format').'\'}) })</script>';
+		}
 		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
-			$rc .= '<script type="text/javascript">$("ul.nav-tabs a").click(function (e) { e.preventDefault();  $(this).tab(\'show\');});</script>';
+			$rc .= '<script type="text/javascript">jQuery(document).on(\'click\', \'ul.nav-tabs a\', function(e) { e.preventDefault(); jQuery(this).tab(\'show\');});</script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/remote-search.js"></script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/dynamic-fields.js"></script>';
 		}
 		$rc .= parent::renderJavascript();
 		return $rc;

@@ -60,6 +60,10 @@ class UserDAO extends \TgDatabase\DAO {
 		return $rc;
 	}
 		
+	public function search($s, $order = array(), $startIndex = 0, $maxObjects = 0) {
+		return $this->find($this->getSearchClause($s), $order, $startIndex, $maxObjects);
+	}
+
 	public function getSearchClause($s) {
 		$rc = array();
 		if (($s != NULL) && !\TgUtils\Utils::isEmpty($s)) {

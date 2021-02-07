@@ -254,6 +254,11 @@ class Application {
 		return TRUE;
 	}
 
+	/** Return footer if required */
+	public function getFooter() {
+		return NULL;
+	}
+
 	/** Returns array of javascript snippets (script tags!) */
 	public function getJavascript() {
 		return array();

@@ -129,6 +129,18 @@ return array(
 		'de' => 'Abbrechen',
 		'en' => 'Cancel',
 	),
+	'error_page_title' => array(
+		'de' => 'Gratulation!',
+		'en' => 'Congratulation!',
+	),
+	'error_page_subtitle' => array(
+		'de' => 'Jetzt habt Ihr die Seite kaputt gemacht.',
+		'en' => 'You finally destroyed the website.',
+	),
+	'error_page_description' => array(
+		'de' => 'Diese Seite existiert nicht oder es ist etwas Schreckliches passiert. Aber wir kriegen raus, was es ist...',
+		'en' => 'This page doesn\'t exist or something terrible happened. But we\'ll find out what it was...',
+	),
 	'page404_title' => array(
 		'de' => 'Gratulation!',
 		'en' => 'Congratulation!',
@@ -140,6 +152,18 @@ return array(
 	'page404_description' => array(
 		'de' => 'Diese Seite existiert nicht oder es ist etwas Schreckliches passiert.',
 		'en' => 'This page doesn\'t exist or something terrible happened.',
+	),
+	'page500_title' => array(
+		'de' => 'Na toll!',
+		'en' => 'Oh great!',
+	),
+	'page500_subtitle' => array(
+		'de' => 'Jetzt habt Ihr die Seite kaputt gemacht.',
+		'en' => 'You destroyed the page now.',
+	),
+	'page500_description' => array(
+		'de' => 'Es ist etwas Schreckliches passiert.',
+		'en' => 'Something terrible happened.',
 	),
 	'first_page_label' => array(
 		'de' => '<i class="fas fa-step-backward"></i>',
@@ -242,12 +266,12 @@ return array(
 		'en' => 'd/m/Y',
 	),
 	'timeFormat' => array(
-		'de' => 'h:i:s',
-		'en' => 'h:i:s',
+		'de' => 'H:i:s',
+		'en' => 'H:i:s',
 	),
 	'shortTimeFormat' => array(
-		'de' => 'h:i',
-		'en' => 'h:i',
+		'de' => 'H:i',
+		'en' => 'H:i',
 	),
 	'dateTimeFormat' => array(
 		'de' => 'd.m.Y h:i:s',
@@ -324,6 +348,58 @@ return array(
 	'error_delete_item_failed' => array(
 		'de' => 'Die Löschung war nicht erfolgreich. Bitte versuche es später noch einmal.',
 		'en' => 'The item could not be deleted. Please retry later.',
+	),
+	'datepicker_format' => array(
+		'de' => 'dd.mm.yyyy',
+		'en' => 'dd/mm/yyyy',
+	),
+	'full_name_label' => array(
+		'de' => 'Vollständiger Name',
+		'en' => 'Full Name',
+	),
+	'first_name_label' => array(
+		'de' => 'Vorname',
+		'en' => 'First Name',
+	),
+	'last_name_label' => array(
+		'de' => 'Nachname',
+		'en' => 'Family Name',
+	),
+	'email_label' => array(
+		'de' => 'E-Mail-Adresse',
+		'en' => 'E-mail Address',
+	),
+	'gender_label' => array(
+		'de' => 'Geschlecht',
+		'en' => 'Gender',
+	),
+	'gender_male_label' => array(
+		'de' => 'Männlich',
+		'en' => 'Male',
+	),
+	'gender_female_label' => array(
+		'de' => 'Weiblich',
+		'en' => 'Female',
+	),
+	'gender_other_label' => array(
+		'de' => 'Divers',
+		'en' => 'Diverse',
+	),
+	'date_label' => array(
+		'de' => 'Datum',
+		'en' => 'Date',
+	),
+	'yesno_label' => array(
+		'de' => 'Ja/Nein',
+		'en' => 'Yes/No',
+	),
+	'text_label' => array(
+		'de' => 'Text',
+		'en' => 'Text',
+	),
+	'numeric_label' => array(
+		'de' => 'Numerisch',
+		'en' => 'Numeric',
 	),
 	
 	/* Copy these 4 lines 

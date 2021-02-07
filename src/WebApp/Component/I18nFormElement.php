@@ -4,7 +4,7 @@ namespace WebApp\Component;
 
 use \TgI18n\I18N;
 
-class I18nFormElement extends BasicFormElement {
+class I18nFormElement extends BasicFormElement implements MultiValueComponent {
 
 	protected $errors;
 	protected $languages;
@@ -73,6 +73,7 @@ class I18nFormElement extends BasicFormElement {
 		$request = \TgUtils\Request::getRequest();
 		foreach ($languages AS $key => $label) {
 			$rc[$key] = $request->getPostParam($name.'-'.$key);
+			if ($rc[$key] != NULL) $rc[$key] = trim($rc[$key]);
 		}
 		return $rc;
 	}
