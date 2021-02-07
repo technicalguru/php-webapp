@@ -56,6 +56,7 @@ class DefaultLayout extends \WebApp\Layout {
 		$rc = '<body>'.
 		      $this->renderNavbar().
 		      $this->renderContent().
+		      $this->renderFooter().
 		      $this->renderJavascript().
 		      '</body>';
 		return $rc;
@@ -157,6 +158,14 @@ class DefaultLayout extends \WebApp\Layout {
 				$nav->addChild($breadcrumb);
 			}
 			return $this->theme->renderComponent($nav);
+		}
+		return '';
+	}
+
+	protected function renderFooter() {
+		$footer = $this->app->getFooter();
+		if (is_object($footer) || (is_array($footer) && count($footer) > 0) || is_string($footer)) {
+			return '<footer>'.$this->theme->renderComponent($footer).'</footer>';
 		}
 		return '';
 	}
