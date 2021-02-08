@@ -20,7 +20,8 @@
 		"technicalguru/email" : "^1",
 		"technicalguru/jquery" : "^1",
 		"technicalguru/bootstrap" : "^1",
-		"technicalguru/font-awesome" : "^1"
+		"technicalguru/font-awesome" : "^1",
+		"willdurand/negotiation": "^3.0"
 	},
 	"autoload": {
 		"psr-4": {

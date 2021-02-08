@@ -54,9 +54,12 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderBody() {
 		$rc = '<body>'.
-		      $this->renderNavbar().
-		      $this->renderContent().
-		      $this->renderFooter().
+		         '<div class="full-page">'.
+		            $this->renderNavbar().
+		            $this->renderContent().
+		            $this->renderFooter().
+		         '</div>'.
+		         $this->theme->renderComponent($this->renderLog()).
 		      $this->renderJavascript().
 		      '</body>';
 		return $rc;
@@ -144,7 +147,6 @@ class DefaultLayout extends \WebApp\Layout {
 		         '<div class="container">'.
 		            $this->renderBreadcrumbs().
 		            $this->theme->renderComponent($this->page->getMain()).
-		            $this->theme->renderComponent($this->renderLog()).
 		         '</div>'.
 		      '</div>';
 		return $rc;
