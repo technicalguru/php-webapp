@@ -59,7 +59,7 @@ class DefaultLayout extends \WebApp\Layout {
 		            $this->renderContent().
 		            $this->renderFooter().
 		         '</div>'.
-		         //$this->theme->renderComponent($this->renderLog()).
+		         $this->theme->renderComponent($this->renderLog()).
 		      $this->renderJavascript().
 		      '</body>';
 		return $rc;
