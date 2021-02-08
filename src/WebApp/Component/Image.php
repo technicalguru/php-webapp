@@ -6,16 +6,16 @@ class Image extends Component {
 
 	public function __construct($parent, $url, $title) {
 		parent::__construct($parent);
-		$this->setAttribute('src', $url);
-		$this->setAttribute('title', $title);
+		$this->setUrl($url);
+		$this->setTitle($title);
 	}
 
 	public function getUrl() {
-		return $this->getAttribute('href', TRUE);
+		return $this->getAttribute('src', TRUE);
 	}
 
 	public function setUrl($url) {
-		$this->setAttribute('href', $url);
+		$this->setAttribute('src', $url);
 	}
 
 	public function getTitle() {
