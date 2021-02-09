@@ -9,7 +9,11 @@ class TextRenderer extends \WebApp\Renderer {
 	}
 
 	public function render() {
-		return $this->component->getText();
+		$rc = $this->component->getText();
+		if (count($this->component->getAttributes()) || count($this->component->getStyles())) {
+			$rc = $this->renderStartTag('span').$rc.$this->renderEndTag('span');
+		}
+		return $rc;
 	}
 }
 
