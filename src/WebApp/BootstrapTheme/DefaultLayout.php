@@ -143,11 +143,9 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderContent() {
-		$rc = '<div class="pageContent">'.
-		         '<div class="container">'.
+		$rc = '<div class="page-content container-fluid">'.
 		            $this->renderBreadcrumbs().
 		            $this->theme->renderComponent($this->page->getMain()).
-		         '</div>'.
 		      '</div>';
 		return $rc;
 	}
