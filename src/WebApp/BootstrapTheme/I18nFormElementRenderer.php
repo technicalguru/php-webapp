@@ -41,8 +41,16 @@ class I18nFormElementRenderer extends \WebApp\Renderer {
 			return $this->theme->renderComponent($tabSet);
 		} else if (count($languages) == 1) {
 			// Single Rendering
-			$key = array_keys($languages)[0];
-			$this->renderComponent($key, $this->component->getId());
+			$key   = array_keys($languages)[0];
+			$id    = $cId.'-'.$key;
+			$name  = $cName.'-'.$key;
+			$error = $this->component->getError($key);
+			$elem  = $this->createFormElement($key, $this->component->getId(), $name);
+			if (is_object($elem)) {
+				$elem->setValue($this->component->getValue($key));
+				$elem->setError($error);
+			}
+			return $this->theme->renderComponent($elem);
 		} else {
 			return 'Cannot render without language';
 		}

@@ -54,14 +54,20 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderBody() {
 		$rc = '<body>'.
-		         '<div class="full-page">'.
-		            $this->renderNavbar().
-		            $this->renderContent().
-		            $this->renderFooter().
-		         '</div>'.
-		         $this->theme->renderComponent($this->renderLog()).
-		      $this->renderJavascript().
-		      '</body>';
+		         '<div class="full-page">';
+		if ($this->app->isMaintenance()) { 
+			$rc .= $this->renderContent();
+		} else {
+			$rc .= $this->renderNavbar().
+			       $this->renderContent().
+			       $this->renderFooter();
+		}
+		$rc .=   '</div>';
+		if (!$this->app->isMaintenance()) {
+			$rc .= $this->theme->renderComponent($this->renderLog()).
+				   $this->renderJavascript();
+		}
+		$rc .= '</body>';
 		return $rc;
 	}
 
@@ -143,11 +149,9 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderContent() {
-		$rc = '<div class="pageContent">'.
-		         '<div class="container">'.
+		$rc = '<div class="page-content container-fluid">'.
 		            $this->renderBreadcrumbs().
 		            $this->theme->renderComponent($this->page->getMain()).
-		         '</div>'.
 		      '</div>';
 		return $rc;
 	}

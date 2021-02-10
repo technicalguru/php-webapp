@@ -19,5 +19,13 @@ class GridCell extends Div {
 		$this->gridSizes[$class] = $span;
 		return $this;
 	}
+
+	public function createNestedRow() {
+		return new GridRow($this);
+	}
+
+	public function createRow() {
+		return $this->createNestedRow();
+	}
 }
 

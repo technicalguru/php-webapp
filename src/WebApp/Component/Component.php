@@ -50,10 +50,12 @@ class Component {
 
 	public function addClass($class) {
 		$this->addAttribute('class', $class);
+		return $this;
 	}
 
 	public function removeClass($class) {
 		$this->removeAttribute('class', $class);
+		return $this;
 	}
 
 	public function hasClass($class) {
@@ -74,6 +76,7 @@ class Component {
 		} else {
 			unset($this->styles[$name]);
 		}
+		return $this;
 	}
 
 	public function getAttributes() {
@@ -101,6 +104,7 @@ class Component {
 			if (!isset($this->attributes[$name])) $this->attributes[$name] = array();
 			$this->attributes[$name][] = $value;
 		}
+		return $this;
 	}
 
 	public function setAttribute($name, $value) {
@@ -109,6 +113,7 @@ class Component {
 		} else {
 			unset($this->attributes[$name]);
 		}
+		return $this;
 	}
 
 	public function removeAttribute($name, $value) {
@@ -123,6 +128,7 @@ class Component {
 				unset($this->attributes[$name]);
 			}
 		}
+		return $this;
 	}
 
 	public function hasAttribute($name, $value = NULL) {
@@ -151,6 +157,7 @@ class Component {
 
 	public function setAnnotation($key, $value) {
 		$this->annotations[$key] = $value;
+		return $this;
 	}
 }
 

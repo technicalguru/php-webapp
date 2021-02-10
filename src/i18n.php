@@ -401,6 +401,22 @@ return array(
 		'de' => 'Numerisch',
 		'en' => 'Numeric',
 	),
+	'EUR' => array(
+		'de' => '€',
+		'en' => '€',
+	),
+	'GBP' => array(
+		'de' => '£',
+		'en' => '£',
+	),
+	'USD' => array(
+		'de' => '$',
+		'en' => '$',
+	),
+	'YEN' => array(
+		'de' => '¥',
+		'en' => '¥',
+	),
 	
 	/* Copy these 4 lines 
 	'' => array(
