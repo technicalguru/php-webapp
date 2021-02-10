@@ -149,6 +149,11 @@ class Application {
 		}
 	}
 
+	/** A router can use this method to check whether we are in maintenance */
+	public function isMaintenance() {
+		return $this->config->has('maintenance') && $this->config->get('maintenance');
+	}
+
 	protected function initMailQueue() {
 		if ($this->config->has('mailQueue')) {
 			$mailDAO = NULL;
