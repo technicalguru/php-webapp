@@ -210,19 +210,5 @@ class DefaultLayout extends \WebApp\Layout {
 		return $rc;
 	}
 
-	protected function renderLog() {
-		$rc = parent::renderLog();
-		if ($rc) {
-			$div = new \WebApp\Component\Div($this);
-			$div->addClass('container-fluid');
-			$div->setStyle('border-top', '1px solid #999');
-			$div->setStyle('margin-top', '2em');
-			$div->setStyle('padding-top', '1em');
-			$div->addChild($rc);
-			//'<div class="container-fluid" style="border-top: 1px solid #999;">'.$rc.'</div>';
-			$rc = $div;
-		}
-		return $rc;
-	}
 }
 

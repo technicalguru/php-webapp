@@ -78,20 +78,11 @@ class Layout {
 		return $rc;
 	}
 
-	protected function renderLog() {
-		$rc = array();
+	public function renderLog() {
 		if ($this->app->config->has('debug') && $this->app->config->get('debug')) {
-			$rc[] = new Component\Heading($this->page, 4, 'Debug Log');
-
-			$log = '';
-			foreach (Log::instance()->messages AS $sev => $msgs) {
-				foreach ($msgs AS $msg) {
-					$log .= '['.strtoupper($sev).'] '.htmlspecialchars($msg)."\n";
-				}
-			}
-			$rc[] = new Component\Preformatted($this->page, $log);
+			return new Component\DebugLog($this->page);
 		}
-		return $rc;
+		return array();
 	}
 
 	protected function renderJavascript() {
