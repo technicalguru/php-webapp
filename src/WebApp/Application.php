@@ -151,7 +151,27 @@ class Application {
 
 	/** A router can use this method to check whether we are in maintenance */
 	public function isMaintenance() {
-		return $this->config->has('maintenance') && $this->config->get('maintenance');
+		if (!isset($this->maintenanceMode))  {
+			$this->maintenanceMode = $this->config->has('maintenance') && $this->config->get('maintenance');
+			// Set a maintenance user if available and no other user online
+			if ($this->maintenanceMode && !isset($this->maintenanceUser)) {
+				$this->maintenanceUser = $this->getMaintenanceUser();
+				if ($this->maintenanceUser != NULL) {
+					$this->principal       = $this->maintenanceUser;
+				}
+			}
+		}
+		return $this->maintenanceMode;
+	}
+
+	/**
+	 * Override if you need access with a specific user in maintenance mode
+	 * The function is called only when maintenance mode is on
+	 * Attention! You will need a security protection to not allow others to
+	 * use this user in maintenance mode
+	 */
+	protected function getMaintenanceUser() {
+		return NULL;
 	}
 
 	protected function initMailQueue() {

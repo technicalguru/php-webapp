@@ -54,29 +54,25 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderBody() {
 		$rc = '<body>'.
-		         '<div class="full-page">';
-		if ($this->app->isMaintenance()) { 
-			$rc .= $this->renderContent();
-		} else {
-			$rc .= $this->renderNavbar().
+		         '<div class="full-page">'.
+			       $this->renderNavbar().
 			       $this->renderContent().
-			       $this->renderFooter();
-		}
-		$rc .=   '</div>';
-		if (!$this->app->isMaintenance()) {
-			$rc .= $this->theme->renderComponent($this->renderLog()).
-				   $this->renderJavascript();
-		}
-		$rc .= '</body>';
+			       $this->renderFooter().
+		         '</div>'.
+			     $this->theme->renderComponent($this->renderLog()).
+				 $this->renderJavascript().
+		      '</body>';
 		return $rc;
 	}
 
 	protected function renderNavbar() {
-		$rc = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">'.
-		         $this->renderNavbarBrand().
-		         $this->renderNavbarToggler().
-		         $this->renderNavbarContent().
-		      '</nav>';
+		$rc =  '<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">'.
+		          $this->renderNavbarBrand();
+		if (!$this->app->isMaintenance()) {
+			$rc .= $this->renderNavbarToggler().
+			       $this->renderNavbarContent();
+		}
+		$rc .= '</nav>';
 		return $rc;
 	}
 
