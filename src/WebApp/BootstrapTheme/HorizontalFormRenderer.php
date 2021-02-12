@@ -90,29 +90,43 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function renderGeneralFormChild($child) {
-		$error = $child->getError();
-		$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
+		if ($child->isGroup()) $rc = $this->renderGeneralFormGroup($child);
+		else {
+			$error = $child->getError();
+			$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
+			$label = $child->getLabel();
+			if ($label != NULL) {
+				$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</label>';
+			} else {
+				$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label"></label>';
+			}
+			if ($error != NULL) {
+				$child->addClass('is-invalid');
+				$child->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
+			}
+			$rc .= '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child);
+			$help = $child->getHelp();
+			if ($help != NULL) {
+				$rc .= '<small class="form-text text-muted">'.$help.'</small>';
+			}
+			$error = $child->getError(); // Could have been rendered already
+			if ($error != NULL) {
+				$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
+			}
+			$rc .=    '</div>'.
+				   '</div>';
+		}
+		return $rc;
+	}
+
+	public function renderGeneralFormGroup($child) {
+		$rc = '<div class="form-group"  id="form-row-'.$child->getId().'">'.
+		         '<div class="row">';
 		$label = $child->getLabel();
-		if ($label != NULL) {
-			$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</label>';
-		} else {
-			// TODO
-		}
-		$child->addClass('form-control');
-		if ($error != NULL) {
-			$child->addClass('is-invalid');
-			$child->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
-		}
-		$rc .= '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child);
-		$help = $child->getHelp();
-		if ($help != NULL) {
-			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
-		}
-		$error = $child->getError(); // Could have been rendered already
-		if ($error != NULL) {
-			$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
-		}
-		$rc .=    '</div>'.
+		if ($label == NULL) $label = '';
+		$rc .=      '<legend class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</legend>';
+		$rc .=      '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child).'</div>';
+		$rc .=   '</div>'.
 		       '</div>';
 		return $rc;
 	}

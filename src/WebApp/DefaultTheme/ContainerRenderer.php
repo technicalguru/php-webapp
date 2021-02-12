@@ -20,9 +20,13 @@ class ContainerRenderer extends \WebApp\Renderer {
 	protected function renderChildren() {
 		$rc = '';
 		foreach ($this->component->getChildren() AS $child) {
-			$rc .= $this->theme->renderComponent($child);
+			$rc .= $this->renderChild($child);
 		}
 		return $rc;
+	}
+
+	protected function renderChild($child) {
+		return $this->theme->renderComponent($child);
 	}
 }
 

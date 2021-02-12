@@ -433,6 +433,14 @@ return array(
 		'de' => 'oder',
 		'en' => 'or',
 	),
+	'language_label' => array(
+		'de' => 'Sprache',
+		'en' => 'Language',
+	),
+	'languages_label' => array(
+		'de' => 'Sprachen',
+		'en' => 'Languages',
+	),
 	
 	/* Copy these 4 lines 
 	'' => array(
