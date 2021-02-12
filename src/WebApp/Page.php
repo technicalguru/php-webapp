@@ -67,20 +67,7 @@ class Page extends Component\Component {
 	}
 
 	protected function getMessages() {
-		$rc = array();
-		$messages = Log::get();
-		if (is_array($messages)) {
-			foreach ($messages AS $message) {
-				switch ($message->getType()) {
-				case 'error':   $rc[] = new Alert($this, Alert::ERROR,   NULL, $message->getMessage()); break;
-				case 'warning': $rc[] = new Alert($this, Alert::WARNING, NULL, $message->getMessage()); break;
-				case 'info':    $rc[] = new Alert($this, Alert::INFO,    NULL, $message->getMessage()); break;
-				case 'success': $rc[] = new Alert($this, Alert::SUCCESS, NULL, $message->getMessage()); break;
-				}
-			}
-		}
-		Log::clean();
-		return $rc;
+		return new Component\SystemMessages($this);
 	}
 
 	/** NULL will use the themes default layout */

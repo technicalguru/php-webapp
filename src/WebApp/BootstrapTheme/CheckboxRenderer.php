@@ -8,5 +8,6 @@ class CheckboxRenderer extends \WebApp\DefaultTheme\InputRenderer {
 		parent::__construct($theme, $component, 'checkbox');
 		$this->addClass('form-check-input');
 	}
+
 }
 

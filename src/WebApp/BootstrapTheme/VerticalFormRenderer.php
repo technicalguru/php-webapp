@@ -4,31 +4,10 @@ namespace WebApp\BootstrapTheme;
 
 use TgI18n\I18N;
 
-class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
+class VerticalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component, 'form');
-		$this->addClass('horizontal');
-	}
-
-	protected function getLabelSizeClasses($child) {
-		$annotation = explode(' ', $this->searchAnnotation($child, 'horizontal-form/label-size', 'sm-12 md-4 lg-2'));
-		return 'col-'.implode(' col-', $annotation);
-	}
-
-	protected function getComponentSizeClasses($child) {
-		$annotation = explode(' ', $this->searchAnnotation($child, 'horizontal-form/component-size', 'sm-12 md-8 lg-10'));
-		return 'col-'.implode(' col-', $annotation);
-	}
-
-	protected function searchAnnotation($child, $key, $default) {
-		$rc = $child->getAnnotation($key);
-		if ($rc == NULL) {
-			$parent = $child->getParent();
-			if ($parent != NULL) return $this->searchAnnotation($parent, $key, $default);
-			return $default;
-		}
-		return $rc;
 	}
 
 	public function render() {
@@ -82,7 +61,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		} else if (is_a($child, 'WebApp\\Component\\Button') || is_a($child, 'WebApp\\Component\\Link')) {
 			$rc .= $this->theme->renderComponent($child);
 		} else {
-			$rc .= '<div class="form-group row" id="form-row-'.$child->getId().'">';
+			$rc .= '<div class="form-group" id="form-row-'.$child->getId().'">';
 			$rc .= $this->theme->renderComponent($child);
 			$rc .= '</div>';
 		}
@@ -90,44 +69,29 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function renderGeneralFormChild($child) {
-		if ($child->isGroup()) $rc = $this->renderGeneralFormGroup($child);
-		else {
-			$error = $child->getError();
-			$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
-			$label = $child->getLabel();
-			if ($label != NULL) {
-				$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</label>';
-			} else {
-				$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label"></label>';
-			}
-			if ($error != NULL) {
-				$child->addClass('is-invalid');
-				$child->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
-			}
-			$rc .= '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child);
-			$help = $child->getHelp();
-			if ($help != NULL) {
-				$rc .= '<small class="form-text text-muted">'.$help.'</small>';
-			}
-			$error = $child->getError(); // Could have been rendered already
-			if ($error != NULL) {
-				$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
-			}
-			$rc .=    '</div>'.
-				   '</div>';
-		}
-		return $rc;
-	}
-
-	public function renderGeneralFormGroup($child) {
-		$rc = '<div class="form-group"  id="form-row-'.$child->getId().'">'.
-		         '<div class="row">';
+		$error = $child->getError();
+		$rc    = '<div class="form-group'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
 		$label = $child->getLabel();
-		if ($label == NULL) $label = '';
-		$rc .=      '<legend class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</legend>';
-		$rc .=      '<div class="'.$this->getComponentSizeClasses($child).'">'.$this->theme->renderComponent($child).'</div>';
-		$rc .=   '</div>'.
-		       '</div>';
+		if ($label != NULL) {
+			$rc .= '<label for="'.htmlentities($child->getId()).'">'.$label.'</label>';
+		} else {
+			// TODO
+		}
+		$child->addClass('form-control');
+		if ($error != NULL) {
+			$child->addClass('is-invalid');
+			$child->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
+		}
+		$rc   .= $this->theme->renderComponent($child);
+		$help  = $child->getHelp();
+		if ($help != NULL) {
+			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
+		}
+		$error = $child->getError(); // Could have been rendered already
+		if ($error != NULL) {
+			$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
+		}
+		$rc .= '</div>';
 		return $rc;
 	}
 

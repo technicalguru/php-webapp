@@ -47,6 +47,10 @@ class I18nFormElementRenderer extends \WebApp\Renderer {
 			$error = $this->component->getError($key);
 			$elem  = $this->createFormElement($key, $this->component->getId(), $name);
 			if (is_object($elem)) {
+				$elem->addClass($this->getAttribute('class', TRUE));
+				foreach ($this->getStyles(TRUE) AS $key => $value) {
+					$elem->setStyle($key, $value);
+				}
 				$elem->setValue($this->component->getValue($key));
 				$elem->setError($error);
 			}

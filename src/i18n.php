@@ -417,6 +417,30 @@ return array(
 		'de' => '¥',
 		'en' => '¥',
 	),
+	'login_with_facebook_label' => array(
+		'de' => 'Mit Facebook anmelden',
+		'en' => 'Login with Facebook',
+	),
+	'login_with_google_label' => array(
+		'de' => 'Mit Google anmelden',
+		'en' => 'Sign In with Google',
+	),
+	'login_with_twitter_label' => array(
+		'de' => 'Mit Twitter anmelden',
+		'en' => 'Sign in with Twitter',
+	),
+	'or_label' => array(
+		'de' => 'oder',
+		'en' => 'or',
+	),
+	'language_label' => array(
+		'de' => 'Sprache',
+		'en' => 'Language',
+	),
+	'languages_label' => array(
+		'de' => 'Sprachen',
+		'en' => 'Languages',
+	),
 	
 	/* Copy these 4 lines 
 	'' => array(

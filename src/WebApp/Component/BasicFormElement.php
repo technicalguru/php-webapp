@@ -4,15 +4,27 @@ namespace WebApp\Component;
 
 use \TgI18n\I18N;
 
-class BasicFormElement extends Component {
+class BasicFormElement extends Container {
 
 	protected $label;
 	protected $help;
+	protected $group;
 
 	public function __construct($parent, $id) {
 		parent::__construct($parent);
-		$this->setId($id);
-		$this->setName($id);
+		if ($id != NULL) {
+			$this->setId($id);
+			$this->setName($id);
+		}
+		$this->group = FALSE;
+	}
+
+	public function isGroup() {
+		return $this->group;
+	}
+
+	public function setGroup($value) {
+		$this->group = $value;
 	}
 
 	public function getLabel() {
