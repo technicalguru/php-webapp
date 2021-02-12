@@ -48,6 +48,7 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/dynamic-fields.css" rel="stylesheet" type="text/css">';
 		}
+		$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/webapp.css" rel="stylesheet" type="text/css">';
 		$rc .= parent::renderLinks();
 		return $rc;
 	}

@@ -23,7 +23,7 @@ class Container extends Component {
 	}
 
 	public function addChildAt($child, $index) {
-		array_splice($this->children, $index, 0, $child);
+		array_splice($this->children, $index, 0, array($child));
 	}
 
 	public function addChildBefore($child, $member) {

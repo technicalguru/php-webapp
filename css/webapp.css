@@ -1,0 +1,97 @@
+
+.login-form {
+	width: 20rem;
+}
+
+@media screen and (max-width: 350px) {
+	.login-form {
+		width: 100%;
+	}
+}
+
+.login-form .btn {
+	width: 100%;
+}
+
+.social-login {
+	border-top: 1px solid rgba(0,0,0,.125);
+	text-align: center;
+}
+
+.social-logins-label {
+	position: absolute;
+	color: #666;
+	font-size: 0.8em;
+	background-color: white;
+	margin-top: -2.4em;
+	margin-left: -2em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.facebook-login:hover,
+.facebook-login {
+	background-color: #1877f2;
+	color: #ffffff;
+}
+
+.twitter-login:hover,
+.twitter-login {
+	background-color: #1d9bf0;
+	color: #ffffff;
+}
+
+.google-login {
+	background: white;
+	color: #444444;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	border: thin solid #888;
+	box-shadow: 1px 1px 1px grey;
+}
+
+.google-login img {
+	height: 1.7em;
+}
+
+.social-button {
+	display: flex;
+	margin-bottom: 0.5em;
+	border-radius: 5px;
+}
+
+.social-button-icon {
+	margin-right: 1em;
+}
+
+.social-button-label {
+	flex: 1;
+}
+
+pre {
+	padding: 1em;
+	background-color: #eeeeee;
+	border: 1px solid #cccccc;
+}
+
+.user-menu .dropdown-menu {
+	right: 0px !important;
+	left: auto;
+}
+
+form textarea.form-control {
+	height: 15em;
+}
+
+.ml-8 {
+	margin-left: 4rem !important;
+}
+
+.vertical-center {
+	position: absolute;
+	top: 50%;
+	margin: 0;
+	transform: translate(-50%, -50%);
+	left: 50%;
+}
+
