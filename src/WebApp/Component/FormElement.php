@@ -26,7 +26,7 @@ class FormElement extends BasicFormElement implements SingleValueComponent {
 	}
 
 	public function setValue($value) {
-		if (is_int($value)) $value = ''.$value;
+		if (is_numeric($value)) $value = ''.$value;
 		$this->setAttribute('value', $value);
 	}
 

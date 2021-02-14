@@ -45,9 +45,31 @@ class Layout {
 	}
 
 	protected function renderMeta() {
-		return '<meta charset="utf-8">'.
-		       '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'.
-		       '<meta name="pageclass" content="'.get_class($this->page).'">';
+		$rc = '<meta charset="utf-8">'.
+		      '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'.
+		      '<meta name="pageclass" content="'.get_class($this->page).'">';
+		// keywords
+		$keywords = $this->page->getMetaKeywords();
+		if ($keywords != NULL) {
+			if (is_array($keywords)) $keywords = implode(',', $keywords);
+			$rc .= '<meta name="keywords" content="'.htmlentities($keywords).'">';
+		}
+		// descriptions
+		$description = $this->page->getMetaDescription();
+		if ($description != NULL) {
+			$rc .= '<meta name="description" content="'.htmlentities($description).'">';
+		}
+		// canonical
+		$params = $this->app->request->params ? '?'.$this->app->request->params : '';
+		$rc .= '<meta name="canonical" content="'.htmlentities($this->app->router->getCanonicalPath().$params).'">';
+		// Alternates
+		foreach ($this->app->router->getLanguages() AS $key => $label) {
+			if ($key != $this->app->request->language) {
+				$rc .= '<meta name="alternate" hreflang="'.$key.'" content="'.htmlentities($this->app->router->getCanonicalPath(NULL, $key).$params).'">';
+			}
+		}
+
+		return $rc;
 	}
 
 	/** Attention! When overriding call parent at last in your method as the app links will be rendered here */

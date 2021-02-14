@@ -280,6 +280,10 @@ class Application {
 		return TRUE;
 	}
 
+	public function getMetaKeywords() {
+		return NULL;
+	}
+
 	/** Return footer if required */
 	public function getFooter() {
 		return NULL;
