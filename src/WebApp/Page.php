@@ -23,6 +23,14 @@ class Page extends Component\Component {
 		return 'hello_world_title';
 	}
 
+	public function getMetaKeywords() {
+		return $this->app->getMetaKeywords();
+	}
+
+	public function getMetaDescription() {
+		return NULL;
+	}
+
 	public function getBreadcrumbs() {
 		return array();
 	}
