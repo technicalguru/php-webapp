@@ -95,3 +95,11 @@ form textarea.form-control {
 	left: 50%;
 }
 
+.flex-box {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.flex-item {
+	flex: 1 auto;
+}
