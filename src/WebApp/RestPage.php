@@ -73,5 +73,22 @@ class RestPage extends Page {
 		return RestResult::error404();
 	}
 
+	protected function getJsonBody() {
+		if (!isset($this->jsonBody)) {
+			$body = $this->request->getBody();
+			if (!\TgUtils\Utils::isEmpty($body)) {
+				$this->jsonBody = json_decode($body);
+			} else {
+				$this->jsonBody = new \stdClass;
+			}
+		}
+		return $this->jsonBody;
+	}
+
+	protected function getJsonParam($key) {
+		$obj = $this->getJsonBody();
+		if (!isset($obj->$key)) return NULL;
+		return $obj->$key;
+	}
 }
 

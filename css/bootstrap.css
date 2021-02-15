@@ -103,3 +103,8 @@ form textarea.form-control {
 .flex-item {
 	flex: 1 auto;
 }
+
+#page-blocker .spinner-border {
+	color: white;
+}
+
