@@ -118,6 +118,16 @@ WebApp.prototype.DELETE = function(url, ajaxController) {
 	);
 };
 
+WebApp.prototype.showSpinner = function(label) {
+	if (typeof label === undefined) label = this.i18n('pleaseWait');
+	jQuery('<div id="page-blocker" class="modal" tabindex="-1"><div class="vertical-center"><div class="spinner-border" role="status"><span class="sr-only">'+label+'</span></div></div></div><div class="modal-backdrop show"></div>').appendTo('body');
+	jQuery('#page-blocker').show();
+};
+
+WebApp.prototype.hideSpinner = function() {
+	jQuery('#page-blocker').remove();
+};
+
 // Register an I18N object for translations
 WebApp.prototype.registerI18N = function(i18nObject) {
 	this.i18nValues.push(i18nObject);
@@ -147,12 +157,82 @@ function WebAppAjaxController() {
 }
 
 WebAppAjaxController.prototype.beforeSend = function() {
+	webApp.showSpinner();
 };
 
 WebAppAjaxController.prototype.done = function(ajaxParams, data, textStatus, jqXHR) {
+	webApp.hideSpinner();
 };
 
 WebAppAjaxController.prototype.fail = function(ajaxParams, jqXHR, textStatus, errorThrown) {
+	webApp.hideSpinner();
 };
 
+/***************** Modals ************************/
+function WebAppModal(id) {
+	this.id  = id;
+	jQuery('#'+id).remove();
+	jQuery('<div id="'+this.id+'" class="modal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-secondary close-button" data-dismiss="modal">'+webApp.i18n('close')+'</button></div></div></div></div>').appendTo('body');
+	this.dom = jQuery('#'+id);
+}
 
+WebAppModal.prototype.setStatic = function() {
+	this.dom.data('backdrop', 'static');
+};
+ 
+WebAppModal.prototype.setHeader = function(content) {
+	jQuery('#'+this.id+' .modal-header').html(content);
+};
+
+WebAppModal.prototype.setTitle = function(title) {
+	jQuery('#'+this.id+' .modal-title').html(title);
+};
+
+WebAppModal.prototype.setBody = function(content) {
+	jQuery('#'+this.id+' .modal-body').html(content);
+};
+
+WebAppModal.prototype.setFooter = function(content) {
+	jQuery('#'+this.id+' .modal-footer').html(content);
+};
+
+WebAppModal.prototype.setCloseLabel = function(label) {
+	jQuery('#'+this.id+' .close-button').html(label);
+};
+
+WebAppModal.prototype.addButton = function(label, classes, onclick) {
+	jQuery('#'+this.id+' .modal-footer').append('<button type="button" class="btn '+classes+'" onclick="'+onclick+'">'+label+'</button>');
+};
+
+WebAppModal.prototype.show = function() {
+	jQuery('#'+this.id).modal('show');
+};
+
+WebAppModal.prototype.hide = function() {
+	jQuery('#'+this.id).hide();
+};
+
+WebAppModal.prototype.destroy = function() {
+	jQuery('#'+this.id).remove();
+};
+
+webApp.registerI18N(new I18N({
+	'de' : {
+		'ok'       : 'OK',
+		'close'    : 'Schließen',
+		'cancel'   : 'Abbrechen',
+		'yes'      : 'Ja',
+		'no'       : 'Nein',
+		'delete'   : 'Löschen',
+		'continue' : 'Weiter...',
+	},
+	'en' : {
+		'ok'       : 'OK',
+		'close'    : 'Close',
+		'cancel'   : 'Cancel',
+		'yes'      : 'Yes',
+		'no'       : 'No',
+		'delete'   : 'Delete',
+		'continue' : 'Proceed...',
+	},
+}));

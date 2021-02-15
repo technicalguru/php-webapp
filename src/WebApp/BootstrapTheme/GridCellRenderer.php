@@ -9,10 +9,11 @@ class GridCellRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		$sizes = $this->component->getGridSizes();
 		if (count($sizes) > 0) {
 			foreach ($sizes AS $class => $span) {
+				if ($class) $class = '-'.$class;
 				if ($span > 0) {
-					$this->addClass('col-'.$class.'-'.$span);
+					$this->addClass('col'.$class.'-'.$span);
 				} else {
-					$this->addClass('col-'.$class);
+					$this->addClass('col'.$class);
 				}
 			}
 		} else {
