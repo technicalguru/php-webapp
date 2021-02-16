@@ -17,6 +17,14 @@ class Page extends Component\Component {
 		$this->app     = $app;
 		$this->request = \TgUtils\Request::getRequest();
 		$this->display = 'public';
+		$i18n = $this->getTranslations();
+		if (($i18n != NULL) && is_array($i18n) && (count($i18n)>0)) {
+			I18N::addValues($i18n);
+		}
+	}
+
+	public function getTranslations() {
+		return NULL;
 	}
 
 	public function getTitle() {
