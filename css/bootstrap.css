@@ -108,3 +108,8 @@ form textarea.form-control {
 	color: white;
 }
 
+input.plain-checkbox {
+	vertical-align: middle;
+	margin-right: 0.5em;
+}
+
