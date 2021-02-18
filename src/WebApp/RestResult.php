@@ -27,21 +27,25 @@ class RestResult {
 		return $rc;
 	}
 
-	public static function error403() {
+	public static function error($errorCode, $errorMessage, $data = NULL) {
 		$rc = new RestResult();
-		$rc->setError(403, 'Forbidden');
+		$rc->setError($errorCode, $errorMessage, $data);
 		return $rc;
 	}
 
-	public static function error400() {
-		$rc = new RestResult();
-		$rc->setError(400, 'Invalid Request');
-		return $rc;
+	public static function error400($data = NULL) {
+		return self::error(400, 'Invalid Request', $data);
 	}
 
-	public static function error404() {
-		$rc = new RestResult();
-		$rc->setError(404, 'Not Found');
-		return $rc;
+	public static function error403($data = NULL) {
+		return self::error(403, 'Forbidden', $data);
+	}
+
+	public static function error404($data = NULL) {
+		return self::error(404, 'Not Found', $data);
+	}
+
+	public static function error500($data = NULL) {
+		return self::error(500, 'Internal Error', $data);
 	}
 }
