@@ -266,10 +266,19 @@ class Application {
 			if (!is_a($result, 'WebApp\\Auth\\AuthError')) {
 				$this->setPrincipal($result, $persist);
 				$this->sessionHandler->gc(3600);
+				$this->executeHook('authenticated');
 			}
 			return $result;
 		}
 		return FALSE;
+	}
+
+	/** You can listen to some special events such as login or logout
+	  * Hook names:
+	  *   authenticated - user was successfully logged in
+	  */
+	public function executeHook($hookName) {
+		// Does nothing
 	}
 
 	/** Return whether the current user has the required permissions */
