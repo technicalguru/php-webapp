@@ -21,30 +21,38 @@ class RestPage extends Page {
 	}
 
 	public function processRequest() {
-		if ($this->app->isAuthorized($this->getRequiredRight())) {
-			// We can render
-			switch ($this->request->method) {
-			case 'HEAD':
-				$this->result = $this->head();
-				break;
-			case 'GET':
-				$this->result = $this->get();
-				break;
-			case 'POST':
-				$this->result = $this->post();
-				break;
-			case 'PUT':
-				$this->result = $this->put();
-				break;
-			case 'PATCH':
-				$this->result = $this->patch();
-				break;
-			case 'DELETE':
-				$this->result = $this->delete();
-				break;
+		try {
+			if ($this->app->isAuthorized($this->getRequiredRight())) {
+				// We can render
+				switch ($this->request->method) {
+				case 'HEAD':
+					$this->result = $this->head();
+					break;
+				case 'GET':
+					$this->result = $this->get();
+					break;
+				case 'POST':
+					$this->result = $this->post();
+					break;
+				case 'PUT':
+					$this->result = $this->put();
+					break;
+				case 'PATCH':
+					$this->result = $this->patch();
+					break;
+				case 'DELETE':
+					$this->result = $this->delete();
+					break;
+				}
+			} else {
+				$this->result = RestResult::error403();
 			}
-		} else {
-			$this->result = RestResult::error403();
+		} catch (\Throwable $t) {
+			$data = NULL;
+			if ($this->app->config->has('debug') && $this->app->config->get('debug')) {
+				$data = \TgUtils\FormatUtils::getTraceLines($t);
+			}
+			$this->result = RestResult::error500($data);
 		}
 		return 'render';
 	}
@@ -85,9 +93,9 @@ class RestPage extends Page {
 		return $this->jsonBody;
 	}
 
-	protected function getJsonParam($key) {
+	protected function getJsonParam($key, $default = NULL) {
 		$obj = $this->getJsonBody();
-		if (!isset($obj->$key)) return NULL;
+		if (!isset($obj->$key)) return $default;
 		return $obj->$key;
 	}
 }

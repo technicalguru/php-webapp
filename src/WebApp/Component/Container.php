@@ -54,6 +54,21 @@ class Container extends Component {
 		$this->children = $arr;
 	}
 
+	public function moveChildTo($child, $index) {
+		$this->removeChild($child);
+		$this->addChildAt($child, $index);
+	}
+
+	public function moveChildBefore($child, $member) {
+		$this->removeChild($child);
+		$this->addChildBefore($child, $member);
+	}
+
+	public function moveChildAfter($child, $member) {
+		$this->removeChild($child);
+		$this->addChildAfter($child, $member);
+	}
+
 	public function removeChild($child) {
 		$a = array();
 		foreach ($this->children AS $c) {
