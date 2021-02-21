@@ -54,7 +54,7 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderBody() {
-		$rc = '<body>'.
+		$rc = '<body lang="'.$this->app->request->language.'">'.
 		         '<div class="full-page">'.
 			       $this->renderNavbar().
 			       $this->renderContent().

@@ -84,11 +84,11 @@ class Theme {
      * @return HTML of the complete page
      */
 	protected function renderPage() {
-		$rc .= '<html>'.
+		$rc .= '<html lang="'.$this->app->request->language.'>'.
 		         '<head>'.
 		           '<title>'.I18N::_($this->page->getTitle()).' - '.I18N::_($this->app->getName()).'</title>'.
 		         '</head>'.
-		         '<body>'.
+		         '<body lang="'.$this->app->request->language.'>'.
 		           '<h1>'.I18N::_($this->page->getTitle()).'</h1>'.
 		           '<div>'.$this->renderComponent($this->page->getMain()).'</div>'.
 		         '</body>'.
