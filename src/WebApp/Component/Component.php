@@ -48,8 +48,10 @@ class Component {
 		return $this->getAttribute('class');
 	}
 
-	public function addClass($class) {
-		$this->addAttribute('class', $class);
+	public function addClass(...$classes) {
+		foreach ($classes AS $class) {
+			$this->addAttribute('class', $class);
+		}
 		return $this;
 	}
 
