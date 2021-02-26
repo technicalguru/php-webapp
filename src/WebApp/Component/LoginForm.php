@@ -10,15 +10,16 @@ class LoginForm extends Div {
 	protected $form;
 	protected $footer;
 	protected $socialLogins;
+	protected $return;
 
-	public function __construct($parent, $socialLogins = FALSE, $tfa = FALSE) {
+	public function __construct($parent, $socialLogins = FALSE, $tfa = FALSE, $return = NULL) {
 		parent::__construct($parent);
 		$this->request = \TgUtils\Request::getRequest();
 		$this->addClass('login-form');
 		$this->header       = $this->createHeader();
 		$this->body         = $this->createBody();
 		$this->footer       = $this->createFooter();
-		$this->form         = $this->createForm($tfa);
+		$this->form         = $this->createForm($tfa, $return);
 		$this->socialLogins = $socialLogins ? $this->createSocialLogins() : NULL;
 	}
 
@@ -45,14 +46,14 @@ class LoginForm extends Div {
 		return $container;
 	}
 
-	protected function createForm($tfa) {
+	protected function createForm($tfa, $return) {
 		$form   = new Form($this->body, 'loginForm', Form::VERTICAL);
 		$form->setMethod('POST');
 		$this->createUserInput($form);
 		$this->createPasswordInput($form);
 		if ($tfa) $this->createTFAInput($form);
 		$this->createPersistentCheck($form);
-		$this->createReturnInput($form);
+		$this->createReturnInput($form, $return);
 		$this->createLoginButton($form);
 		return $form;
 	}
@@ -80,8 +81,8 @@ class LoginForm extends Div {
 		return new HiddenInput($form, 'persist', '1');
 	}
 
-	protected function createReturnInput($form) {
-		$return =  $this->request->getParam('return');
+	protected function createReturnInput($form, $return) {
+		if ($return == NULL) $return =  $this->request->getParam('return');
 		if ($return != NULL) {
 			$returnUri = parse_url($return);
 			if (isset($returnUri['query'])) {
