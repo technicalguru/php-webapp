@@ -92,7 +92,7 @@ class Layout {
 	}
 
 	protected function renderBody() {
-		$rc = '<body>'.
+		$rc = '<body lang="'.$this->app->request->language.'>'.
 		      $this->theme->renderComponent($this->page->getMain()).
 		      $this->theme->renderComponent($this->renderLog()).
 		      $this->renderJavascript().

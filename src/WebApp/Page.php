@@ -24,7 +24,7 @@ class Page extends Component\Component {
 	}
 
 	public function getTranslations() {
-		return NULL;
+		return array();
 	}
 
 	public function getTitle() {
