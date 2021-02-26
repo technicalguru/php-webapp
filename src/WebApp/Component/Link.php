@@ -15,7 +15,8 @@ class Link extends Container {
 	}
 
 	public function setOnClick($onClick) {
-		$this->setAttribute('onclick', $onclick);
+		$this->setAttribute('onclick', $onClick);
+		return $this;
 	}
 
 	public function getUrl() {
@@ -24,6 +25,7 @@ class Link extends Container {
 
 	public function setUrl($url) {
 		$this->setAttribute('href', $url);
+		return $this;
 	}
 
 	public function getTarget() {
@@ -32,6 +34,7 @@ class Link extends Container {
 
 	public function setTarget($target) {
 		$this->setAttribute('target', $target);
+		return $this;
 	}
 
 	public function getEnabled() {
@@ -44,6 +47,7 @@ class Link extends Container {
 		} else {
 			$this->addClass('disabled');
 		}
+		return $this;
 	}
 
 }
