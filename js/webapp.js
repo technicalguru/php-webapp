@@ -169,6 +169,20 @@ WebAppAjaxController.prototype.fail = function(ajaxParams, jqXHR, textStatus, er
 	webApp.hideSpinner();
 };
 
+/** A NULL version of a DomAjaxController
+ ****************************************************************************************/
+function WebAppNullAjaxController() {
+}
+
+WebAppNullAjaxController.prototype.beforeSend = function() {
+};
+
+WebAppNullAjaxController.prototype.done = function(ajaxParams, data, textStatus, jqXHR) {
+};
+
+WebAppNullAjaxController.prototype.fail = function(ajaxParams, jqXHR, textStatus, errorThrown) {
+};
+
 /***************** Modals ************************/
 function WebAppModal(id) {
 	this.id  = id;
