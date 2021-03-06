@@ -18,18 +18,7 @@ class DefaultLayout extends \WebApp\Layout {
 	protected function renderLinks() {
 		$webroot = $this->app->request->webRoot;
 		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
-		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">'.
-			   '<style>'.
-				  '.dropdown-item.nav-link {'.
-					 'padding: .25rem 1.5rem !important;'.
-				  '}'.
-				  '.navbar-dark .dropdown-item.nav-link:hover,'.
-				  '.navbar-dark .dropdown-item.nav-link:active,'.
-				  '.navbar-dark .dropdown-item.nav-link:focus {'.
-					 'color: #333333 !important;'.
-					 'background-color: #f8f9fa !important;'.
-				  '}'.
-			   '</style>';
+		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">';
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
 		}
@@ -109,38 +98,36 @@ class DefaultLayout extends \WebApp\Layout {
 			}
 		}
 		$rc  .=    '</ul>';
-		$principal = $this->app->getPrincipal();
-		if ($principal != NULL) {
-			$rc .= '<ul class="navbar-nav user-menu">';
-			$userMenu = $this->app->getMenu('user');
-			if ($userMenu == NULL) {
-				$userMenu = array();
+
+		$userMenu = $this->app->getMenu('user');
+		if ($userMenu == NULL) {
+			$userMenu  = array();
+			$principal = $this->app->getPrincipal();
+			if ($principal != NULL) {
 				$userItem = new \WebApp\Component\MenuItem($this, $principal->__toString(), '#');
 				$logoutLink = $this->app->getPageLink('logout');
 				if ($logoutLink != NULL) $logoutLink = $this->app->router->getCanonicalPath($logoutLink);
 				else                     $logoutLink = '';
 				$userMenu[] = new \WebApp\Component\MenuItem($userItem, 'logout_label', $logoutLink.'?logout');
 				$userMenu = array($userItem);
-			}
-			if (($userMenu != NULL) && is_array($userMenu)) {
-				//$userMenu[] = new \WebApp\Component\MenuItem($this, 'logout_label', '?logout');
-				foreach ($userMenu AS $menuItem) {
-					$rc .= $this->theme->renderComponent($menuItem);
+			} else if ($this->app->getPageLink('login') != NULL) {
+				$uri   = $this->app->request->uri;
+				$login = $this->app->router->getCanonicalPath($this->app->getPageLink('login'));
+				if ($this->app->request->originalPath == $login) {
+					$uri = $this->app->request->originalPath;
+				} else {
+					$uri = $login.'?return='.urlencode($this->app->request->originalPath);
 				}
-				
+				$userMenu[] = '<span class="navbar-text  align-middle"><a class="px-2" href="'.$uri.'">'.I18N::_('login_label').'</a></span>';
 			}
-			//$rc .= '<span class="navbar-text align-middle">'.$principal->__toString().'<a class="px-2" href="?logout"><i class="fas fa-sign-out-alt fa-lg"></i></a></span>';
-			$rc  .= '</ul>';
-		} else if ($this->app->getPageLink('login') != NULL) {
-			$uri   = $this->app->request->uri;
-			$login = $this->app->router->getCanonicalPath($this->app->getPageLink('login'));
-			if ($this->app->request->originalPath == $login) {
-				$uri = $this->app->request->originalPath;
-			} else {
-				$uri = $login.'?return='.urlencode($this->app->request->originalPath);
-			}
-			$rc .= '<span class="navbar-text  align-middle"><a class="px-2" href="'.$uri.'">'.I18N::_('login_label').'</a></span>';
+		}			
+
+		if ($userMenu != NULL) {
+			$rc .= '<ul class="navbar-nav user-menu">';
+			$rc .= $this->theme->renderComponent($userMenu);
+			$rc .= '</ul>';
 		}
+
 		$rc .= '</nav>';
 		return $rc;
 	}
