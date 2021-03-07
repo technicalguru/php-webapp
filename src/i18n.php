@@ -10,12 +10,12 @@ return array(
 		'en' => 'This is the default text of the web-framework modules.',
 	),
 	'login_label' => array(
-		'de' => '<i class="fas fa-sign-in-alt fa-lg"></i> Anmelden',
-		'en' => '<i class="fas fa-sign-in-alt fa-lg"></i> Login',
+		'de' => 'Anmelden',
+		'en' => 'Login',
 	),
 	'logout_label' => array(
-		'de' => '<i class="fas fa-sign-out-alt fa-lg"></i> Abmelden',
-		'en' => '<i class="fas fa-sign-out-alt fa-lg"></i> Logout',
+		'de' => 'Abmelden',
+		'en' => 'Logout',
 	),
 	'login_title' => array(
 		'de' => 'Anmelden',

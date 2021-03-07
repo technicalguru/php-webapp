@@ -120,12 +120,13 @@ WebApp.prototype.DELETE = function(url, ajaxController) {
 
 WebApp.prototype.showSpinner = function(label) {
 	if (typeof label === undefined) label = this.i18n('pleaseWait');
-	jQuery('<div id="page-blocker" class="modal" tabindex="-1"><div class="vertical-center"><div class="spinner-border" role="status"><span class="sr-only">'+label+'</span></div></div></div><div class="modal-backdrop show"></div>').appendTo('body');
+	jQuery('<div id="page-blocker" class="modal" tabindex="-1"><div class="vertical-center"><div class="spinner-border" role="status"><span class="sr-only">'+label+'</span></div></div></div><div id="page-blocker-backdrop" class="modal-backdrop show"></div>').appendTo('body');
 	jQuery('#page-blocker').show();
 };
 
 WebApp.prototype.hideSpinner = function() {
 	jQuery('#page-blocker').remove();
+	jQuery('#page-blocker-backdrop').remove();
 };
 
 // Register an I18N object for translations
@@ -166,6 +167,20 @@ WebAppAjaxController.prototype.done = function(ajaxParams, data, textStatus, jqX
 
 WebAppAjaxController.prototype.fail = function(ajaxParams, jqXHR, textStatus, errorThrown) {
 	webApp.hideSpinner();
+};
+
+/** A NULL version of a DomAjaxController
+ ****************************************************************************************/
+function WebAppNullAjaxController() {
+}
+
+WebAppNullAjaxController.prototype.beforeSend = function() {
+};
+
+WebAppNullAjaxController.prototype.done = function(ajaxParams, data, textStatus, jqXHR) {
+};
+
+WebAppNullAjaxController.prototype.fail = function(ajaxParams, jqXHR, textStatus, errorThrown) {
 };
 
 /***************** Modals ************************/

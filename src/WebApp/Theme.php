@@ -107,6 +107,9 @@ class Theme {
 			}
 			return $rc;
 		} else if (is_object($component)) {
+			if (is_a($component, 'WebApp\\Component\\LazyInitializer')) {
+				$component->lazyInit();
+			}
 			return $this->getRenderer($component)->render();
 		}
 		return '';

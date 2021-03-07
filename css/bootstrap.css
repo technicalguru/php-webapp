@@ -133,3 +133,22 @@ input.plain-checkbox {
 .divider:not(:empty)::after {
 	margin-left: .5em;
 }
+
+.dropdown-button {
+	padding: .25rem 1.5rem !important;
+}
+
+.dropdown-button .btn {
+	width: 100%;
+}
+
+.dropdown-item.nav-link {
+	padding: .25rem 1.5rem !important;
+}
+
+.navbar-dark .dropdown-item.nav-link:hover,
+.navbar-dark .dropdown-item.nav-link:active,
+.navbar-dark .dropdown-item.nav-link:focus {
+	color: #333333 !important;
+	background-color: #f8f9fa !important;
+}
