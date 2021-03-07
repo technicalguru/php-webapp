@@ -41,6 +41,11 @@ class DynamicFieldRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 			}
 			$child->setId($id.'-'.$idExt);
 			$child->setName($name.'[]');
+			$label = $child->getLabel();
+			if ($label != NULL) {
+				$s   = $isTemplate ? 'display: none;' : '';
+				$rc .= '<label style="margin-right: 0.5em;'.$s.'">'.$label.':</label>';
+			}
 			$rc .= $this->theme->renderComponent($child);
 
 			// Restore properties for next usage

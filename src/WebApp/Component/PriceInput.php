@@ -29,5 +29,23 @@ class PriceInput extends InputGroup {
 	public function getInput() {
 		return $this->input;
 	}
+
+	public function setName($name) {
+		$this->input->setName($name);
+	}
+
+	public function getName() {
+		return $this->input->getName();
+	}
+
+	public function setValue($value) {
+		if ($this->input != NULL) {
+			$this->input->setValue($value);
+		}
+	}
+
+	public function getValue() {
+		return $this->input->getValue();
+	}
 }
 
