@@ -98,10 +98,12 @@ class Page extends Component\Component {
 			}
 		} else if ($this->request->hasGetParam('logout')) {
 			$this->processLogoutAction();
-			$home = $this->app->getPageLink('home');
-			if ($home == NULL) $home = $this->request->originalPath;
-			else $home = $this->app->router->getCanonicalPath($home);
-			return array('redirect', $home);
+			if ($this->getRequiredRight() != DataModel\UserRole::ROLE_GUEST) {
+				$home = $this->app->getPageLink('home');
+				if ($home == NULL) $home = $this->request->originalPath;
+				else $home = $this->app->router->getCanonicalPath($home);
+				return array('redirect', $home);
+			}
 		}
 
 		return $this->processAuthorization();
