@@ -274,20 +274,20 @@ return array(
 		'en' => 'H:i',
 	),
 	'dateTimeFormat' => array(
-		'de' => 'd.m.Y h:i:s',
-		'en' => 'd/m/Y h:i:s',
+		'de' => 'd.m.Y H:i:s',
+		'en' => 'd/m/Y H:i:s',
 	),
 	'dateTimeFormat2' => array(
-		'de' => 'd.m.Y \\u\\m h:i:s \\U\\h\\r',
-		'en' => 'd/m/Y \\a\\t h:i:s',
+		'de' => 'd.m.Y \\u\\m H:i:s \\U\\h\\r',
+		'en' => 'd/m/Y \\a\\t H:i:s',
 	),
 	'shortDateTimeFormat' => array(
-		'de' => 'd.m.Y h:i',
-		'en' => 'd/m/Y h:i',
+		'de' => 'd.m.Y H:i',
+		'en' => 'd/m/Y H:i',
 	),
 	'shortDateTimeFormat2' => array(
-		'de' => 'd.m.Y \\u\\m h:i \\U\\h\\r',
-		'en' => 'd/m/Y \\a\\t h:i',
+		'de' => 'd.m.Y \\u\\m H:i \\U\\h\\r',
+		'en' => 'd/m/Y \\a\\t H:i',
 	),
 	'role_superadmin_label' => array(
 		'de' => 'Superuser',
