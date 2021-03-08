@@ -50,7 +50,14 @@ class Router {
 		return isset($this->languages[$langCode]);
 	}
 
-	public function getLanguages() {
+	public function getLanguages($filter = NULL) {
+		if (is_array($filter)) {
+			$rc = array();
+			foreach ($this->languages AS $key => $label) {
+				if (in_array($key, $filter)) $rc[$key] = $label;
+			}
+			return $rc;
+		}
 		return $this->languages;
 	}
 
