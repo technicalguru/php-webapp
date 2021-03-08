@@ -60,7 +60,7 @@ class I18nFormElement extends BasicFormElement implements MultiValueComponent {
 
 	public function getError($languageKey = NULL) {
 		if ($languageKey == NULL) {
-			if (count($this->errors) > 0) {
+			if (is_array($this->errors) && (count($this->errors) > 0)) {
 				$languageKey = array_keys($this->errors)[0];
 				return I18N::_($this->errors[$languageKey]);
 			}
