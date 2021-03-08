@@ -48,13 +48,17 @@ class RestPage extends Page {
 				$this->result = RestResult::error403();
 			}
 		} catch (\Throwable $t) {
-			$data = NULL;
-			if ($this->app->config->has('debug') && $this->app->config->get('debug')) {
-				$data = \TgUtils\FormatUtils::getTraceLines($t);
-			}
-			$this->result = RestResult::error500($data);
+			$this->result = $this->errorFromThrowable($t);
 		}
 		return 'render';
+	}
+
+	protected function errorFromThrowable($t) {
+		$data = NULL;
+		if ($this->app->config->has('debug') && $this->app->config->get('debug')) {
+			$data = \TgUtils\FormatUtils::getTraceLines($t);
+		}
+		return RestResult::error500($data);
 	}
 
 	protected function head() {
