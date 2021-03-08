@@ -36,6 +36,7 @@ class Configuration {
 	public function getCredentialsProvider($feature, $vault) {
 		if (($vault != NULL) && $this->has($feature)) {
 			if (!isset($this->credentialProviders->$feature)) {
+				if (!isset($this->credentialProviders)) $this->credentialProviders = new \stdClass;
 				$this->credentialProviders->$feature = NULL;
 				if (isset($this->data->$feature->security) && ($this->data->$feature->security->type == 'vault')) {
 					$path    = $this->data->$feature->security->path;

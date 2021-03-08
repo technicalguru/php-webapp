@@ -20,7 +20,9 @@ class SearchFilterBar extends Form {
 	}
 
 	public static function getFilters() {
-		return Request::getRequest()->getParam('filter');
+		$rc = Request::getRequest()->getParam('filter');
+		if (!is_array($rc)) $rc = array();
+		return $rc;
 	}
 
 	public static function hasFilter($value) {
