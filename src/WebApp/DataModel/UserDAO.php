@@ -46,7 +46,7 @@ class UserDAO extends \TgDatabase\DAO {
 	}
 
 	public function getByEmail($email) {
-		return $this->findSingle(array('email' => strtolower($email), array('status', User::STATUS_DELETED, '!=')));
+		return $this->findSingle(array('email' => trim(strtolower($email)), array('status', User::STATUS_DELETED, '!=')));
 	}
 
 	public function findByRole($role) {
@@ -75,6 +75,18 @@ class UserDAO extends \TgDatabase\DAO {
 			$rc[] = substr($where, 4);
 		}
 		return $rc;
+	}
+
+	public function create($object) {
+		$object->email = trim(strtolower($object->email));
+		return parent::create($object);
+	}
+
+	public function save($object) {
+		if (is_object($object)) {
+			$object->email = trim(strtolower($object->email));
+		}
+		return parent::save($object);
 	}
 }
 
