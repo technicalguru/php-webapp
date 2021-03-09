@@ -401,6 +401,14 @@ return array(
 		'de' => 'Numerisch',
 		'en' => 'Numeric',
 	),
+	'edit_label' => array(
+		'de' => 'Bearbeiten',
+		'en' => 'Edit',
+	),
+	'change_label' => array(
+		'de' => 'Ändern',
+		'en' => 'Change',
+	),
 	'EUR' => array(
 		'de' => '€',
 		'en' => '€',
