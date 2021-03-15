@@ -8,6 +8,7 @@ class Address {
 
 	public $street1;
 	public $street2;
+	public $province;
 	public $zipCode;
 	public $city;
 	public $country;

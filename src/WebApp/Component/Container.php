@@ -18,6 +18,13 @@ class Container extends Component {
 		}
 	}
 
+	public function childAt($index) {
+		if (count($this->children) > $index) {
+			return $this->children[$index];
+		}
+		return NULL;
+	}
+
 	public function addChild($child) {
 		$this->children[] = $child;
 	}

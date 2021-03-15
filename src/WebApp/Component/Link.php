@@ -37,6 +37,15 @@ class Link extends Container {
 		return $this;
 	}
 
+	public function getTitle() {
+		return $this->getAttribute('title', TRUE);
+	}
+
+	public function setTitle($title) {
+		$this->setAttribute('title', \TgI18n\I18N::_($title));
+		return $this;
+	}
+
 	public function getEnabled() {
 		return !$this->hasClass('disabled');
 	}
