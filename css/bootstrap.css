@@ -152,3 +152,12 @@ input.plain-checkbox {
 	color: #333333 !important;
 	background-color: #f8f9fa !important;
 }
+
+.elem-by-check .form-check-label {
+	margin-bottom: 5px;
+}
+
+.form-control::placeholder {
+	color: #ccc;
+}
+

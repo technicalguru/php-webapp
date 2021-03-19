@@ -194,6 +194,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/dynamic-fields.js"></script>';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICCHECKENABLE)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/dynamic-check-enable.js"></script>';
+		}
 		$rc .= parent::renderJavascript();
 		return $rc;
 	}
