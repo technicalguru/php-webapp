@@ -100,8 +100,24 @@ form textarea.form-control {
 	flex-flow: row wrap;
 }
 
+.flex-box-nowrap {
+	flex-wrap: nowrap;
+}
+
+.flex-box-gap-10 > .flex-item {
+	margin: 10px;
+}
+
+.flex-box-gap-5 > .flex-item {
+	margin: 5px;
+}
+
 .flex-item {
-	flex: 1 auto;
+	flex: 0 1 auto;
+}
+
+.flex-item-grow {
+	flex: 1 1 auto;
 }
 
 #page-blocker .spinner-border {
@@ -152,3 +168,16 @@ input.plain-checkbox {
 	color: #333333 !important;
 	background-color: #f8f9fa !important;
 }
+
+.elem-by-check .form-check-label {
+	margin-bottom: 5px;
+}
+
+.elem-by-check-inline {
+	display: flex;
+}
+
+.form-control::placeholder {
+	color: #ccc;
+}
+

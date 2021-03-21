@@ -9,7 +9,7 @@ class MainContent extends Div {
 		$this->addClass('content-main');
 		if ($renderMessages) {
 			$msg = new SystemMessages($this);
-			$msg->addClass('mb-4');
+			$msg->addClass('mb-4', 'mt-4');
 		}
 	}
 

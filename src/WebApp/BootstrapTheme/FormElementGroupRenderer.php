@@ -9,6 +9,18 @@ class FormElementGroupRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		$this->addClass('form-element-group');
 	}
 
+	public function render() {
+		$error = $this->component->getError();
+		if ($error != NULL) {
+			$this->addClass('has-error');
+		}
+		$rc = parent::render();
+		if ($error != NULL) {
+			$rc .= '<div class="invalid-feedback" style="display: block">'.$error.'</div>';
+		}
+		return $rc;
+	}
+
 	protected function renderChild($child) {
 		$rc = '';
 		if (is_a($child, 'WebApp\\Component\\Checkbox') || is_a($child, 'WebApp\\Component\\Radio')) {
