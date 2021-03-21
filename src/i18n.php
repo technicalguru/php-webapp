@@ -449,7 +449,27 @@ return array(
 		'de' => 'Sprachen',
 		'en' => 'Languages',
 	),
-	
+	// General address and delivery labels
+	'address_street1_label' => array(
+		'de' => 'Straße und Hausnummer',
+		'en' => 'Address',
+	),
+	'address_street2_label' => array(
+		'de' => 'Addresszusatz',
+		'en' => 'Address (continued)',
+	),
+	'address_zipcode_label' => array(
+		'de' => 'Postleitzahl',
+		'en' => 'Zip Code',
+	),
+	'address_city_label' => array(
+		'de' => 'Stadt',
+		'en' => 'City',
+	),
+	'address_country_label' => array(
+		'de' => 'Land',
+		'en' => 'Country',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
