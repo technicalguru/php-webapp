@@ -9,8 +9,14 @@ class FlexBox extends Div {
 		$this->addClass('flex-box');
 	}
 
-	public function createItem($content = NULL) {
+	public function createFixedItem($content = NULL) {
 		return new FlexItem($this, $content);
+	}
+
+	public function createItem($content = NULL) {
+		$rc = new FlexItem($this, $content);
+		$rc->addClass('flex-item-grow');
+		return $rc;
 	}
 }
 
