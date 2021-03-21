@@ -157,6 +157,10 @@ input.plain-checkbox {
 	margin-bottom: 5px;
 }
 
+.elem-by-check-inline {
+	display: flex;
+}
+
 .form-control::placeholder {
 	color: #ccc;
 }

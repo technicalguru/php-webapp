@@ -15,9 +15,19 @@ abstract class EnableByCheckGroup extends FormElementGroup {
 		$this->check = new Checkbox($this, $id.'_checked', 'checked');
 		$this->check->setLabel($checkText);
 		$this->check->setAttribute('data-role', 'dynamic-check-enable');
-		$this->input = new Div($this);
-		$this->input->setAttribute('data-role', 'dynamic-check-input');
-		$this->createInput($this->input, $id, $value);
+		$this->inputDiv = new Div($this);
+		$this->inputDiv->setAttribute('data-role', 'dynamic-check-input');
+		$this->input = $this->createInput($this->inputDiv, $id.'_value', $value);
+	}
+
+	public function setInline($value) {
+		if ($value) {
+			$this->addClass('elem-by-check-inline');
+			$this->inputDiv->setStyle('flex', '1 auto')->addClass('ml-2');
+		} else {
+			$this->removeClass('elem-by-check-inline');
+			$this->inputDiv->removeStyle('flex')->removeClass('ml-2');
+		}
 	}
 
 	public function setInverseCheck($inverseCheck) {
@@ -37,7 +47,7 @@ abstract class EnableByCheckGroup extends FormElementGroup {
 	}
 
 	protected function createInput($parent, $id, $value) {
-		new Text('createInput() was not implemented');
+		return new Text('createInput() was not implemented');
 	}
 
 }
