@@ -113,7 +113,7 @@ form textarea.form-control {
 }
 
 .flex-item {
-	flex: 0 1 auto;
+	flex: 0 0 auto;
 }
 
 .flex-item-grow {
