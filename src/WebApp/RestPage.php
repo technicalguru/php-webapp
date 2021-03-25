@@ -20,9 +20,21 @@ class RestPage extends Page {
 		return $this->result;
 	}
 
+	public function authorizeRequest($authHeader) {
+		return FALSE;
+	}
+
+	public function isAuthorized() {
+		$authData = $this->request->getHeader('Authorization');
+		if ($authData != NULL) {
+			return $this->authorizeRequest($authData);
+		}
+		return $this->app->isAuthorized($this->getRequiredRight());
+	}
+
 	public function processRequest() {
 		try {
-			if ($this->app->isAuthorized($this->getRequiredRight())) {
+			if ($this->isAuthorized()) {
 				// We can render
 				switch ($this->request->method) {
 				case 'HEAD':

@@ -5,6 +5,7 @@ namespace WebApp;
 class RestResult {
 
 	public $success;
+	public $meta;
 
 	public function __construct() {
 	}
@@ -12,6 +13,10 @@ class RestResult {
 	public function setData($data) {
 		$this->success = TRUE;
 		$this->data    = $data;
+	}
+
+	public function setMeta($meta) {
+		$this->meta = $meta;
 	}
 
 	public function setError($errorCode, $errorMessage = NULL, $errorData = NULL) {
