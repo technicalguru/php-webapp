@@ -162,5 +162,14 @@ class Component {
 		$this->annotations[$key] = $value;
 		return $this;
 	}
+
+	public function getPageParent() {
+		$rc = $this->getParent();
+		while (($rc != NULL) && !is_a($rc, 'WebApp\\Page')) {
+			$rc = $rc->getParent();
+		}
+		return $rc;
+	}
+
 }
 

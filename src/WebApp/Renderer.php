@@ -191,6 +191,6 @@ class Renderer {
 		if ($this->parent != NULL) return $this->parent->getParentFor($componentName);
 		return NULL;
 	}
-		
+
 }
 
