@@ -25,6 +25,7 @@ class BasicFormElement extends Container {
 
 	public function setGroup($value) {
 		$this->group = $value;
+		return $this;
 	}
 
 	public function getLabel() {
@@ -33,6 +34,7 @@ class BasicFormElement extends Container {
 
 	public function setLabel($value) {
 		$this->label = $value;
+		return $this;
 	}
 
 	public function getHelp() {
@@ -41,6 +43,7 @@ class BasicFormElement extends Container {
 
 	public function setHelp($value) {
 		$this->help = $value;
+		return $this;
 	}
 
 	public function getName() {
@@ -49,6 +52,7 @@ class BasicFormElement extends Container {
 
 	public function setName($name) {
 		$this->setAttribute('name', $name);
+		return $this;
 	}
 
 	public function getBaseName() {
@@ -69,6 +73,7 @@ class BasicFormElement extends Container {
 
 	public function setEnabled($b) {
 		$this->setAttribute('disabled', $b ? NULL : 'disabled');
+		return $this;
 	}
 
 	public function isReadOnly() {
@@ -77,6 +82,7 @@ class BasicFormElement extends Container {
 
 	public function setReadOnly($b) {
 		$this->setEnabled(!$b);
+		return $this;
 	}
 
 	public function isRequired() {
@@ -85,6 +91,7 @@ class BasicFormElement extends Container {
 
 	public function setRequired($b) {
 		$this->setAttribute('required', $b ? 'required' : NULL);
+		return $this;
 	}
 
 }

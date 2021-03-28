@@ -224,10 +224,11 @@ WebAppModal.prototype.show = function() {
 };
 
 WebAppModal.prototype.hide = function() {
-	jQuery('#'+this.id).hide();
+	jQuery('#'+this.id).modal('hide');
 };
 
 WebAppModal.prototype.destroy = function() {
+	jQuery('#'+this.id).modal('dispose');
 	jQuery('#'+this.id).remove();
 };
 

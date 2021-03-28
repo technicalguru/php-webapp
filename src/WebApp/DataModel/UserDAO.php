@@ -3,6 +3,7 @@
 namespace WebApp\DataModel;
 
 use WebApp\WebAppException;
+use TgDatabase\Restrictions;
 
 class UserDAO extends \TgDatabase\DAO {
 
@@ -64,9 +65,24 @@ class UserDAO extends \TgDatabase\DAO {
 		return $this->find($this->getSearchClause($s), $order, $startIndex, $maxObjects);
 	}
 
+	public function getSearchInRestriction($s, $property) {
+		if (!\TgUtils\Utils::isEmpty($s)) {
+			$r = Restrictions::or();
+			foreach (explode(' ', $s) AS $part) {
+				$r->add(Restrictions::like('name',  '%'.$part.'%')->ignoreCase());
+				$r->add(Restrictions::like('email', '%'.$part.'%')->ignoreCase());
+			}
+			$users = $this->createCriteria()->add($r)->add(Restrictions::ne('status', User::STATUS_DELETED))->list();
+			$uids  = \TgUtils\Utils::extractAttributeFromList($users, 'uid');
+			if (count($uids) == 0) $uids[] = -1;
+			return Restrictions::in($property, $uids);
+		}
+		return Restrictions::eq($property, -1);
+	}
+
 	public function getSearchClause($s) {
 		$rc = array();
-		if (($s != NULL) && !\TgUtils\Utils::isEmpty($s)) {
+		if (!\TgUtils\Utils::isEmpty($s)) {
 			$where = '';
 			foreach (explode(' ', $s) AS $part) {
 				$value = $this->database->escape(strtolower($part));
