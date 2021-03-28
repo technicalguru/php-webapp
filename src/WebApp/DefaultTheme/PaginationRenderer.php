@@ -82,7 +82,13 @@ class PaginationRenderer extends \WebApp\Renderer {
 			foreach ($this->component->keepParams AS $param) {
 				$value = $request->getGetParam($param, NULL);
 				if ($value != NULL) {
-					$this->keptParams .= '&'.urlencode($param).'='.urlencode($value);
+					if (is_string($value)) {
+						$this->keptParams .= '&'.urlencode($param).'='.urlencode($value);
+					} else if (is_array($value)) {
+						foreach ($value AS $v) {
+							$this->keptParams .= '&'.urlencode($param).'[]='.urlencode($v);
+						}
+					}
 				}
 			}
 		}
