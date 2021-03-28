@@ -12,23 +12,26 @@ class PaginationRenderer extends \WebApp\Renderer {
 
 	public function render() {
 		$rc = '';
-		if ($this->component->totalCount > $this->component->itemsPerPage) {
+		if ($this->component->hasMultiplePages()) {
 			$rc .= $this->renderPaginationStart();
-			$rc .= $this->renderFirstPageLink();
-			$rc .= $this->renderPreviousPageLink();
+			if (!$this->component->showAll) {
+				$rc .= $this->renderFirstPageLink();
+				$rc .= $this->renderPreviousPageLink();
 
-			$firstNumber = $this->component->pageNumber-5;
-			if ($firstNumber < $this->component->firstPage) $firstNumber = $this->component->firstPage;
-			$lastNumber  = $this->component->pageNumber+5;
-			if ($lastNumber > $this->component->lastPage) {
-				$lastNumber = $this->component->lastPage;
-			}
-			for ($i=$firstNumber; $i<=$lastNumber; $i++) {
-				$rc .= $this->renderPageLink($i);
-			}
+				$firstNumber = $this->component->pageNumber-5;
+				if ($firstNumber < $this->component->firstPage) $firstNumber = $this->component->firstPage;
+				$lastNumber  = $this->component->pageNumber+5;
+				if ($lastNumber > $this->component->lastPage) {
+					$lastNumber = $this->component->lastPage;
+				}
+				for ($i=$firstNumber; $i<=$lastNumber; $i++) {
+					$rc .= $this->renderPageLink($i);
+				}
 
-			$rc .= $this->renderNextPageLink();
-			$rc .= $this->renderLastPageLink();
+				$rc .= $this->renderNextPageLink();
+				$rc .= $this->renderLastPageLink();
+			}
+			$rc .= $this->renderShowAllCheck();
 			$rc .= $this->renderPaginationEnd();
 		}
 		return $rc;
@@ -68,31 +71,22 @@ class PaginationRenderer extends \WebApp\Renderer {
 	}
 
 	protected function renderPageNavLink($label, $pageIndex, $isEnabled, $isActive) {
-		$params = $this->getParams($pageIndex);
+		$params = $this->component->getParams($pageIndex);
 		return '<span class="page-item'.($isActive ? ' active' : '').'">'.
 				'<a class="page-link" href="?'.$params.'" aria-label="'.htmlentities($label).'">'.$label.'</a>'.
 			 '</span>';
 	}
 
-	protected function getParams($pageIndex) {
-		$rc = urlencode($this->component->pageParam).'='.$pageIndex;
-		if (!isset($this->keptParams)) {
-			$request = $this->app->request;
-			$this->keptParams = '';
-			foreach ($this->component->keepParams AS $param) {
-				$value = $request->getGetParam($param, NULL);
-				if ($value != NULL) {
-					if (is_string($value)) {
-						$this->keptParams .= '&'.urlencode($param).'='.urlencode($value);
-					} else if (is_array($value)) {
-						foreach ($value AS $v) {
-							$this->keptParams .= '&'.urlencode($param).'[]='.urlencode($v);
-						}
-					}
-				}
-			}
+	protected function renderShowAllCheck() {
+		$checked  = '';
+		$pageLink = '?'.$this->component->getParams();
+		if ($this->component->showAll) {
+			$checked  = ' checked';
+		} else {
+			$pageLink .= '&showAll=showAll';
 		}
-		return $rc.$this->keptParams;
+		return '<li class="page-item" style="padding:0.5em 1em;"><input id="paginationShowAll" type="checkbox" name="showAll" value="showAll"'.$checked.' onChange="window.location=\''.htmlentities($pageLink).'\';"></input> <label for="paginationShowAll">Show All</label></li>';
 	}
+
 }
 

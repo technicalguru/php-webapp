@@ -19,7 +19,7 @@ class PaginationRenderer extends \WebApp\DefaultTheme\PaginationRenderer {
 
 	protected function renderPageNavLink($label, $pageIndex, $isEnabled, $isActive) {
 		return '<li class="page-item'.($isActive ? ' active' : '').'">'.
-				'<a class="page-link" href="?'.$this->getParams($pageIndex).'" aria-label="'.htmlentities($label).'">'.$label.'</a>'.
+				'<a class="page-link" href="?'.$this->component->getParams($pageIndex).'" aria-label="'.htmlentities($label).'">'.$label.'</a>'.
 			 '</li>';
 	}
 }
