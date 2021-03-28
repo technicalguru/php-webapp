@@ -27,6 +27,7 @@ class FieldSet extends Container {
 
 	public function setName($value) {
 		$this->name = $value;
+		return $this;
 	}
 
 	public function getLabel() {
@@ -35,6 +36,7 @@ class FieldSet extends Container {
 
 	public function setLabel($value) {
 		$this->label = $value;
+		return $this;
 	}
 
 	public function isVisible() {
@@ -43,6 +45,7 @@ class FieldSet extends Container {
 
 	public function setVisible($value) {
 		$this->visible = $value;
+		return $this;
 	}
 
 	public function isEnabled() {
@@ -51,6 +54,7 @@ class FieldSet extends Container {
 
 	public function setEnabled($value) {
 		$this->enabled = $value;
+		return $this;
 	}
 
 	public function isActive() {
@@ -59,6 +63,7 @@ class FieldSet extends Container {
 
 	public function setActive($value) {
 		$this->active = $value;
+		return $this;
 	}
 
 }

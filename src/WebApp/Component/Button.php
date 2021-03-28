@@ -15,6 +15,7 @@ class Button extends Container implements SingleValueComponent {
 
 	public function setOnClick($onClick) {
 		$this->setAttribute('onclick', $onClick);
+		return $this;
 	}
 
 	public function getType() {
@@ -23,6 +24,7 @@ class Button extends Container implements SingleValueComponent {
 
 	public function setType($type) {
 		$this->setAttribute('type', $type);
+		return $this;
 	}
 
 	public function getName() {
@@ -31,6 +33,7 @@ class Button extends Container implements SingleValueComponent {
 
 	public function setName($name) {
 		$this->setAttribute('name', $name);
+		return $this;
 	}
 
 	public function getValue() {
@@ -39,6 +42,7 @@ class Button extends Container implements SingleValueComponent {
 
 	public function setValue($value) {
 		$this->setAttribute('value', $value);
+		return $this;
 	}
 
 	public function getEnabled() {
@@ -51,6 +55,7 @@ class Button extends Container implements SingleValueComponent {
 		} else {
 			$this->setAttribute('disabled', 'disabled');
 		}
+		return $this;
 	}
 
 }

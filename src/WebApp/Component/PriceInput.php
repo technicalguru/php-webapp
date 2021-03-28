@@ -24,6 +24,7 @@ class PriceInput extends InputGroup {
 
 	public function setCurrency($value) {
 		$this->currency = $value;
+		return $this;
 	}
 
 	public function getInput() {
@@ -32,6 +33,7 @@ class PriceInput extends InputGroup {
 
 	public function setName($name) {
 		$this->input->setName($name);
+		return $this;
 	}
 
 	public function getName() {
@@ -42,6 +44,7 @@ class PriceInput extends InputGroup {
 		if ($this->input != NULL) {
 			$this->input->setValue($value);
 		}
+		return $this;
 	}
 
 	public function getValue() {
