@@ -37,6 +37,17 @@ class SearchFilterBar extends Form {
 	}
 
 	protected function createFilters() {
+		// Default function will take over all relevant values
+		$request = Request::getRequest();
+		$filters = $request->getParam('filter');
+		if (is_string($filters)) {
+			new HiddenInput($this, 'filter', $filters);
+		} else if (is_array($filters)) {
+			foreach ($filters AS $f) {
+				$i = new HiddenInput($this, NULL, $f);
+				$i->setName('filter[]');
+			}
+		}
 	}
 
 	protected function createSubmitButton() {

@@ -262,11 +262,14 @@ class Router {
 
 		// Make a bottom-2-top search for the class as long as you are in the namespace of the mapEntry
 		$toSearch = $className.'Page';
-			\TgLog\Log::debug('Searching '.$namespace.$toSearch);
 		while (!class_exists($namespace.$toSearch) && (strlen($toSearch) > 0)) {
 			// strip off from last backslash
-			$toSearch = substr($toSearch, 0, strrpos($toSearch, '\\')).'Page';
-			\TgLog\Log::debug('Searching '.$namespace.$toSearch);
+			$pos = strrpos($toSearch, '\\');
+			if ($pos !== FALSE) {
+				$toSearch = substr($toSearch, 0, strrpos($toSearch, '\\')).'Page';
+			} else {
+				$toSearch = '';
+			}
 		}
 		if (class_exists($namespace.$toSearch)) {
 			$className = $toSearch;

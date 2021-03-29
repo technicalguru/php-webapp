@@ -163,6 +163,24 @@ class Component {
 		return $this;
 	}
 
+	public function getData($key) {
+		return $this->getAttribute('data-'.$key, TRUE);
+	}
+
+	public function setData($key, $value) {
+		$this->setAttribute('data-'.$key, $value);
+		return $this;
+	}
+
+	public function getAria($key) {
+		return $this->getAttribute('aria-'.$key, TRUE);
+	}
+
+	public function setAria($key, $value) {
+		$this->setAttribute('aria-'.$key, $value);
+		return $this;
+	}
+
 	public function getPageParent() {
 		$rc = $this->getParent();
 		while (($rc != NULL) && !is_a($rc, 'WebApp\\Page')) {
