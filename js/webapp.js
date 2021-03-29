@@ -149,6 +149,30 @@ WebApp.prototype.i18n = function(key, defaultValue) {
 	return rc;
 };
 
+// show an error
+WebApp.prototype.error = function(title, message, callback) {
+	this.message(title, '<div class="alert alert-danger">'+message+'</div>', callback);
+};
+
+// show a warning
+WebApp.prototype.warning = function(title, message, callback) {
+	this.message(title, '<div class="alert alert-warn">'+message+'</div>', callback);
+};
+
+// show a message
+WebApp.prototype.message = function(title, body, callback) {
+	var modal = new WebAppModal('webAppMessage');
+	modal.setTitle(title);
+	modal.setBody(body);
+	modal.show();
+	jQuery('#webAppMessage').on('hidden.bs.modal', function(evt) {
+		modal.destroy();
+		if (typeof callback == 'function') {
+			callback();
+		}
+	});
+};
+
 // Instantiate this class as singleton
 var webApp = new WebApp();
 
@@ -241,6 +265,8 @@ webApp.registerI18N(new I18N({
 		'no'       : 'Nein',
 		'delete'   : 'Löschen',
 		'continue' : 'Weiter...',
+		'internal_error' : 'Interner Fehler',
+		'error'    : 'Die Aufgabe konnte nicht erfolgreich ausgeführt werden.',
 	},
 	'en' : {
 		'ok'       : 'OK',
@@ -250,5 +276,7 @@ webApp.registerI18N(new I18N({
 		'no'       : 'No',
 		'delete'   : 'Delete',
 		'continue' : 'Proceed...',
+		'internal_error' : 'Internal Error',
+		'error'    : 'The task could not be executed successfully.',
 	},
 }));
