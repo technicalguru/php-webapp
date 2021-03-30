@@ -334,11 +334,11 @@ class Application {
 		if ($this->config->has('logErrors') && $this->config->get('logErrors') && $this->dataModel) {
 			$messages = Log::instance()->messages;
 			if (isset($messages['error']) && (count($messages['error']) > 0)) {
-				$log       = new DataModel\Log();
-				$log->text = '';
+				$log           = new DataModel\Log();
+				$log->log_text = '';
 				foreach ($messages AS $sev => $msgs) {
 					foreach ($msgs AS $msg) {
-						$log->text .= '['.$this->getName().']['.strtoupper($sev).'] '.$msg."\n";
+						$log->log_text .= '['.$this->getName().']['.strtoupper($sev).'] '.$msg."\n";
 					}
 				}
 				$log->log_date = Date::getInstance(time(), WFW_TIMEZONE);
