@@ -260,6 +260,10 @@ class WebAppModal {
 
 	show() {
 		jQuery('#'+this.id).modal('show');
+		var elems = jQuery('.modal-dialog .modal-body input,.modal-dialog .modal-body select');
+		if (elems.length > 0) {
+			elems[0].focus();
+		}
 	}
 
 	hide() {
@@ -274,6 +278,23 @@ class WebAppModal {
 	end() {
 		this.hide();
 		this.destroy();
+	}
+
+	key(evt) {
+		if (evt.keyCode == 27) {
+			// Escape, abort dialog
+			this.end();
+		} else if (evt.keyCode == 13) {
+			// Enter, trigger submit
+			jQuery('.modal-dialog .modal-footer .btn-primary')[0].click();
+		}
+	}
+
+	addFormHandlers() {
+		var modal = this;
+		jQuery('.modal-dialog .modal-body')
+			.on('keydown', function(evt) { modal.key(evt); })
+			.on('keyup',   function(evt) { modal.key(evt); });
 	}
 }
 
