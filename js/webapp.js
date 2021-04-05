@@ -266,6 +266,15 @@ class WebAppModal {
 		}
 	}
 
+	showError(text) {
+		this.hideError();
+		jQuery('.modal-dialog .modal-body').prepend('<div class="alert alert-danger" role="alert">'+text+'</div>');
+	}
+
+	hideError() {
+		jQuery('.modal-dialog .modal-body .alert').remove();
+	}
+
 	hide() {
 		jQuery('#'+this.id).modal('hide');
 	}
