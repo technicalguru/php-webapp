@@ -7,6 +7,7 @@ use TgUtils\Utils;
 
 class Address {
 
+	public $name;
 	public $street1;
 	public $street2;
 	public $province;
@@ -23,6 +24,7 @@ class Address {
 
 	public static function toSingleLine($address) {
 		$rc = '';
+		if (!Utils::isEmpty($address->name))    $rc .= ', '.$address->name;
 		if (!Utils::isEmpty($address->country)) $rc .= ', '.I18N::_($address->country);
 		if (!Utils::isEmpty($address->province))$rc .= ', '.$address->province;
 		if (!Utils::isEmpty($address->city))    $rc .= ', '.$address->city;
