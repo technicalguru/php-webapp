@@ -85,7 +85,7 @@ class PaginationRenderer extends \WebApp\Renderer {
 		} else {
 			$pageLink .= '&showAll=showAll';
 		}
-		return '<li class="page-item" style="padding:0.5em 1em;"><input id="paginationShowAll" type="checkbox" name="showAll" value="showAll"'.$checked.' onChange="window.location=\''.htmlentities($pageLink).'\';"></input> <label for="paginationShowAll">Show All</label></li>';
+		return '<li class="page-item" style="padding:0.5em 1em;"><input id="paginationShowAll" type="checkbox" name="showAll" value="showAll"'.$checked.' onChange="webApp.showSpinner(); window.location=\''.htmlentities($pageLink).'\';"></input> <label for="paginationShowAll">'.I18N::_('show_all').'</label></li>';
 	}
 
 }

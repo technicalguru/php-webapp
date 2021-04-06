@@ -470,6 +470,10 @@ return array(
 		'de' => 'Land',
 		'en' => 'Country',
 	),
+	'show_all' => array(
+		'de' => 'Alle anzeigen',
+		'en' => 'Show all',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
