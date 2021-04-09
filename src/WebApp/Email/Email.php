@@ -7,6 +7,7 @@ class Email extends \TgEmail\Email {
 
 	protected   $app;
 	protected   $request;
+	protected   $language;
 
 	public function __construct($app) {
 		parent::__construct();
@@ -72,7 +73,14 @@ class Email extends \TgEmail\Email {
 		);
 	}
 
+	public function setLanguage($language) {
+		$this->language = $language;
+	}
+
 	protected function getLanguage() {
+		if ($this->language != NULL) {
+			return $this->language;
+		}
 		return $this->request->language;
 	}
 }
