@@ -289,6 +289,32 @@ w\:* {behavior:url(#default#VML);}
         }
         
         /* Style Definitions */
+		body {
+			width: 100% !important;
+			-webkit-text-size-adjust: 100%;
+			-ms-text-size-adjust: 100%;
+			background-color: #FFFFFF;
+		}
+
+		.break-me {
+			word-wrap: break-word;
+			word-break: break-all;
+			overflow-wrap: break-word;
+		}
+
+		img {
+			outline: none;
+			text-decoration: none;
+		}
+
+		a img {
+			border: none;
+		}
+
+		br {
+			line-height: 12px;
+		}
+
         p.MsoNormal,
         li.MsoNormal,
         div.MsoNormal {
@@ -301,6 +327,20 @@ w\:* {behavior:url(#default#VML);}
             mso-fareast-language: EN-US;
         }
         
+		h1, h2, h3, h4, h5, h6 {
+			color: $headerColor !important;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			outline: 0;
+			font-weight: inherit;
+			font-style: inherit;
+			font-size: 100%;
+			font-family: inherit;
+			vertical-align: baseline;
+			/* Reset - https://css-tricks.com/snippets/css/meyer-reset/ */
+		}
+
         h1 {
             mso-style-priority: 9;
             mso-style-link: "Überschrift 2 Zchn";
@@ -341,8 +381,7 @@ w\:* {behavior:url(#default#VML);}
         
         p {
             mso-style-priority: 99;
-            margin: 0cm;
-            margin-bottom: .0001pt;
+			margin: 1em 0;
             font-family: Nunito, sans-serif;
             color: $textColor;
         }
@@ -405,15 +444,119 @@ w\:* {behavior:url(#default#VML);}
             page: WordSection1;
         }
         
+		table td {
+			border-collapse: collapse;
+		}
+
+		@media only screen and (device-width: 768px) {
+			a,
+			a:link,
+			a:visited,
+			a:active {
+				text-decoration: none !important;
+			}
+			/* fix unwanted styling on date, tel and address */
+			a:hover {
+				text-decoration: underline !important;
+			}
+		}
+
+
+		@media (inverted-colors) {
+			img {
+				filter: invert(1);
+			}
+		}
+
+		@media only screen and (min-width:50px) and (max-width:768px) {
+			.bart-td {
+				padding-right: 20px !important;
+				padding-left: 0px !important;
+				padding-top: 4px !important;
+				padding-bottom: 2px !important;
+			}
+
+			.product-name-td {
+				padding-right: 20px !important;
+			}
+			.base-price-td {
+				padding-top: 2px !important;
+				padding-right: 20px !important;
+			}
+			.qty-price-td {
+				padding-right: 20px !important;
+				padding-bottom: 6px !important;
+			}
+			.product-image-td {
+				width: 86px !important;
+				padding-left: 20px !important;
+				padding-right: 7px !important;
+			}
+			.product-image-img {
+				width: 86px !important;
+				height: 86px !important;
+			}
+			.product-image-apu {
+				width: 25px !important;
+				height: auto !important;
+			}
+			.product-image-td-child {
+				width: 86px !important;
+				padding-left: 20px !important;
+				padding-top: 18px !important;
+			}
+			.product-image-td-apu {
+				width: 86px !important;
+				padding-left: 20px !important;
+				padding-top: 0px !important;
+			}
+			.product-list-table {
+				padding: 0px !important;
+				width: 100% !important;
+			}
+			.pad-lr {
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+			.pad-r {
+				padding-right: 20px !important;
+			}
+			span {
+				display: inline-block !important;
+			}
+			.padtop-20 {
+				width: 100% !important;
+				padding-top: 20px !important;
+				padding-left: 0px !important;
+				padding-bottom: 0px !important;
+			}
+			.padtop-10 {
+				width: 100% !important;
+				padding-top: 10px !important;
+				padding-left: 0px !important;
+				padding-bottom: 0px !important;
+			}
+			.moe-line-col {
+				background-color: #D6D6D6 !important;
+			}
+			ul {
+				padding-left: 20px !important;
+				padding-top: 6px !important;
+				padding-bottom: 0px !important;
+			}
+		}
+
+
         -->
     </style>
     <!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1028" />
-</xml><![endif]-->
+		<o:shapedefaults v:ext="edit" spidmax="1028" />
+		</xml><![endif]-->
     <!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
+		<o:shapelayout v:ext="edit">
+		<o:idmap v:ext="edit" data="1" />
+		</o:shapelayout></xml>
+	<![endif]-->
 </head>
 
 <body lang="$language" link="#0563C1" vlink="#954F72">
