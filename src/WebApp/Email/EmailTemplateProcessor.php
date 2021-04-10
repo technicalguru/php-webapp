@@ -18,5 +18,10 @@ class EmailTemplateProcessor extends \TgUtils\Templating\Processor {
 	public function getStyle() {
 		return $this->style;
 	}
+
+	public function process($s) {
+		if (is_object($s)) $s = $s->getTemplate($this->style, $this->language);
+		return parent::process($s);
+	}
 }
 
