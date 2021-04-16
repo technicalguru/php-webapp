@@ -43,6 +43,7 @@ class Application {
 		$this->initSession();
 		$this->initRouter();
 		$this->initMailQueue();
+		$this->initMaintenance();
 	}
 
 	protected function initVault() {
@@ -151,17 +152,19 @@ class Application {
 
 	/** A router can use this method to check whether we are in maintenance */
 	public function isMaintenance() {
-		if (!isset($this->maintenanceMode))  {
-			$this->maintenanceMode = $this->config->has('maintenance') && $this->config->get('maintenance');
-			// Set a maintenance user if available and no other user online
-			if ($this->maintenanceMode && !isset($this->maintenanceUser)) {
-				$this->maintenanceUser = $this->getMaintenanceUser();
-				if ($this->maintenanceUser != NULL) {
-					$this->principal       = $this->maintenanceUser;
-				}
+		return $this->config->has('maintenance') && $this->config->get('maintenance');
+	}
+
+	/** Init parameters for maintenance */
+	public function initMaintenance() {
+		$this->maintenanceMode = $this->isMaintenance();
+		// Set a maintenance user if available and no other user online
+		if ($this->maintenanceMode && !isset($this->maintenanceUser)) {
+			$this->maintenanceUser = $this->getMaintenanceUser();
+			if ($this->maintenanceUser != NULL) {
+				$this->principal       = $this->maintenanceUser;
 			}
 		}
-		return $this->maintenanceMode;
 	}
 
 	/**
