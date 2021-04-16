@@ -369,14 +369,14 @@ w\:* {behavior:url(#default#VML);}
         span.MsoHyperlink {
             mso-style-priority: 99;
             color: #0563C1;
-            text-decoration: underline;
+            text-decoration: none;
         }
         
         a:visited,
         span.MsoHyperlinkFollowed {
             mso-style-priority: 99;
             color: #954F72;
-            text-decoration: underline;
+            text-decoration: none;
         }
         
         p {
@@ -457,7 +457,7 @@ w\:* {behavior:url(#default#VML);}
 			}
 			/* fix unwanted styling on date, tel and address */
 			a:hover {
-				text-decoration: underline !important;
+				text-decoration: none;
 			}
 		}
 
