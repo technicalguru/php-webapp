@@ -22,10 +22,10 @@ class Address {
 		return !Utils::isEmpty($this->street1) && !Utils::isEmpty($this->zipCode) && !Utils::isEmpty($this->city) && !Utils::isEmpty($this->country);
 	}
 
-	public static function toSingleLine($address) {
+	public static function toSingleLine($address, $language = NULL) {
 		$rc = '';
 		if (!Utils::isEmpty($address->name))    $rc .= ', '.$address->name;
-		if (!Utils::isEmpty($address->country)) $rc .= ', '.I18N::_($address->country);
+		if (!Utils::isEmpty($address->country)) $rc .= ', '.I18N::_($address->country, $language);
 		if (!Utils::isEmpty($address->province))$rc .= ', '.$address->province;
 		if (!Utils::isEmpty($address->city))    $rc .= ', '.$address->city;
 		if (!Utils::isEmpty($address->zipCode)) $rc .= ', '.$address->zipCode;
