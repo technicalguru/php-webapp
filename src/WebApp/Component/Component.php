@@ -12,6 +12,7 @@ class Component {
 	protected $attributes;
 	protected $annotations;
 	protected $styles;
+	public    $customId;
 
 	public function __construct($parent) {
 		$this->parent      = $parent;
@@ -21,6 +22,7 @@ class Component {
 		$this->attributes  = array();
 		$this->annotations = array();
 		$this->styles      = array();
+		$this->customId    = FALSE;
 	}
 
 	private static function createUid() {
@@ -42,6 +44,7 @@ class Component {
 
 	public function setId($id) {
 		$this->id = $id;
+		$this->customId = TRUE;
 		return $this;
 	}
 

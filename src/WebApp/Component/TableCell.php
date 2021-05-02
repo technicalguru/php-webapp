@@ -17,6 +17,7 @@ class TableCell extends Container {
 
 	public function setColSpan($colspan) {
 		$this->setAttribute('colspan', $colspan);
+		return $this;
 	}
 
 	public function getRowSpan() {
@@ -25,10 +26,12 @@ class TableCell extends Container {
 
 	public function setRowSpan($rowspan) {
 		$this->setAttribute('rowspan', $rowspan);
+		return $this;
 	}
 
 	public function setHeading($heading = TRUE) {
 		$this->heading = $heading;
+		return $this;
 	}
 
 	public function isHeading() {
