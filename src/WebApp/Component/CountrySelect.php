@@ -21,7 +21,7 @@ class CountrySelect extends Select {
 		return $rc;
 	}
 
-	protected static function getSupportedCountries() {
+	public static function getSupportedCountries() {
 		return array(
 			Countries::AL,
 			Countries::AD,
