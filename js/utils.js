@@ -22,6 +22,13 @@ WebAppUtils.lpad = function(len, pad, s) {
     return rc;
 };
 
+WebAppUtils.formatNumber = function(n, precision, decimalSeparator, thousandSeparator) {
+	if (typeof decimalSeparator  == 'undefined') decimalSeparator  = '.';
+	if (typeof thousandSeparator == 'undefined') thousandSeparator = ',';
+	var s = n.toFixed(2).replace('.', decimalSeparator);
+	return s;
+};
+
 // Test if string is empty
 WebAppUtils.isEmpty = function(s) {
 	return (0 === s.trim().length);
