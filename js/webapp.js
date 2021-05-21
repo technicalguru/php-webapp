@@ -348,6 +348,8 @@ webApp.registerI18N(new I18N({
 		'continue' : 'Weiter...',
 		'internal_error' : 'Interner Fehler',
 		'error'    : 'Die Aufgabe konnte nicht erfolgreich ausgeführt werden.',
+		'decimalSep' : ',',
+		'thousandSep' : '.',
 	},
 	'en' : {
 		'ok'       : 'OK',
@@ -359,5 +361,7 @@ webApp.registerI18N(new I18N({
 		'continue' : 'Proceed...',
 		'internal_error' : 'Internal Error',
 		'error'    : 'The task could not be executed successfully.',
+		'decimalSep' : '.',
+		'thousandSep' : ',',
 	},
 }));
