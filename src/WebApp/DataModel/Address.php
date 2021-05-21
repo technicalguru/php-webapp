@@ -19,7 +19,11 @@ class Address {
 	}
 
 	public function isComplete() {
-		return !Utils::isEmpty($this->street1) && !Utils::isEmpty($this->zipCode) && !Utils::isEmpty($this->city) && !Utils::isEmpty($this->country);
+		return self::isAddressComplete($this);
+	}
+
+	public static function isAddressComplete($address) {
+		return !Utils::isEmpty($address->street1) && !Utils::isEmpty($address->zipCode) && !Utils::isEmpty($address->city) && !Utils::isEmpty($address->country);
 	}
 
 	public static function toSingleLine($address, $language = NULL) {
