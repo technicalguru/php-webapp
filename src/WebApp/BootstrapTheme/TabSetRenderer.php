@@ -36,7 +36,7 @@ class TabSetRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		$idPrefix       = $this->component->getId().'-nav';
 		$tabPrefix      = $this->component->getId().'-tab';
 		$navLinkClasses = implode(' ', $this->component->getNavLinkClasses());
-		$rc = '<ul id="'.$idPrefix.'" class="nav nav-tabs">';
+		$rc = '<ul id="'.$idPrefix.'" class="nav nav-tabs" aria-role="tab-nav">';
 		foreach ($this->component->getChildren() AS $tab) {
 			$id    = $idPrefix.'-'.$tab->getId();
 			$tabId = $tabPrefix.'-'.$tab->getId();
@@ -52,7 +52,7 @@ class TabSetRenderer extends \WebApp\DefaultTheme\DivRenderer {
 	public function renderContent() {
 		$idPrefix       = $this->component->getId().'-tab';
 		$tabPaneClasses = implode(' ', $this->component->getTabPaneClasses());
-		$rc = '<div id="'.$idPrefix.'" class="tab-content">';
+		$rc = '<div id="'.$idPrefix.'" class="tab-content" aria-role="tab-content">';
 		foreach ($this->component->getChildren() AS $tab) {
 			$id  = $idPrefix.'-'.$tab->getId();
 			$tab->setId($id);
