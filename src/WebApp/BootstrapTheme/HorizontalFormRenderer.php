@@ -45,9 +45,11 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		// Construct the components
 		$tabSet = new \WebApp\Component\TabSet(NULL, $this->component->getId().'fieldsets');
 		$tabSet->addClass('tabbed-fieldsets');
+		$tabSet->setAria('role', 'fieldsets');
 		foreach ($this->component->getFieldSets() AS $fieldSet) {
 			if ($fieldSet->isVisible()) {
 				$tab = $tabSet->createTab($fieldSet->getId(), $fieldSet->getLabel(), $fieldSet);
+				$tab->setAria('role', 'fieldset');
 				$tab->addClass('p-4');
 			}
 		}

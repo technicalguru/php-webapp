@@ -20,6 +20,7 @@ class I18nFormElementRenderer extends \WebApp\Renderer {
 			$tabSet->removeClass('pb-4');
 			$tabSet->addNavLinkClass('i18n-form-element');
 			$tabSet->addClass($this->getAttribute('class', TRUE));
+			$tabSet->setAria('role', 'i18n-input');
 			foreach ($this->getStyles(TRUE) AS $key => $value) {
 				$tabSet->setStyle($key, $value);
 			}
