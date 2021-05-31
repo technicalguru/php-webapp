@@ -11,16 +11,31 @@ class Page extends Component\Component {
 	protected $app;
 	protected $request;
 	protected $display;
+	protected $annotations;
 
 	public function __construct($app) {
 		parent::__construct(NULL);
-		$this->app     = $app;
-		$this->request = \TgUtils\Request::getRequest();
-		$this->display = 'public';
+		$this->app         = $app;
+		$this->request     = \TgUtils\Request::getRequest();
+		$this->display     = 'public';
+		$this->annotations = array();
 		$i18n = $this->getTranslations();
 		if (($i18n != NULL) && is_array($i18n) && (count($i18n)>0)) {
 			\TgI18n\I18N::addValues($i18n);
 		}
+	}
+
+	public function getAnnotations() {
+		return $this->annotations;
+	}
+
+	public function getAnnotation($key, $default = NULL) {
+		return isset($this->annotations[$key]) ? $this->annotations[$key] : $default;
+	}
+
+	public function setAnnotation($key, $value) {
+		$this->annotations[$key] = $value;
+		return $this;
 	}
 
 	public function getTranslations() {
