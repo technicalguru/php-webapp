@@ -14,6 +14,7 @@ class BootstrapTheme extends \WebApp\DefaultTheme\DefaultTheme {
 	public const REMOTESEARCH       = 'remotesearch';
 	public const DYNAMICFIELDS      = 'dynamicfields';
 	public const DYNAMICCHECKENABLE = 'dynamiccheckenable';
+	public const CSS_URI            = 'BootstrapTheme/CssUri';
 
 	public function __construct($app) {
 		parent::__construct($app);

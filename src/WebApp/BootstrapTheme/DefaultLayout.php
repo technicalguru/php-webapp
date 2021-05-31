@@ -15,10 +15,14 @@ class DefaultLayout extends \WebApp\Layout {
 		parent::__construct($theme, $page);
 	}
 
+	protected function getBootstrapUri() {
+		return $this->page->getAnnotation(BootstrapTheme::CSS_URI, $webroot.Bootstrap::getCssUri());
+	}
+
 	protected function renderLinks() {
 		$webroot = $this->app->request->webRoot;
 		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
-		       '<link rel="stylesheet" href="'.$webroot.Bootstrap::getCssUri().'" rel="stylesheet" type="text/css">';
+		       '<link rel="stylesheet" href="'.$this->getBootstrapUri().'" rel="stylesheet" type="text/css">';
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
 		}
