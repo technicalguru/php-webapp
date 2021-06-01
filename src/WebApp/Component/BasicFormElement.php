@@ -9,6 +9,7 @@ class BasicFormElement extends Container {
 	protected $label;
 	protected $help;
 	protected $group;
+	protected $hidden;
 
 	public function __construct($parent, $id) {
 		parent::__construct($parent);
@@ -16,7 +17,20 @@ class BasicFormElement extends Container {
 			$this->setId($id);
 			$this->setName($id);
 		}
-		$this->group = FALSE;
+		$this->group  = FALSE;
+		$this->hidden = FALSE;
+	}
+
+	public function hide() {
+		$this->hidden = TRUE;
+	}
+
+	public function show() {
+		$this->hidden = FALSE;
+	}
+
+	public function isHidden() {
+		return $this->hidden;
 	}
 
 	public function isGroup() {

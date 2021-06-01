@@ -95,7 +95,8 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		if ($child->isGroup()) $rc = $this->renderGeneralFormGroup($child);
 		else {
 			$error = $child->getError();
-			$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
+			$style = $child->isHidden() ? ' style="display: none;"' : '';
+			$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'"'.$style.'>';
 			$label = $child->getLabel();
 			if ($label != NULL) {
 				$rc .= '<label for="'.htmlentities($child->getId()).'" class="'.$this->getLabelSizeClasses($child).' col-form-label">'.$label.'</label>';
@@ -122,7 +123,8 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function renderGeneralFormGroup($child) {
-		$rc = '<div class="form-group"  id="form-row-'.$child->getId().'">'.
+		$style = $child->isHidden() ? ' style="display: none;"' : '';
+		$rc = '<div class="form-group"  id="form-row-'.$child->getId().'"'.$style.'>'.
 		         '<div class="row">';
 		$label = $child->getLabel();
 		if ($label == NULL) $label = '';
