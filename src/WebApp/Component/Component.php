@@ -114,7 +114,7 @@ class Component {
 	}
 
 	public function setAttribute($name, $value) {
-		if ($value != NULL) {
+		if ($value !== NULL) {
 			$this->attributes[$name] = array($value);
 		} else {
 			unset($this->attributes[$name]);
