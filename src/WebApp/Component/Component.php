@@ -106,7 +106,7 @@ class Component {
 	}
 
 	public function addAttribute($name, $value) {
-		if ($value != NULL) {
+		if ($value !== NULL) {
 			if (!isset($this->attributes[$name])) $this->attributes[$name] = array();
 			$this->attributes[$name][] = $value;
 		}
@@ -140,7 +140,7 @@ class Component {
 	public function hasAttribute($name, $value = NULL) {
 		if (isset($this->attributes[$name])) {
 			$values = $this->attributes[$name];
-			if ($value != NULL) {
+			if ($value !== NULL) {
 				if (is_array($values)) return in_array($value, $values);
 				return $values == $value;
 			}
