@@ -254,8 +254,7 @@ class Countries {
 
 	public static function ALL() {
 		if (self::$all == NULL) {
-			self::$all = array(
-			);
+			self::$all = array_keys(self::getTranslations());
 		}
 		return self::$all;
 	}
@@ -265,7 +264,7 @@ class Countries {
 			self::$europe = array(
 			);
 		}
-		return self::$all;
+		return self::$europe;
 	}
 
 	public static function EU() {
