@@ -311,7 +311,7 @@ class Countries {
 	public static function getTranslations() {
 		return array(
 			self::AF => array(
-				'de' => '',
+				'de' => 'Afghanistan',
 				'en' => 'Afghanistan',
 			),
 			self::AL => array(
@@ -323,7 +323,7 @@ class Countries {
 				'en' => 'Algeria',
 			),
 			self::AS => array(
-				'de' => '',
+				'de' => 'Amerikanisch-Samoa',
 				'en' => 'American Samoa',
 			),
 			self::AD => array(
@@ -331,31 +331,31 @@ class Countries {
 				'en' => 'Andorra',
 			),
 			self::AO => array(
-				'de' => '',
+				'de' => 'Angola',
 				'en' => 'Angola',
 			),
 			self::AI => array(
-				'de' => '',
+				'de' => 'Anguilla',
 				'en' => 'Anguilla',
 			),
 			self::AQ => array(
-				'de' => '',
+				'de' => 'Antarktis',
 				'en' => 'Antarctica',
 			),
 			self::AG => array(
-				'de' => '',
+				'de' => 'Antigua und Barbuda',
 				'en' => 'Antigua and Barbuda',
 			),
 			self::AR => array(
-				'de' => '',
+				'de' => 'Argentinien',
 				'en' => 'Argentina',
 			),
 			self::AM => array(
-				'de' => '',
+				'de' => 'Armenien',
 				'en' => 'Armenia',
 			),
 			self::AW => array(
-				'de' => '',
+				'de' => 'Aruba',
 				'en' => 'Aruba',
 			),
 			self::AU => array(
@@ -367,27 +367,27 @@ class Countries {
 				'en' => 'Austria',
 			),
 			self::AZ => array(
-				'de' => '',
+				'de' => 'Aserbaidschan',
 				'en' => 'Azerbaijan',
 			),
 			self::BS => array(
-				'de' => '',
+				'de' => 'Bahamas',
 				'en' => 'Bahamas',
 			),
 			self::BH => array(
-				'de' => '',
+				'de' => 'Bahrain',
 				'en' => 'Bahrain',
 			),
 			self::BD => array(
-				'de' => '',
+				'de' => 'Bangladesch',
 				'en' => 'Bangladesh',
 			),
 			self::BB => array(
-				'de' => '',
+				'de' => 'Barbados',
 				'en' => 'Barbados',
 			),
 			self::BY => array(
-				'de' => '',
+				'de' => 'Belarus',
 				'en' => 'Belarus',
 			),
 			self::BE => array(
@@ -395,23 +395,23 @@ class Countries {
 				'en' => 'Belgium',
 			),
 			self::BZ => array(
-				'de' => '',
+				'de' => 'Belize',
 				'en' => 'Belize',
 			),
 			self::BJ => array(
-				'de' => '',
+				'de' => 'Benin',
 				'en' => 'Benin',
 			),
 			self::BM => array(
-				'de' => '',
+				'de' => 'Bermuda',
 				'en' => 'Bermuda',
 			),
 			self::BT => array(
-				'de' => '',
+				'de' => 'Bhutan',
 				'en' => 'Bhutan',
 			),
 			self::BO => array(
-				'de' => '',
+				'de' => 'Bolivien',
 				'en' => 'Bolivia',
 			),
 			self::BA => array(
@@ -419,11 +419,11 @@ class Countries {
 				'en' => 'Bosnia and Herzegovina',
 			),
 			self::BW => array(
-				'de' => '',
+				'de' => 'Botswana',
 				'en' => 'Botswana',
 			),
 			self::BV => array(
-				'de' => '',
+				'de' => 'Bouvetinsel',
 				'en' => 'Bouvet Island',
 			),
 			self::BR => array(
@@ -431,11 +431,11 @@ class Countries {
 				'en' => 'Brazil',
 			),
 			self::IO => array(
-				'de' => '',
+				'de' => 'Britisches Territorium im Indischen Ozean',
 				'en' => 'British Indian Ocean Territory',
 			),
 			self::BN => array(
-				'de' => '',
+				'de' => 'Brunei Darussalam',
 				'en' => 'Brunei Darussalam',
 			),
 			self::BG => array(
@@ -443,15 +443,15 @@ class Countries {
 				'en' => 'Bulgaria',
 			),
 			self::BF => array(
-				'de' => '',
+				'de' => 'Burkina Faso',
 				'en' => 'Burkina Faso',
 			),
 			self::BI => array(
-				'de' => '',
+				'de' => 'Burundi',
 				'en' => 'Burundi',
 			),
 			self::KH => array(
-				'de' => '',
+				'de' => 'Kambodscha',
 				'en' => 'Cambodia',
 			),
 			self::CM => array(
@@ -463,23 +463,23 @@ class Countries {
 				'en' => 'Canada',
 			),
 			self::CV => array(
-				'de' => '',
+				'de' => 'Kab Verde',
 				'en' => 'Cape Verde',
 			),
 			self::KY => array(
-				'de' => '',
+				'de' => 'Cayman-Inseln',
 				'en' => 'Cayman Islands',
 			),
 			self::CF => array(
-				'de' => '',
+				'de' => 'Zentralafrikanische Republik',
 				'en' => 'Central African Republic',
 			),
 			self::TD => array(
-				'de' => '',
+				'de' => 'Tschad',
 				'en' => 'Chad',
 			),
 			self::CL => array(
-				'de' => '',
+				'de' => 'Chile',
 				'en' => 'Chile',
 			),
 			self::CN => array(
@@ -487,11 +487,11 @@ class Countries {
 				'en' => 'China',
 			),
 			self::CX => array(
-				'de' => '',
+				'de' => 'Weihnachtsinseln',
 				'en' => 'Christmas Island',
 			),
 			self::CC => array(
-				'de' => '',
+				'de' => 'Kokosinsel (Keeling)',
 				'en' => 'Cocos (Keeling) Islands',
 			),
 			self::CO => array(
@@ -499,7 +499,7 @@ class Countries {
 				'en' => 'Colombia',
 			),
 			self::KM => array(
-				'de' => '',
+				'de' => 'Komoren',
 				'en' => 'Comoros',
 			),
 			self::CG => array(
@@ -507,19 +507,19 @@ class Countries {
 				'en' => 'Congo',
 			),
 			self::CD => array(
-				'de' => '',
+				'de' => 'Kongo, Demokratische Republik',
 				'en' => 'Congo, the Democratic Republic of the',
 			),
 			self::CK => array(
-				'de' => '',
+				'de' => 'Cook-Inseln',
 				'en' => 'Cook Islands',
 			),
 			self::CR => array(
-				'de' => '',
+				'de' => 'Costa Rica',
 				'en' => 'Costa Rica',
 			),
 			self::CI => array(
-				'de' => '',
+				'de' => 'Elfenbeinküste',
 				'en' => 'Cote D\'Ivoire',
 			),
 			self::HR => array(
@@ -543,19 +543,19 @@ class Countries {
 				'en' => 'Denmark',
 			),
 			self::DJ => array(
-				'de' => '',
+				'de' => 'Djibouti',
 				'en' => 'Djibouti',
 			),
 			self::DM => array(
-				'de' => '',
+				'de' => 'Dominica',
 				'en' => 'Dominica',
 			),
 			self::DO => array(
-				'de' => '',
+				'de' => 'Dominikanische Republik',
 				'en' => 'Dominican Republic',
 			),
 			self::EC => array(
-				'de' => '',
+				'de' => 'Equador',
 				'en' => 'Ecuador',
 			),
 			self::EG => array(
@@ -563,15 +563,15 @@ class Countries {
 				'en' => 'Egypt',
 			),
 			self::SV => array(
-				'de' => '',
+				'de' => 'El Salvador',
 				'en' => 'El Salvador',
 			),
 			self::GQ => array(
-				'de' => '',
+				'de' => 'Äquatorial-Guinea',
 				'en' => 'Equatorial Guinea',
 			),
 			self::ER => array(
-				'de' => '',
+				'de' => 'Eritrea',
 				'en' => 'Eritrea',
 			),
 			self::EE => array(
@@ -583,15 +583,15 @@ class Countries {
 				'en' => 'Ethiopia',
 			),
 			self::FK => array(
-				'de' => '',
+				'de' => 'Falkland-Inseln',
 				'en' => 'Falkland Islands (Malvinas)',
 			),
 			self::FO => array(
-				'de' => '',
+				'de' => 'Faroe-Inseln',
 				'en' => 'Faroe Islands',
 			),
 			self::FJ => array(
-				'de' => '',
+				'de' => 'Fidschi',
 				'en' => 'Fiji',
 			),
 			self::FI => array(
@@ -603,23 +603,23 @@ class Countries {
 				'en' => 'France',
 			),
 			self::GF => array(
-				'de' => '',
+				'de' => 'Französisch-Guiana',
 				'en' => 'French Guiana',
 			),
 			self::PF => array(
-				'de' => '',
+				'de' => 'Französisch-Polynesien',
 				'en' => 'French Polynesia',
 			),
 			self::TF => array(
-				'de' => '',
+				'de' => 'Französische Süd- und Antarktisgebiete',
 				'en' => 'French Southern Territories',
 			),
 			self::GA => array(
-				'de' => '',
+				'de' => 'Gabun',
 				'en' => 'Gabon',
 			),
 			self::GM => array(
-				'de' => '',
+				'de' => 'Gambia',
 				'en' => 'Gambia',
 			),
 			self::GE => array(
@@ -631,7 +631,7 @@ class Countries {
 				'en' => 'Germany',
 			),
 			self::GH => array(
-				'de' => '',
+				'de' => 'Ghana',
 				'en' => 'Ghana',
 			),
 			self::GI => array(
@@ -647,51 +647,51 @@ class Countries {
 				'en' => 'Greenland',
 			),
 			self::GD => array(
-				'de' => '',
+				'de' => 'Grenada',
 				'en' => 'Grenada',
 			),
 			self::GP => array(
-				'de' => '',
+				'de' => 'Guadaloupe',
 				'en' => 'Guadeloupe',
 			),
 			self::GU => array(
-				'de' => '',
+				'de' => 'Guam',
 				'en' => 'Guam',
 			),
 			self::GT => array(
-				'de' => '',
+				'de' => 'Guatemala',
 				'en' => 'Guatemala',
 			),
 			self::GN => array(
-				'de' => '',
+				'de' => 'Guinea',
 				'en' => 'Guinea',
 			),
 			self::GW => array(
-				'de' => '',
+				'de' => 'Guinea-Bissau',
 				'en' => 'Guinea-Bissau',
 			),
 			self::GY => array(
-				'de' => '',
+				'de' => 'Guyana',
 				'en' => 'Guyana',
 			),
 			self::HT => array(
-				'de' => '',
+				'de' => 'Haiti',
 				'en' => 'Haiti',
 			),
 			self::HM => array(
-				'de' => '',
+				'de' => 'Heard-Insel und McDonaldinseln',
 				'en' => 'Heard Island and Mcdonald Islands',
 			),
 			self::VA => array(
-				'de' => '',
+				'de' => 'Vatikanstadt',
 				'en' => 'Holy See (Vatican City State)',
 			),
 			self::HN => array(
-				'de' => '',
+				'de' => 'Honduras',
 				'en' => 'Honduras',
 			),
 			self::HK => array(
-				'de' => '',
+				'de' => 'Hongkong',
 				'en' => 'Hong Kong',
 			),
 			self::HU => array(
@@ -715,7 +715,7 @@ class Countries {
 				'en' => 'Iran, Islamic Republic of',
 			),
 			self::IQ => array(
-				'de' => '',
+				'de' => 'Irak',
 				'en' => 'Iraq',
 			),
 			self::IE => array(
@@ -731,7 +731,7 @@ class Countries {
 				'en' => 'Italy',
 			),
 			self::JM => array(
-				'de' => '',
+				'de' => 'Jamaika',
 				'en' => 'Jamaica',
 			),
 			self::JP => array(
@@ -739,39 +739,39 @@ class Countries {
 				'en' => 'Japan',
 			),
 			self::JO => array(
-				'de' => '',
+				'de' => 'Jordanien',
 				'en' => 'Jordan',
 			),
 			self::KZ => array(
-				'de' => '',
+				'de' => 'Kasachstan',
 				'en' => 'Kazakhstan',
 			),
 			self::KE => array(
-				'de' => '',
+				'de' => 'Kenia',
 				'en' => 'Kenya',
 			),
 			self::KI => array(
-				'de' => '',
+				'de' => 'Kiribati',
 				'en' => 'Kiribati',
 			),
 			self::KP => array(
-				'de' => '',
+				'de' => 'Korea, Demokratische Volksrepublik',
 				'en' => 'Korea, Democratic People\'s Republic of',
 			),
 			self::KR => array(
-				'de' => '',
+				'de' => 'Südkorea',
 				'en' => 'Korea, Republic of',
 			),
 			self::KW => array(
-				'de' => '',
+				'de' => 'Kuweit',
 				'en' => 'Kuwait',
 			),
 			self::KG => array(
-				'de' => '',
+				'de' => 'Kirgisien',
 				'en' => 'Kyrgyzstan',
 			),
 			self::LA => array(
-				'de' => '',
+				'de' => 'Laos, Demokratische Volksrepublik',
 				'en' => 'Lao People\'s Democratic Republic',
 			),
 			self::LV => array(
@@ -783,15 +783,15 @@ class Countries {
 				'en' => 'Lebanon',
 			),
 			self::LS => array(
-				'de' => '',
+				'de' => 'Lesotho',
 				'en' => 'Lesotho',
 			),
 			self::LR => array(
-				'de' => '',
+				'de' => 'Liberien',
 				'en' => 'Liberia',
 			),
 			self::LY => array(
-				'de' => '',
+				'de' => 'Libyen',
 				'en' => 'Libyan Arab Jamahiriya',
 			),
 			self::LI => array(
@@ -807,7 +807,7 @@ class Countries {
 				'en' => 'Luxembourg',
 			),
 			self::MO => array(
-				'de' => '',
+				'de' => 'Macao',
 				'en' => 'Macao',
 			),
 			self::MK => array(
@@ -815,19 +815,19 @@ class Countries {
 				'en' => 'Macedonia, the Former Yugoslav Republic of',
 			),
 			self::MG => array(
-				'de' => '',
+				'de' => 'Madagaskar',
 				'en' => 'Madagascar',
 			),
 			self::MW => array(
-				'de' => '',
+				'de' => 'Malawi',
 				'en' => 'Malawi',
 			),
 			self::MY => array(
-				'de' => '',
+				'de' => 'Malaysia',
 				'en' => 'Malaysia',
 			),
 			self::MV => array(
-				'de' => '',
+				'de' => 'Malediven',
 				'en' => 'Maldives',
 			),
 			self::ML => array(
@@ -839,31 +839,31 @@ class Countries {
 				'en' => 'Malta',
 			),
 			self::MH => array(
-				'de' => '',
+				'de' => 'Marschall-Inseln',
 				'en' => 'Marshall Islands',
 			),
 			self::MQ => array(
-				'de' => '',
+				'de' => 'Martinique',
 				'en' => 'Martinique',
 			),
 			self::MR => array(
-				'de' => '',
+				'de' => 'Mauretanien',
 				'en' => 'Mauritania',
 			),
 			self::MU => array(
-				'de' => '',
+				'de' => 'Mauritius',
 				'en' => 'Mauritius',
 			),
 			self::YT => array(
-				'de' => '',
+				'de' => 'Mayotte',
 				'en' => 'Mayotte',
 			),
 			self::MX => array(
-				'de' => '',
+				'de' => 'Mexiko',
 				'en' => 'Mexico',
 			),
 			self::FM => array(
-				'de' => '',
+				'de' => 'Mikronesien',
 				'en' => 'Micronesia, Federated States of',
 			),
 			self::MD => array(
@@ -875,7 +875,7 @@ class Countries {
 				'en' => 'Monaco',
 			),
 			self::MN => array(
-				'de' => '',
+				'de' => 'Mongolei',
 				'en' => 'Mongolia',
 			),
 			self::MS => array(
@@ -883,27 +883,27 @@ class Countries {
 				'en' => 'Montserrat',
 			),
 			self::MA => array(
-				'de' => '',
+				'de' => 'Marokko',
 				'en' => 'Morocco',
 			),
 			self::MZ => array(
-				'de' => '',
+				'de' => 'Mosambik',
 				'en' => 'Mozambique',
 			),
 			self::MM => array(
-				'de' => '',
+				'de' => 'Myanmar',
 				'en' => 'Myanmar',
 			),
 			self::NA => array(
-				'de' => '',
+				'de' => 'Namibia',
 				'en' => 'Namibia',
 			),
 			self::NR => array(
-				'de' => '',
+				'de' => 'Nauru',
 				'en' => 'Nauru',
 			),
 			self::NP => array(
-				'de' => '',
+				'de' => 'Nepal',
 				'en' => 'Nepal',
 			),
 			self::NL => array(
@@ -911,39 +911,39 @@ class Countries {
 				'en' => 'Netherlands',
 			),
 			self::AN => array(
-				'de' => '',
+				'de' => 'Niederländische Antillen',
 				'en' => 'Netherlands Antilles',
 			),
 			self::NC => array(
-				'de' => '',
+				'de' => 'Neukaledonien',
 				'en' => 'New Caledonia',
 			),
 			self::NZ => array(
-				'de' => '',
+				'de' => 'Neuseeland',
 				'en' => 'New Zealand',
 			),
 			self::NI => array(
-				'de' => '',
+				'de' => 'Nikaragua',
 				'en' => 'Nicaragua',
 			),
 			self::NE => array(
-				'de' => '',
+				'de' => 'Niger',
 				'en' => 'Niger',
 			),
 			self::NG => array(
-				'de' => '',
+				'de' => 'Nigeria',
 				'en' => 'Nigeria',
 			),
 			self::NU => array(
-				'de' => '',
+				'de' => 'Niue',
 				'en' => 'Niue',
 			),
 			self::NF => array(
-				'de' => '',
+				'de' => 'Norfolk-Insel',
 				'en' => 'Norfolk Island',
 			),
 			self::MP => array(
-				'de' => '',
+				'de' => 'Marianen',
 				'en' => 'Northern Mariana Islands',
 			),
 			self::NO => array(
@@ -951,43 +951,43 @@ class Countries {
 				'en' => 'Norway',
 			),
 			self::OM => array(
-				'de' => '',
+				'de' => 'Oman',
 				'en' => 'Oman',
 			),
 			self::PK => array(
-				'de' => '',
+				'de' => 'Pakistan',
 				'en' => 'Pakistan',
 			),
 			self::PW => array(
-				'de' => '',
+				'de' => 'Palau',
 				'en' => 'Palau',
 			),
 			self::PS => array(
-				'de' => '',
+				'de' => 'Palästina',
 				'en' => 'Palestinian Territory, Occupied',
 			),
 			self::PA => array(
-				'de' => '',
+				'de' => 'Panama',
 				'en' => 'Panama',
 			),
 			self::PG => array(
-				'de' => '',
+				'de' => 'Papua Neu-Guinea',
 				'en' => 'Papua New Guinea',
 			),
 			self::PY => array(
-				'de' => '',
+				'de' => 'Paraguay',
 				'en' => 'Paraguay',
 			),
 			self::PE => array(
-				'de' => '',
+				'de' => 'Peru',
 				'en' => 'Peru',
 			),
 			self::PH => array(
-				'de' => '',
+				'de' => 'Philippinen',
 				'en' => 'Philippines',
 			),
 			self::PN => array(
-				'de' => '',
+				'de' => 'Pitcairn',
 				'en' => 'Pitcairn',
 			),
 			self::PL => array(
@@ -999,15 +999,15 @@ class Countries {
 				'en' => 'Portugal',
 			),
 			self::PR => array(
-				'de' => '',
+				'de' => 'Puerto Rico',
 				'en' => 'Puerto Rico',
 			),
 			self::QA => array(
-				'de' => '',
+				'de' => 'Katar',
 				'en' => 'Qatar',
 			),
 			self::RE => array(
-				'de' => '',
+				'de' => 'Reunion',
 				'en' => 'Reunion',
 			),
 			self::RO => array(
@@ -1019,31 +1019,31 @@ class Countries {
 				'en' => 'Russian Federation',
 			),
 			self::RW => array(
-				'de' => '',
+				'de' => 'Ruanda',
 				'en' => 'Rwanda',
 			),
 			self::SH => array(
-				'de' => '',
+				'de' => 'Saint Helena',
 				'en' => 'Saint Helena',
 			),
 			self::KN => array(
-				'de' => '',
+				'de' => 'Saint Kitts und Nevis',
 				'en' => 'Saint Kitts and Nevis',
 			),
 			self::LC => array(
-				'de' => '',
+				'de' => 'Saint Lucia',
 				'en' => 'Saint Lucia',
 			),
 			self::PM => array(
-				'de' => '',
+				'de' => 'Saint Pierre und Miquelon',
 				'en' => 'Saint Pierre and Miquelon',
 			),
 			self::VC => array(
-				'de' => '',
+				'de' => 'Saint Vincent und die Grenadinen',
 				'en' => 'Saint Vincent and the Grenadines',
 			),
 			self::WS => array(
-				'de' => '',
+				'de' => 'Samoa',
 				'en' => 'Samoa',
 			),
 			self::SM => array(
@@ -1051,15 +1051,15 @@ class Countries {
 				'en' => 'San Marino',
 			),
 			self::ST => array(
-				'de' => '',
+				'de' => 'Sao Tome und Principe',
 				'en' => 'Sao Tome and Principe',
 			),
 			self::SA => array(
-				'de' => '',
+				'de' => 'Saudi-Arabien',
 				'en' => 'Saudi Arabia',
 			),
 			self::SN => array(
-				'de' => '',
+				'de' => 'Senegal',
 				'en' => 'Senegal',
 			),
 			self::CS => array(
@@ -1067,15 +1067,15 @@ class Countries {
 				'en' => 'Serbia and Montenegro',
 			),
 			self::SC => array(
-				'de' => '',
+				'de' => 'Seychellen',
 				'en' => 'Seychelles',
 			),
 			self::SL => array(
-				'de' => '',
+				'de' => 'Sierra Leone',
 				'en' => 'Sierra Leone',
 			),
 			self::SG => array(
-				'de' => '',
+				'de' => 'Singapur',
 				'en' => 'Singapore',
 			),
 			self::SK => array(
@@ -1087,19 +1087,19 @@ class Countries {
 				'en' => 'Slovenia',
 			),
 			self::SB => array(
-				'de' => '',
+				'de' => 'Solomon-Inseln',
 				'en' => 'Solomon Islands',
 			),
 			self::SO => array(
-				'de' => '',
+				'de' => 'Somalien',
 				'en' => 'Somalia',
 			),
 			self::ZA => array(
-				'de' => '',
+				'de' => 'Südafrika',
 				'en' => 'South Africa',
 			),
 			self::GS => array(
-				'de' => '',
+				'de' => 'Südgeorgen und die Südlichen Sandwich-Inseln',
 				'en' => 'South Georgia and the South Sandwich Islands',
 			),
 			self::ES => array(
@@ -1107,23 +1107,23 @@ class Countries {
 				'en' => 'Spain',
 			),
 			self::LK => array(
-				'de' => '',
+				'de' => 'Sri Lanka',
 				'en' => 'Sri Lanka',
 			),
 			self::SD => array(
-				'de' => '',
+				'de' => 'Sudan',
 				'en' => 'Sudan',
 			),
 			self::SR => array(
-				'de' => '',
+				'de' => 'Suriname',
 				'en' => 'Suriname',
 			),
 			self::SJ => array(
-				'de' => '',
+				'de' => 'Svalbard und Jan Mayen',
 				'en' => 'Svalbard and Jan Mayen',
 			),
 			self::SZ => array(
-				'de' => '',
+				'de' => 'Swasiland',
 				'en' => 'Swaziland',
 			),
 			self::SE => array(
@@ -1135,67 +1135,67 @@ class Countries {
 				'en' => 'Switzerland',
 			),
 			self::SY => array(
-				'de' => '',
+				'de' => 'Syrien',
 				'en' => 'Syrian Arab Republic',
 			),
 			self::TW => array(
-				'de' => '',
+				'de' => 'Taiwan',
 				'en' => 'Taiwan, Province of China',
 			),
 			self::TJ => array(
-				'de' => '',
+				'de' => 'Tadschikistan',
 				'en' => 'Tajikistan',
 			),
 			self::TZ => array(
-				'de' => '',
+				'de' => 'Tansania',
 				'en' => 'Tanzania, United Republic of',
 			),
 			self::TH => array(
-				'de' => '',
+				'de' => 'Thailand',
 				'en' => 'Thailand',
 			),
 			self::TL => array(
-				'de' => '',
+				'de' => 'Timur-Leste',
 				'en' => 'Timor-Leste',
 			),
 			self::TG => array(
-				'de' => '',
+				'de' => 'Togo',
 				'en' => 'Togo',
 			),
 			self::TK => array(
-				'de' => '',
+				'de' => 'Tokelau',
 				'en' => 'Tokelau',
 			),
 			self::TO => array(
-				'de' => '',
+				'de' => 'Tonga',
 				'en' => 'Tonga',
 			),
 			self::TT => array(
-				'de' => '',
+				'de' => 'Trinidad und Tobago',
 				'en' => 'Trinidad and Tobago',
 			),
 			self::TN => array(
-				'de' => '',
+				'de' => 'Tunesien',
 				'en' => 'Tunisia',
 			),
 			self::TR => array(
-				'de' => '',
+				'de' => 'Türkei',
 				'en' => 'Turkey',
 			),
 			self::TM => array(
-				'de' => '',
+				'de' => 'Turkmenistan',
 				'en' => 'Turkmenistan',
 			),
 			self::TC => array(
-				'de' => '',
+				'de' => 'Turks- und Caicosinseln',
 				'en' => 'Turks and Caicos Islands',
 			),
 			self::TV => array(
-				'de' => '',
+				'de' => 'Tuvalu',
 				'en' => 'Tuvalu',
 			),
 			self::UG => array(
-				'de' => '',
+				'de' => 'Uganda',
 				'en' => 'Uganda',
 			),
 			self::UA => array(
@@ -1203,7 +1203,7 @@ class Countries {
 				'en' => 'Ukraine',
 			),
 			self::AE => array(
-				'de' => '',
+				'de' => 'Vereinigte Arabische Emirate',
 				'en' => 'United Arab Emirates',
 			),
 			self::GB => array(
@@ -1215,55 +1215,55 @@ class Countries {
 				'en' => 'United States',
 			),
 			self::UM => array(
-				'de' => '',
+				'de' => 'Kleinere Inselbesitzungen der Vereinigten Staaten',
 				'en' => 'United States Minor Outlying Islands',
 			),
 			self::UY => array(
-				'de' => '',
+				'de' => 'Uruguay',
 				'en' => 'Uruguay',
 			),
 			self::UZ => array(
-				'de' => '',
+				'de' => 'Usbekistan',
 				'en' => 'Uzbekistan',
 			),
 			self::VU => array(
-				'de' => '',
+				'de' => 'Vanuatu',
 				'en' => 'Vanuatu',
 			),
 			self::VE => array(
-				'de' => '',
+				'de' => 'Venezuela',
 				'en' => 'Venezuela',
 			),
 			self::VN => array(
-				'de' => '',
+				'de' => 'Vietnam',
 				'en' => 'Viet Nam',
 			),
 			self::VG => array(
-				'de' => '',
+				'de' => 'Britische Jungferninseln',
 				'en' => 'Virgin Islands, British',
 			),
 			self::VI => array(
-				'de' => '',
+				'de' => 'US Jungferninseln',
 				'en' => 'Virgin Islands, U.s.',
 			),
 			self::WF => array(
-				'de' => '',
+				'de' => 'Wallis und Futuna',
 				'en' => 'Wallis and Futuna',
 			),
 			self::EH => array(
-				'de' => '',
+				'de' => 'Westliche Sahara',
 				'en' => 'Western Sahara',
 			),
 			self::YE => array(
-				'de' => '',
+				'de' => 'Jemen',
 				'en' => 'Yemen',
 			),
 			self::ZM => array(
-				'de' => '',
+				'de' => 'Sambia',
 				'en' => 'Zambia',
 			),
 			self::ZW => array(
-				'de' => '',
+				'de' => 'Simbabwe',
 				'en' => 'Zimbabwe',
 			),
 		);
