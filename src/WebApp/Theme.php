@@ -184,8 +184,9 @@ class Theme {
 	}
 
 	public function getErrorPage($htmlCode) {
-		$name = '\\WebApp\\Error\\ErrorPage';
-		return new $name($this->app, $htmlCode, 'Error');
+		$rc = $this->app->getErrorPage($htmlCode);
+		if ($rc == NULL) $rc = new \WebApp\Error\ErrorPage($this->app, $htmlCode, 'Error');
+		return $rc;
 	}
 }
 
