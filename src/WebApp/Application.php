@@ -329,7 +329,7 @@ class Application {
 		return NULL;
 	}
 
-	public function getErrorPage($httpCode) {
+	public function getErrorPage($httpCode, $text, $throwable = NULL) {
 		return NULL;
 	}
 

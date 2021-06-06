@@ -183,9 +183,9 @@ class Theme {
 		return in_array($name, $this->features);
 	}
 
-	public function getErrorPage($htmlCode) {
-		$rc = $this->app->getErrorPage($htmlCode);
-		if ($rc == NULL) $rc = new \WebApp\Error\ErrorPage($this->app, $htmlCode, 'Error');
+	public function getErrorPage($htmlCode, $text, $throwable = NULL) {
+		$rc = $this->app->getErrorPage($htmlCode, $text, $throwable);
+		if ($rc == NULL) $rc = new \WebApp\Error\ErrorPage($this->app, $htmlCode, $text, $throwable);
 		return $rc;
 	}
 }
