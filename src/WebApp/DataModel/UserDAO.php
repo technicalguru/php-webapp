@@ -69,8 +69,11 @@ class UserDAO extends \TgDatabase\DAO {
 		if (!\TgUtils\Utils::isEmpty($s)) {
 			$r = Restrictions::or();
 			foreach (explode(' ', $s) AS $part) {
-				$r->add(Restrictions::like('name',  '%'.$part.'%')->ignoreCase());
-				$r->add(Restrictions::like('email', '%'.$part.'%')->ignoreCase());
+				$s = trim($part);
+				if (strlen($s) > 0) {
+					$r->add(Restrictions::like('name',  '%'.$s.'%')->ignoreCase());
+					$r->add(Restrictions::like('email', '%'.$s.'%')->ignoreCase());
+				}
 			}
 			$users = $this->createCriteria()->add($r)->add(Restrictions::ne('status', User::STATUS_DELETED))->list();
 			$uids  = \TgUtils\Utils::extractAttributeFromList($users, 'uid');
@@ -85,8 +88,11 @@ class UserDAO extends \TgDatabase\DAO {
 		if (!\TgUtils\Utils::isEmpty($s)) {
 			$where = '';
 			foreach (explode(' ', $s) AS $part) {
-				$value = $this->database->escape(strtolower($part));
-				$where .= ' OR (LOWER(`name`) LIKE \'%'.$value.'%\') OR (LOWER(`email`) LIKE \'%'.$value.'%\')';
+				$value = trim($part);
+				if (strlen($value) > 0) {
+					$value = $this->database->escape(strtolower($value));
+					$where .= ' OR (LOWER(`name`) LIKE \'%'.$value.'%\') OR (LOWER(`email`) LIKE \'%'.$value.'%\')';
+				}
 			}
 			$rc[] = substr($where, 4);
 		}

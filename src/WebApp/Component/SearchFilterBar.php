@@ -16,7 +16,7 @@ class SearchFilterBar extends Form {
 	}
 
 	public static function getSearchPhrase() {
-		return Request::getRequest()->getParam('search');
+		return trim(Request::getRequest()->getParam('search'));
 	}
 
 	public static function getFilters() {
