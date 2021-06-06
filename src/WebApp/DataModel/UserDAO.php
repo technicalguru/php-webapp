@@ -85,8 +85,11 @@ class UserDAO extends \TgDatabase\DAO {
 		if (!\TgUtils\Utils::isEmpty($s)) {
 			$where = '';
 			foreach (explode(' ', $s) AS $part) {
-				$value = $this->database->escape(strtolower($part));
-				$where .= ' OR (LOWER(`name`) LIKE \'%'.$value.'%\') OR (LOWER(`email`) LIKE \'%'.$value.'%\')';
+				$value = trim($part);
+				if (strlen($value) > 0) {
+					$value = $this->database->escape(strtolower($value));
+					$where .= ' OR (LOWER(`name`) LIKE \'%'.$value.'%\') OR (LOWER(`email`) LIKE \'%'.$value.'%\')';
+				}
 			}
 			$rc[] = substr($where, 4);
 		}
