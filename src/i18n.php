@@ -131,7 +131,7 @@ return array(
 	),
 	'error_page_title' => array(
 		'de' => 'Gratulation!',
-		'en' => 'Congratulation!',
+		'en' => 'Congrats!',
 	),
 	'error_page_subtitle' => array(
 		'de' => 'Jetzt habt Ihr die Seite kaputt gemacht.',

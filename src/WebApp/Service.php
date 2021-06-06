@@ -35,7 +35,8 @@ class Service {
 			}
 		} catch (\Throwable $e) {
 			\TgLog\Log::error('Cannot create application', $e);
-			$page = new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
+			$page = $this->theme->getErrorPage(500, 'Internal Error', $e);
+			// $page = new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
 			$page->processRequest();
 			$this->theme->render($page);
 		}
@@ -63,7 +64,7 @@ class Service {
 
 			// Get a specific error page from the theme
 			if ($page == NULL) {
-				$page = $this->theme->getErrorPage(404);
+				$page = $this->theme->getErrorPage(404, 'Error');
 			}
 
 			// Get the default error page
@@ -73,7 +74,8 @@ class Service {
 			return $page;
 		} catch (\Throwable $e) {
 			\TgLog\Log::error('Cannot create application', $e);
-			return new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
+			return $this->theme->getErrorPage(500, 'Internal Error', $e);
+			//return new Error\ErrorPage($this->app, 500, 'Internal Error', $e);
 		}
 	}
 

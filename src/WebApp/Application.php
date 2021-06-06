@@ -329,6 +329,10 @@ class Application {
 		return NULL;
 	}
 
+	public function getErrorPage($httpCode, $text, $throwable = NULL) {
+		return NULL;
+	}
+
 	/**
 	 * Persist any error message in the database.
 	 */
