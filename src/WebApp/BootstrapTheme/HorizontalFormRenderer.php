@@ -71,7 +71,9 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	public function renderFormChild($child) {
 		$rc = '';
-		if (is_a($child, 'WebApp\\Component\\FormElement') || is_a($child, 'WebApp\\Component\\I18nFormElement')) {
+		if ($child->getAnnotation('webapp/formtype') == 'structure') {
+			$rc .= $this->theme->renderComponent($child);
+		} else if (is_a($child, 'WebApp\\Component\\FormElement') || is_a($child, 'WebApp\\Component\\I18nFormElement')) {
 			if (is_a($child, 'WebApp\\Component\\Checkbox')) {
 				$rc .= $this->renderCheckbox($child);
 			} else if (is_a($child, 'WebApp\\Component\\HiddenInput')) {
