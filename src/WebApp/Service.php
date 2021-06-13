@@ -24,8 +24,10 @@ class Service {
 
 			// Render when required
 			if ($action == 'render') {
-				Log::debug('$_SERVER=', $_SERVER);
-				Log::debug('Request=', $this->app->request);
+				if ($this->app->config->has('debug') && $this->app->config->get('debug')) {
+					Log::debug('$_SERVER=', $_SERVER);
+					Log::debug('Request=', $this->app->request);
+				}
 				$this->theme->render($this->page);
 				Session\Utils::isFreshLogin();
 			} else if ($action == 'redirect') {

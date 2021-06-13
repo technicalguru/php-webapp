@@ -12,12 +12,17 @@ class Theme {
 	protected $page     = NULL;
 	protected $class    = NULL;
 	protected $features = NULL;
+	protected $useCache = FALSE;
 
-	public function __construct($app) {
+	public function __construct($app, $useCache = TRUE) {
 		$this->app       = $app;
 		$this->class     = new \ReflectionClass($this);
 		$this->features  = array();
 		$app->theme      = $this;
+		$this->useCache  = $useCache;
+		if ($this->useCache) {
+			$this->initCache();
+		}
 	}
 
 	/** The entry function for the theme. Renders the complete page in this theme.
@@ -47,6 +52,10 @@ class Theme {
 		}
 
 		$html = $layout->renderPage();
+
+		if ($this->useCache) {
+			$this->saveCache();
+		}
 		echo $html;
 	}
 
@@ -123,15 +132,8 @@ class Theme {
 	public function getRenderer($component) {
 		// An annotation can overwrite the renderer
 		$renderer   = $this->getAnnotatedRenderer($component);
-		$themeClass = $this->class;
-		while (($renderer == NULL) && ($themeClass !== FALSE)) {
-			$namespace  = $themeClass->getNamespaceName();
-			$renderer   = $this->searchRendererInNamespace($namespace, $component);
-			$themeClass = $themeClass->getParentClass();
-		}
-
 		if ($renderer == NULL) {
-			$renderer = new Renderer($this, $component);
+			$renderer = $this->findCachedRenderer($component);
 		}
 		return $renderer;
 	}
@@ -142,6 +144,33 @@ class Theme {
 			$rc = new $rc($this, $component);
 		}
 		return $rc;
+	}
+
+	protected function findCachedRenderer($component) {
+		$renderer = NULL;
+		if ($this->useCache) {
+			$className = $this->getRendererCache(get_class($component));
+			if ($className != NULL) {
+				$renderer = new $className($this, $component);
+			}
+		}
+
+		if ($renderer == NULL) {
+			$themeClass = $this->class;
+			while (($renderer == NULL) && ($themeClass !== FALSE)) {
+				$namespace  = $themeClass->getNamespaceName();
+				$renderer   = $this->searchRendererInNamespace($namespace, $component);
+				$themeClass = $themeClass->getParentClass();
+			}
+
+			if ($renderer == NULL) {
+				$renderer = new Renderer($this, $component);
+			}
+			if ($this->useCache) {
+				$this->setRendererCache(get_class($component), get_class($renderer));
+			}
+		}
+		return $renderer;
 	}
 
 	protected function searchRendererInNamespace($namespace, $component) {
@@ -188,5 +217,25 @@ class Theme {
 		if ($rc == NULL) $rc = new \WebApp\Error\ErrorPage($this->app, $htmlCode, $text, $throwable);
 		return $rc;
 	}
+
+	// Renderer Cache
+	protected function initCache() {
+		$this->rendererCache = array();
+		// Loading from disk => concurrency!
+	}
+
+	protected function saveCache() {
+		// Saving to disk => concurrency!
+	}
+
+	protected function getRendererCache($name) {
+		if (isset($this->rendererCache[$name])) return $this->rendererCache[$name];
+		return NULL;
+	}
+
+	protected function setRendererCache($name, $value) {
+		$this->rendererCache[$name] = $value;
+	}
+
 }
 

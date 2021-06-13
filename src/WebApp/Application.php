@@ -13,6 +13,7 @@ class Application {
 	public    $request;
 	public    $vault;
 	public    $database;
+	public    $dataModel;
 	public    $authentication;
 	public    $authorization;
 	public    $sessionHandler;
