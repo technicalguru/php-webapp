@@ -37,6 +37,7 @@ class LanguageUtils {
 
 	protected static function getBest($header, $priorities) {
 		$negotiator = new \Negotiation\LanguageNegotiator();
+		if (\TgUtils\Utils::isEmpty($header)) $header = 'en-US,en';
 		$best       = $negotiator->getBest($header, $priorities);
 		if ($best != NULL) {
 			return $best->getType();
