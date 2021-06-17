@@ -2,6 +2,7 @@
 
 namespace WebApp\DataModel;
 
+use TgUtils\Date;
 use WebApp\WebAppException;
 
 class LogDAO extends \TgDatabase\DAO {
@@ -27,5 +28,10 @@ class LogDAO extends \TgDatabase\DAO {
 		return TRUE;
 	}
 
+	public function housekeeping($days = 30) {
+		$this->threshold = new Date(time()-$days*Date::SECONDS_PER_DAY, WFW_TIMEZONE);
+		$sql = 'DELETE * FROM '.$this->database->quoteName($this->tableName).' WHERE log_date < '.$this->database->prepareValue($threshold);
+		$this->database->query($sql);
+	}
 }
 
