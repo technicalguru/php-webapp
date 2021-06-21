@@ -265,12 +265,20 @@ return array(
 		'de' => 'd.m.Y',
 		'en' => 'd/m/Y',
 	),
+	'longDateFormat' => array(
+		'de' => 'j.F Y',
+		'en' => 'F jS, Y',
+	),
 	'timeFormat' => array(
 		'de' => 'H:i:s',
 		'en' => 'H:i:s',
 	),
 	'shortTimeFormat' => array(
 		'de' => 'H:i',
+		'en' => 'H:i',
+	),
+	'shortTimeFormat2' => array(
+		'de' => 'H:i \\U\\h\\r',
 		'en' => 'H:i',
 	),
 	'dateTimeFormat' => array(

@@ -153,7 +153,7 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderJavascript() {
 		$webroot = $this->app->request->webRoot;
-		$rc =  '<script src="'.$webroot.JQuery::getUri('3.5.1', JQuery::MINIFIED).'"></script>'.
+		$rc =  '<script src="'.Utils::getJavascriptBasePath(TRUE).'/jquery-3.5.1.js"></script>'.
 		       '<script src="'.$webroot.Bootstrap::getJsUri().'"></script>'.
 		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/webapp.js"></script>'.
 		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/utils.js"></script>';
