@@ -273,6 +273,10 @@ return array(
 		'de' => 'H:i',
 		'en' => 'H:i',
 	),
+	'shortTimeFormat2' => array(
+		'de' => 'H:i \\U\\h\\r',
+		'en' => 'H:i',
+	),
 	'dateTimeFormat' => array(
 		'de' => 'd.m.Y H:i:s',
 		'en' => 'd/m/Y H:i:s',
