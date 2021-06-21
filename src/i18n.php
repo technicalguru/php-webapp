@@ -265,6 +265,10 @@ return array(
 		'de' => 'd.m.Y',
 		'en' => 'd/m/Y',
 	),
+	'longDateFormat' => array(
+		'de' => 'j.F Y',
+		'en' => 'F jS, Y',
+	),
 	'timeFormat' => array(
 		'de' => 'H:i:s',
 		'en' => 'H:i:s',
