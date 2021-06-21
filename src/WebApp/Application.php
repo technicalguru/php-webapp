@@ -343,12 +343,7 @@ class Application {
 			$messages = Log::instance()->messages;
 			if (isset($messages['error']) && (count($messages['error']) > 0)) {
 				$log           = new DataModel\Log();
-				$log->log_text = '';
-				foreach ($messages AS $sev => $msgs) {
-					foreach ($msgs AS $msg) {
-						$log->log_text .= '['.$this->getName().']['.strtoupper($sev).'] '.$msg."\n";
-					}
-				}
+				$log->log_text = $messages;
 				$log->log_date = Date::getInstance(time(), WFW_TIMEZONE);
 				$this->dataModel->get('log')->create($log);
 			}
