@@ -181,3 +181,22 @@ input.plain-checkbox {
 	color: #ccc;
 }
 
+.simple-collapsible [data-toggle="collapse"]::before {
+	font-weight: 900;
+	font-family: "Font Awesome 5 Free";
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
+	line-height: 1;
+	color: #000000;
+	width: 1em;
+	display: inline-block;
+}
+
+.simple-collapsible [data-toggle="collapse"][aria-expanded="false"]::before {
+	content: "\f0da";
+}
+
+.simple-collapsible [data-toggle="collapse"][aria-expanded="true"]::before {
+	content: "\f0d7";
+}
