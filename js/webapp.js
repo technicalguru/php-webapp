@@ -350,6 +350,7 @@ webApp.registerI18N(new I18N({
 		'error'    : 'Die Aufgabe konnte nicht erfolgreich ausgeführt werden.',
 		'decimalSep' : ',',
 		'thousandSep' : '.',
+		'ieError': 'Dieser Browser wird nicht unterstützt. Bitte benutzen Sie Safari, Chrome, Edge oder Firefox.',
 	},
 	'en' : {
 		'ok'       : 'OK',
@@ -363,5 +364,7 @@ webApp.registerI18N(new I18N({
 		'error'    : 'The task could not be executed successfully.',
 		'decimalSep' : '.',
 		'thousandSep' : ',',
+		'ieError': 'This browser is not supported anymore. Please use Safari, Chrome, Edge or Firefox.',
 	},
 }));
+
