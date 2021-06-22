@@ -482,6 +482,14 @@ return array(
 		'de' => 'Alle anzeigen',
 		'en' => 'Show all',
 	),
+	'browser_not_supported' => array(
+		'de' => 'Dieser Internetbrowser wird nicht unterstützt.',
+		'en' => 'This internet browser is not supported.',
+	),
+	'use_these_browsers' => array(
+		'de' => 'Bitte benutze eine aktuelle Version von Chrome, Edge, Firefox oder Safari.',
+		'en' => 'Please use a current version of Chrome, Edge, Firefox or Safari.',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',

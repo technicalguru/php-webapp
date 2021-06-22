@@ -1,182 +1,179 @@
 // A i18n helper class
-class I18N {
-
-	constructor(values) {
-		this.values = values;
-	}
-
-	// Return the value in the given language or undefined
-	translate(key, language) {
-		if ((this.values[language] !== undefined) && (this.values[language][key] !== undefined)) {
-			return this.values[language][key];
-		}
-		return undefined;
-	}
+function I18N(values) {
+	this.values = values;
 }
+
+// Return the value in the given language or undefined
+I18N.prototype.translate = function(key, language) {
+	if ((this.values[language] !== undefined) && (this.values[language][key] !== undefined)) {
+		return this.values[language][key];
+	}
+	return undefined;
+};
 
 class WebApp {
 
-	constructor() {
-		// The defaults
-		this.language    = 'de';
-		this.failedCalls = {};
-		this.i18nValues  = Array();
+function WebApp() {
+	// The defaults
+	this.language    = 'de';
+	this.failedCalls = {};
+	this.i18nValues  = Array();
 
-		// Detect user language
-		this.language = jQuery('body').attr('lang');
-		if (this.language === undefined) this.language = 'de';
-	}
-
-	/** An AJAX call */
-	ajax(ajaxParams, ajaxController) {
-		// Perform the AJAX call
-		ajaxParams['beforeSend'] = function() {
-			ajaxController.beforeSend();
-		};
-		$.ajax(ajaxParams)
-			.done(function(data, textStatus, jqXHR) {
-				ajaxController.done(ajaxParams, data, textStatus, jqXHR);
-			})
-			.fail(function(jqXHR, textStatus, errorThrown) {
-				ajaxController.fail(ajaxParams, jqXHR, textStatus, errorThrown);
-			});
-	}
-
-	/** A standard REST HEAD call */
-	HEAD(url, ajaxController, dataType) {
-		if (typeof dataType == 'undefined') dataType = 'json';
-		this.ajax(
-			{
-				type:     'HEAD',
-				dataType: dataType,
-				url:      url,
-			},
-			ajaxController
-		);
-	}
-
-	/** A standard REST GET call */
-	GET(url, ajaxController, dataType) {
-		if (typeof dataType == 'undefined') dataType = 'json';
-		this.ajax(
-			{
-				type:     'GET',
-				dataType: dataType,
-				url:      url,
-			},
-			ajaxController
-		);
-	}
-
-	/** A standard REST PUT call */
-	PUT(url, data, ajaxController) {
-		this.ajax(
-			{
-				type:        'PUT',
-				dataType:    'json',
-				url:         url,
-				contentType: 'application/json; charset=utf-8',
-				data:        JSON.stringify(data)
-			},
-			ajaxController
-		);
-	}
-
-	/** A standard REST POST call */
-	POST(url, data, ajaxController) {
-		this.ajax(
-			{
-				type:        'POST',
-				dataType:    'json',
-				url:         url,
-				contentType: 'application/json; charset=utf-8',
-				data:        JSON.stringify(data)
-			},
-			ajaxController
-		);
-	}
-
-	/** A standard REST PATCH call */
-	PATCH(url, data, ajaxController) {
-		this.ajax(
-			{
-				type:        'PATCH',
-				dataType:    'json',
-				url:         url,
-				contentType: 'application/json; charset=utf-8',
-				data:        JSON.stringify(data)
-			},
-			ajaxController
-		);
-	}
-
-	/** A standard REST DELETE call */
-	DELETE(url, ajaxController) {
-		this.ajax(
-			{
-				type:     'DELETE',
-				dataType: 'json',
-				url:      url,
-			},
-			ajaxController
-		);
-	}
-
-	showSpinner(label) {
-		if (typeof label === undefined) label = this.i18n('pleaseWait');
-		jQuery('<div id="page-blocker" class="modal" tabindex="-1"><div class="vertical-center"><div class="spinner-border" role="status"><span class="sr-only">'+label+'</span></div></div></div><div id="page-blocker-backdrop" class="modal-backdrop show"></div>').appendTo('body');
-		jQuery('#page-blocker').show();
-	}
-
-	hideSpinner() {
-		jQuery('#page-blocker').remove();
-		jQuery('#page-blocker-backdrop').remove();
-	}
-
-	// Register an I18N object for translations
-	registerI18N(i18nObject) {
-		this.i18nValues.push(i18nObject);
-	}
-
-	// translate a key for display
-	i18n(key, defaultValue) {
-		if (defaultValue === undefined) defaultValue = '';
-		var rc = defaultValue;
-		var webAppThis = this;
-		$.each(this.i18nValues, function(index, value) {
-			var x = value.translate(key, webAppThis.language);
-			if (x !== undefined) {
-				rc = x;
-				return false;
-			}
-		});
-		return rc;
-	}
-
-	// show an error
-	error(title, message, callback) {
-		this.message(title, '<div class="alert alert-danger">'+message+'</div>', callback);
-	}
-
-	// show a warning
-	warning(title, message, callback) {
-		this.message(title, '<div class="alert alert-warn">'+message+'</div>', callback);
-	}
-
-	// show a message
-	message(title, body, callback) {
-		var modal = new WebAppModal('webAppMessage');
-		modal.setTitle(title);
-		modal.setBody(body);
-		modal.show();
-		jQuery('#webAppMessage').on('hidden.bs.modal', function(evt) {
-			modal.destroy();
-			if (typeof callback == 'function') {
-				callback();
-			}
-		});
-	}
+	// Detect user language
+	this.language = jQuery('body').attr('lang');
+	if (this.language === undefined) this.language = 'de';
 }
+
+/** An AJAX call */
+WebApp.prototype.ajax = function(ajaxParams, ajaxController) {
+	// Perform the AJAX call
+	ajaxParams['beforeSend'] = function() {
+		ajaxController.beforeSend();
+	};
+	$.ajax(ajaxParams)
+		.done(function(data, textStatus, jqXHR) {
+			ajaxController.done(ajaxParams, data, textStatus, jqXHR);
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			ajaxController.fail(ajaxParams, jqXHR, textStatus, errorThrown);
+		});
+};
+
+/** A standard REST HEAD call */
+WebApp.prototype.HEAD = function(url, ajaxController, dataType) {
+	if (typeof dataType == 'undefined') dataType = 'json';
+	this.ajax(
+		{
+			type:     'HEAD',
+			dataType: dataType,
+			url:      url,
+		},
+		ajaxController
+	);
+};
+
+/** A standard REST GET call */
+WebApp.prototype.GET = function(url, ajaxController, dataType) {
+	if (typeof dataType == 'undefined') dataType = 'json';
+	this.ajax(
+		{
+			type:     'GET',
+			dataType: dataType,
+			url:      url,
+		},
+		ajaxController
+	);
+};
+
+/** A standard REST PUT call */
+WebApp.prototype.PUT = function(url, data, ajaxController) {
+	this.ajax(
+		{
+			type:        'PUT',
+			dataType:    'json',
+			url:         url,
+			contentType: 'application/json; charset=utf-8',
+			data:        JSON.stringify(data)
+		},
+		ajaxController
+	);
+};
+
+/** A standard REST POST call */
+WebApp.prototype.POST = function(url, data, ajaxController) {
+	this.ajax(
+		{
+			type:        'POST',
+			dataType:    'json',
+			url:         url,
+			contentType: 'application/json; charset=utf-8',
+			data:        JSON.stringify(data)
+		},
+		ajaxController
+	);
+};
+
+/** A standard REST PATCH call */
+WebApp.prototype.PATCH = function(url, data, ajaxController) {
+	this.ajax(
+		{
+			type:        'PATCH',
+			dataType:    'json',
+			url:         url,
+			contentType: 'application/json; charset=utf-8',
+			data:        JSON.stringify(data)
+		},
+		ajaxController
+	);
+};
+
+/** A standard REST DELETE call */
+WebApp.prototype.DELETE = function(url, ajaxController) {
+	this.ajax(
+		{
+			type:     'DELETE',
+			dataType: 'json',
+			url:      url,
+		},
+		ajaxController
+	);
+};
+
+WebApp.prototype.showSpinner = function(label) {
+	if (typeof label === undefined) label = this.i18n('pleaseWait');
+	jQuery('<div id="page-blocker" class="modal" tabindex="-1"><div class="vertical-center"><div class="spinner-border" role="status"><span class="sr-only">'+label+'</span></div></div></div><div id="page-blocker-backdrop" class="modal-backdrop show"></div>').appendTo('body');
+	jQuery('#page-blocker').show();
+};
+
+WebApp.prototype.hideSpinner = function() {
+	jQuery('#page-blocker').remove();
+	jQuery('#page-blocker-backdrop').remove();
+};
+
+// Register an I18N object for translations
+WebApp.prototype.registerI18N = function(i18nObject) {
+	this.i18nValues.push(i18nObject);
+};
+
+// translate a key for display
+WebApp.prototype.i18n = function(key, defaultValue) {
+	if (defaultValue === undefined) defaultValue = '';
+	var rc = defaultValue;
+	var webAppThis = this;
+	$.each(this.i18nValues, function(index, value) {
+		var x = value.translate(key, webAppThis.language);
+		if (x !== undefined) {
+			rc = x;
+			return false;
+		}
+	});
+	return rc;
+};
+
+// show an error
+WebApp.prototype.error = function(title, message, callback) {
+	this.message(title, '<div class="alert alert-danger">'+message+'</div>', callback);
+};
+
+// show a warning
+WebApp.prototype.warning = function(title, message, callback) {
+	this.message(title, '<div class="alert alert-warn">'+message+'</div>', callback);
+};
+
+// show a message
+WebApp.prototype.message = function(title, body, callback) {
+	var modal = new WebAppModal('webAppMessage');
+	modal.setTitle(title);
+	modal.setBody(body);
+	modal.show();
+	jQuery('#webAppMessage').on('hidden.bs.modal', function(evt) {
+		modal.destroy();
+		if (typeof callback == 'function') {
+			callback();
+		}
+	});
+};
+
 // Instantiate this class as singleton
 var webApp = new WebApp();
 
@@ -367,7 +364,4 @@ webApp.registerI18N(new I18N({
 		'ieError': 'This browser is not supported anymore. Please use Safari, Chrome, Edge or Firefox.',
 	},
 }));
-
-// Hide messgae for browsers not supported
-jQuery('#browserNotSupported').remove();
 

@@ -141,9 +141,18 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderContent() {
 		$rc = '<div class="page-content container-fluid">'.
+					$this->renderBrowserNotSupported().
 		            $this->theme->renderComponent($this->page->getMain()).
 		      '</div>';
 		return $rc;
+	}
+
+	protected function renderBrowserNotSupported() {
+		$userAgent = $_SERVER['HTTP_USER_AGENT'];
+		if ((strpos($userAgent, 'MSIE') > 0) || (strpos($userAgent, 'Trident') > 0)) {
+			return '<div class="alert alert-danger m-3" id="browserNotSupported"><h4>'.I18N::_('browser_not_supported').'</h4><hr><p class="mb-0">'.I18N::_('use_these_browsers').'</p></div>';
+		}
+		return '';
 	}
 
 	protected function renderFooter() {
