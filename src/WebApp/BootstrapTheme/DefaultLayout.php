@@ -41,6 +41,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/dynamic-fields.css" rel="stylesheet" type="text/css">';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::CROPPERJS)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/cropper/cropper.min.css" rel="stylesheet" type="text/css">';
+		}
 		$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap.css" rel="stylesheet" type="text/css">';
 		$rc .= parent::renderLinks();
 		return $rc;
@@ -187,6 +190,11 @@ class DefaultLayout extends \WebApp\Layout {
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICCHECKENABLE)) {
 			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/dynamic-check-enable.js"></script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::CROPPERJS)) {
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/cropper/cropper.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/cropper/jquery-cropper.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/cropper/cropper-ui.js"></script>';
 		}
 		$rc .= parent::renderJavascript();
 		return $rc;
