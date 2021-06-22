@@ -2,9 +2,18 @@
 
 namespace WebApp\Email;
 
+use TgI18n\I18N;
+
 class NiceFooterSnippet extends AbstractSnippet {
 
 	protected function getHtml($processor, $params) {
+		$language    = $processor->language;
+		$attention   = I18N::_(array('de' => 'Achtung!', 'en' => 'Attention!'), $language);
+		$disclaimer  = I18N::_(array(
+			'de' => 'Bitte antworte nicht direkt auf diese Nachricht. Diese Nachricht wurde automatisch erzeugt und dient nur zu Deiner Information.',
+			'en' => 'Please do not reply to this e-mail. This message was generated automatically and was sent for your information only.',
+		), $language);
+
 		$rc = <<<EOT
 											<!-- ******** END CONTENT ********* -->
 
@@ -30,8 +39,8 @@ class NiceFooterSnippet extends AbstractSnippet {
                                                                                     <tr>
                                                                                         <td style="padding:.75pt;"></td>
                                                                                         <td width="92%" valign="top" style="width:92%;padding:.75pt;">
-                                                                                            <p class="MsoNormal" style="line-height:10.8pt;"><strong><span style="font-size:9pt;font-family:Arial,Helvetica,sans-serif,Nunito;color:#787878;">Achtung!</span></strong><span style="font-size:9pt;font-family:Arial,Helvetica,sans-serif,Nunito;color:#787878;"><o:p></o:p></span></p>
-                                                                                            <p class="MsoNormal" style="line-height:10.8pt;"><span style="font-size:9pt;font-family:Arial,Helvetica,sans-serif,Nunito;color:#787878;">Bitte antworte nicht direkt auf diese Nachricht. Diese Nachricht wurde automatisch erzeugt und dient nur zu Deiner Information.<o:p></o:p></span></p>
+                                                                                            <p class="MsoNormal" style="line-height:10.8pt;"><strong><span style="font-size:9pt;font-family:Arial,Helvetica,sans-serif,Nunito;color:#787878;">$attention</span></strong><span style="font-size:9pt;font-family:Arial,Helvetica,sans-serif,Nunito;color:#787878;"><o:p></o:p></span></p>
+                                                                                            <p class="MsoNormal" style="line-height:10.8pt;"><span style="font-size:9pt;font-family:Arial,Helvetica,sans-serif,Nunito;color:#787878;">$disclaimer<o:p></o:p></span></p>
                                                                                         </td>
                                                                                         <td style="padding:.75pt;"></td>
                                                                                     </tr>
@@ -76,7 +85,14 @@ EOT;
 	}
 
 	protected function getText($processor, $params) {
-		return '';
+		$language    = $processor->language;
+		$attention   = I18N::_(array('de' => 'Achtung!', 'en' => 'Attention!'), $language);
+		$disclaimer  = I18N::_(array(
+			'de' => 'Bitte antworte nicht direkt auf diese Nachricht. Diese Nachricht wurde automatisch erzeugt und dient nur zu Deiner Information.',
+			'en' => 'Please do not reply to this e-mail. This message was generated automatically and was sent for your information only.',
+		), $language);
+		return "_________________________________________\n".
+		       strtoupper($attention).' '.$disclaimer;
 	}
 
 }
