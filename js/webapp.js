@@ -175,6 +175,7 @@ class WebApp {
 				callback();
 			}
 		});
+		return modal;
 	}
 }
 // Instantiate this class as singleton
