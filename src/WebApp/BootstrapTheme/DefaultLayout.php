@@ -24,27 +24,27 @@ class DefaultLayout extends \WebApp\Layout {
 		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
 		       '<link rel="stylesheet" href="'.$this->getBootstrapUri().'" rel="stylesheet" type="text/css">';
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/filter-multi-select.css" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('filter-multi-select.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD) || $this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/multi-image-upload.css" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('multi-image-upload.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/remote-search.css" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('remote-search.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/dynamic-fields.css" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('dynamic-fields.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::CROPPERJS)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/cropper/cropper.min.css" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper.min.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
-		$rc .= '<link rel="stylesheet" href="'.Utils::getCssBasePath(TRUE).'/bootstrap.css" rel="stylesheet" type="text/css">';
+		$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap.css', TRUE).'" rel="stylesheet" type="text/css">';
 		$rc .= parent::renderLinks();
 		return $rc;
 	}
@@ -167,43 +167,43 @@ class DefaultLayout extends \WebApp\Layout {
 		$webroot = $this->app->request->webRoot;
 		$rc =  '<script src="'.Utils::getJavascriptBasePath(TRUE).'/jquery-3.5.1.js"></script>'.
 		       '<script src="'.$webroot.Bootstrap::getJsUri().'"></script>'.
-		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/webapp.js"></script>'.
-		       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/utils.js"></script>';
+		       '<script src="'.Utils::getJavascriptPath('webapp.js', TRUE).'"></script>'.
+		       '<script src="'.Utils::getJavascriptPath('utils.js', TRUE).'"></script>';
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/filter-multi-select.bundle.js"></script>'.
+			$rc .= '<script src="'.Utils::getJavascriptPath('filter-multi-select.bundle.js', TRUE).'"></script>'.
 			       '<script>$(function() {$(\'.multiselect\').filterMultiSelect();});</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bs-custom-file-input.min.js"></script>'.
+			$rc .= '<script src="'.Utils::getJavascriptPath('bs-custom-file-input.min.js', TRUE).'"></script>'.
 			       '<script>jQuery(document).ready(function () { bsCustomFileInput.init() })</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/multi-image-upload.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('multi-image-upload.js', TRUE).'"></script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/image-upload.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('image-upload.js', TRUE).'"></script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bootstrap-datepicker.js"></script>'.
-			       '<script src="'.Utils::getJavascriptBasePath(TRUE).'/bootstrap-datepicker-locales.min.js"></script>'.
+			$rc .= '<script src="'.Utils::getJavascriptPath('bootstrap-datepicker.js', TRUE).'"></script>'.
+			       '<script src="'.Utils::getJavascriptPath('bootstrap-datepicker-locales.min.js', TRUE).'"></script>'.
 			       '<script>jQuery(document).ready(function () { $(\'.datepicker\').datepicker({ format: \''.I18N::_('datepicker_format').'\'}) })</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
 			$rc .= '<script type="text/javascript">jQuery(document).on(\'click\', \'ul.nav-tabs a\', function(e) { e.preventDefault(); jQuery(this).tab(\'show\').parent().addClass(\'active\'); jQuery(this).parent().siblings().removeClass(\'active\');});</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/remote-search.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('remote-search.js', TRUE).'"></script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/dynamic-fields.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('dynamic-fields.js', TRUE).'"></script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICCHECKENABLE)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/dynamic-check-enable.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('dynamic-check-enable.js', TRUE).'"></script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::CROPPERJS)) {
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/cropper/cropper.js"></script>';
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/cropper/jquery-cropper.js"></script>';
-			$rc .= '<script src="'.Utils::getJavascriptBasePath(TRUE).'/cropper/cropper-ui.js"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('cropper/cropper.js', TRUE).'"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('cropper/jquery-cropper.js', TRUE).'"></script>';
+			$rc .= '<script src="'.Utils::getJavascriptPath('cropper/cropper-ui.js', TRUE).'"></script>';
 		}
 		$rc .= parent::renderJavascript();
 		return $rc;
