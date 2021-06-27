@@ -302,7 +302,7 @@ class WebAppModal {
 
 	addFormHandlers() {
 		var modal = this;
-		jQuery('.modal-dialog .modal-body')
+		jQuery('.modal-dialog .modal-body input')
 			.on('keydown', function(evt) { modal.key(evt); })
 			.on('keyup',   function(evt) { modal.key(evt); });
 	}
