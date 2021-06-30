@@ -17,7 +17,8 @@ class DateInput extends Input {
 		$request = \TgUtils\Request::getRequest();
 		$date    = $request->getPostParam($name.'-date');
 		if ($date != NULL) {
-			return \TgUtils\Date::createFromFormat('Y-m-d H:i', $date.' 00:00', $timezoneId);
+			$rc = \TgUtils\Date::createFromFormat('Y-m-d H:i', $date.' 00:00', $timezoneId);
+			if ($rc !== FALSE) return $rc;
 		}
 		return NULL;
 	}
