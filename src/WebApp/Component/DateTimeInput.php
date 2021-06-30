@@ -32,7 +32,8 @@ class DateTimeInput extends Input {
 		$time    = $request->getPostParam($name.'-time');
 		if ($date != NULL) {
 			if ($time == NULL) $time = '00:00';
-			return \TgUtils\Date::createFromFormat('Y-m-d H:i', $date.' '.$time, $timezoneId);
+			$rc = \TgUtils\Date::createFromFormat('Y-m-d H:i', $date.' '.$time, $timezoneId);
+			if ($rc !== FALSE) return $rc;
 		}
 		return NULL;
 	}
