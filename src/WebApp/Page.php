@@ -261,5 +261,8 @@ class Page extends Component\Component {
 		return array();
 	}
 
+	protected function dao($name) {
+		return $this->app->dao($name);
+	}
 }
 

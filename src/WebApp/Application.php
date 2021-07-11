@@ -350,5 +350,11 @@ class Application {
 		}
 	}
 
+	public function dao($name) {
+		if ($this->dataModel != NULL) {
+			return $this->dataModel->get($name);
+		}
+		return NULL;
+	}
 }
 
