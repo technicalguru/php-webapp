@@ -42,7 +42,22 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function renderFieldSets() {
+		$rc = '';
+
 		// Construct the components
+		foreach ($this->component->getFieldSets() AS $fieldSet) {
+			if ($fieldSet->isVisible()) {
+				$rc .= '<div id="'.$fieldSet->getId().'" class="fieldset horizontal-fieldset">';
+				$heading = new \WebApp\Component\Heading(NULL, 3, $fieldSet->getLabel());
+				$rc .= $this->theme->renderComponent($heading);
+				// Add the children
+				$rc .= $this->renderFormChildren($fieldSet->getChildren());
+				$rc .= '</div>';
+			}
+		}
+		return $rc;
+
+		/*
 		$tabSet = new \WebApp\Component\TabSet(NULL, $this->component->getId().'fieldsets');
 		$tabSet->addClass('tabbed-fieldsets');
 		$tabSet->setAria('role', 'fieldsets');
@@ -56,6 +71,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 		// Render them
 		return $this->theme->renderComponent($tabSet);
+		*/
 	}
 
 	public function renderFormChildren($children) {

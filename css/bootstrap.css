@@ -200,3 +200,15 @@ input.plain-checkbox {
 .simple-collapsible [data-toggle="collapse"][aria-expanded="true"]::before {
 	content: "\f0d7";
 }
+
+.fieldset {
+	box-shadow: 0 0 0.3em;
+	border-radius: 0.3em;
+	padding: 0.01em 1em 0.5em 1em;
+	margin-bottom: 1em;
+}
+
+.form-help {
+	margin-left: 15px;
+}
+
