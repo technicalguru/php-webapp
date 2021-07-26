@@ -46,6 +46,15 @@ class Page extends Component\Component {
 		return 'hello_world_title';
 	}
 
+	public function getMeta() {
+		$rc = array();
+		$s = $this->getMetaKeywords();
+		if ($s != NULL) $rc['keywords'] = $s;
+		$s = $this->getMetaDescription();
+		if ($s != NULL) $rc['description'] = $s;
+		return $rc;
+	}
+
 	public function getMetaKeywords() {
 		return $this->app->getMetaKeywords();
 	}
