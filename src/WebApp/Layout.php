@@ -45,23 +45,24 @@ class Layout {
 	}
 
 	protected function renderMeta() {
-		$rc = '<meta charset="utf-8">'.
-		      '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'.
-		      '<meta name="pageclass" content="'.get_class($this->page).'">';
-		// keywords
-		$keywords = $this->page->getMetaKeywords();
-		if ($keywords != NULL) {
-			if (is_array($keywords)) $keywords = implode(',', $keywords);
-			$rc .= '<meta name="keywords" content="'.htmlentities($keywords).'">';
+		$rc = '<meta charset="utf-8">';
+
+		// Meta
+		$meta = $this->page->getMeta();
+
+		// Some specifics
+		if (!isset($meta['viewport']))  $meta['viewport']  = 'width=device-width, initial-scale=1, shrink-to-fit=no';
+		if (!isset($meta['pageclass'])) $meta['pageclass'] = get_class($this->page);
+		if (!isset($meta['canonical'])) {
+			$params = $this->app->request->params ? '?'.$this->app->request->params : '';
+			$meta['canonical'] = $this->app->router->getCanonicalPath().$params;
 		}
-		// descriptions
-		$description = $this->page->getMetaDescription();
-		if ($description != NULL) {
-			$rc .= '<meta name="description" content="'.htmlentities($description).'">';
+
+		foreach ($meta AS $name => $content) {
+			$s   = is_array($content) ? implode(',', $content) : $content;
+			$rc .= '<meta name="'.$name.'" content="'.htmlentities($s).'">';
 		}
-		// canonical
-		$params = $this->app->request->params ? '?'.$this->app->request->params : '';
-		$rc .= '<meta name="canonical" content="'.htmlentities($this->app->router->getCanonicalPath().$params).'">';
+
 		// Alternates
 		foreach ($this->app->router->getLanguages() AS $key => $label) {
 			if ($key != $this->app->request->language) {
