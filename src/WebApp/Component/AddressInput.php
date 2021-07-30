@@ -17,6 +17,11 @@ class AddressInput extends \WebApp\Component\FormElementGroup {
 		if ($address == NULL) $address = new Address();
 		$id = $this->getId();
 
+		$elem = new TextInput($this, $id.'_name', $address->street1);
+		$elem->setPlaceholder('address_name_label');
+		$elem->addClass('mb-1');
+		$elem->setRequired(TRUE);
+
 		$elem = new TextInput($this, $id.'_street1', $address->street1);
 		$elem->setPlaceholder('address_street1_label');
 		$elem->addClass('mb-1');
@@ -46,6 +51,7 @@ class AddressInput extends \WebApp\Component\FormElementGroup {
 		$rc = NULL;
 		if ($request->hasPostParam($id.'_street1')) {
 			$rc = new Address();
+			$rc->name    = $request->getParam($id.'_name');
 			$rc->street1 = $request->getParam($id.'_street1');
 			$rc->street2 = $request->getParam($id.'_street2');
 			$rc->zipCode = $request->getParam($id.'_zipCode');

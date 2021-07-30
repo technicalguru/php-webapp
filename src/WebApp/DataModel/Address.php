@@ -18,12 +18,14 @@ class Address {
 	public function __construct() {
 	}
 
-	public function isComplete() {
-		return self::isAddressComplete($this);
+	public function isComplete($includeName = FALSE) {
+		return self::isAddressComplete($this, $includeName);
 	}
 
-	public static function isAddressComplete($address) {
-		return !Utils::isEmpty($address->street1) && !Utils::isEmpty($address->zipCode) && !Utils::isEmpty($address->city) && !Utils::isEmpty($address->country);
+	public static function isAddressComplete($address, $includeName = FALSE) {
+		$rc = !Utils::isEmpty($address->street1) && !Utils::isEmpty($address->zipCode) && !Utils::isEmpty($address->city) && !Utils::isEmpty($address->country);
+		if ($rc && $includeName) $rc = !Utils::isEmpty($address->name);
+		return $rc;
 	}
 
 	public static function toSingleLine($address, $language = NULL) {

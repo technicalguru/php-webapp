@@ -458,6 +458,10 @@ return array(
 		'en' => 'Languages',
 	),
 	// General address and delivery labels
+	'address_name_label' => array(
+		'de' => 'Vor- und Nachname',
+		'en' => 'Full Name',
+	),
 	'address_street1_label' => array(
 		'de' => 'Straße und Hausnummer',
 		'en' => 'Address',
