@@ -194,6 +194,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
 			$rc .= '<script src="'.Utils::getJavascriptPath('remote-search.js', TRUE).'"></script>';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::SEARCH_FILTER)) {
+			$rc .= '<script src="'.Utils::getJavascriptPath('search-filter.js', TRUE).'"></script>';
+		}
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
 			$rc .= '<script src="'.Utils::getJavascriptPath('dynamic-fields.js', TRUE).'"></script>';
 		}
