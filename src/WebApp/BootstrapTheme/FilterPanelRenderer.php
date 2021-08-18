@@ -2,7 +2,7 @@
 
 namespace WebApp\BootstrapTheme;
 
-class SearchFilterBarRenderer extends \WebApp\DefaultTheme\FormRenderer {
+class FilterPanelRenderer extends \WebApp\DefaultTheme\DivRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);

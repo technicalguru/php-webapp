@@ -15,6 +15,8 @@ class BootstrapTheme extends \WebApp\DefaultTheme\DefaultTheme {
 	public const DYNAMICFIELDS      = 'dynamicfields';
 	public const DYNAMICCHECKENABLE = 'dynamiccheckenable';
 	public const CROPPERJS          = 'cropperjs';
+	public const SEARCH_FILTER      = 'search-filter';
+
 	public const CSS_URI            = 'BootstrapTheme/CssUri';
 
 	public function __construct($app) {

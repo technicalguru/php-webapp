@@ -7,11 +7,12 @@ use TgUtils\Request;
 class SearchFilterBar extends Form {
 
 	public function __construct($parent) {
-		parent::__construct($parent, 'search', Form::INLINE);
+		parent::__construct($parent, 'searchForm', Form::INLINE);
 		$this->setMethod('GET');
 		$this->setAction(Request::getRequest()->originalPath);
 		$this->searchInput = $this->createSearchInput();
 		$this->button = $this->createSubmitButton();
+		$this->button->setAttribute('onclick', 'searchFilter.searchSubmit(this); return false');
 		$this->createFilters();
 	}
 
