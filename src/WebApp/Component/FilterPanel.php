@@ -38,7 +38,7 @@ class FilterPanel extends Div {
 		$div->addClass('filter-section');
 		$p = new Paragraph($div);
 		$p->addClass('section-toggle');
-		$l = new Link($p, '#'.$id, strtoupper(I18N::_($label)));
+		$l = new Link($p, '#'.$id, mb_strtoupper(I18N::_($label)));
 		$l
 			->addClass('link-primary')
 			->setAttribute('data-toggle', 'collapse')

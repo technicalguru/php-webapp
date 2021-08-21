@@ -92,7 +92,7 @@ EOT;
 			'en' => 'Please do not reply to this e-mail. This message was generated automatically and was sent for your information only.',
 		), $language);
 		return "_________________________________________\n".
-		       strtoupper($attention).' '.$disclaimer;
+		       mb_strtoupper($attention).' '.$disclaimer;
 	}
 
 }
