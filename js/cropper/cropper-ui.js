@@ -185,8 +185,19 @@ class CropperUI {
 	}
 
 	selectImage(domElement) {
-		var cropper = this.getCropper(domElement);
-		cropper.replace(jQuery(domElement).find('img').attr('src'));
+		this.destroy(domElement);
+		var image   = this.getImage(domElement);
+		var uri     = jQuery(domElement).find('img').attr('src');
+		image[0].src = uri;
+		var options = {
+			originalImageURL:  uri,
+			uploadedImageType: 'image/jpeg',
+			uploadedImageName: 'cropped.jpg',
+			uploadedImageURL:  '',
+			scaleX:            1,
+			scaleY:            1,
+		};
+		this.createCropper(image[0], options);
 	}
 
 	setDragMode(domElement, value) {
@@ -242,19 +253,24 @@ class CropperUI {
 	}
 
 	destroy(domElement) {
-		// TODO Ask for confirmation
 		var cropper = this.getCropper(domElement);
-		var elem    = this.getImage(domElement);
-		var options = elem.data('upload');
-		cropper.destroy();
-		if (options.uploadedImageURL) {
-			URL.revokeObjectURL(options.uploadedImageURL);
-			options.uploadedImageURL = '';
-		} else {
-			// TODO remove from server
+		if (cropper) {
+			// TODO Ask for confirmation
+			cropper.destroy();
+			cropper = null;
+			var elem    = this.getImage(domElement);
+			var options = elem.data('upload');
+			if (options.uploadedImageURL) {
+				URL.revokeObjectURL(options.uploadedImageURL);
+				options.uploadedImageURL = '';
+			} else {
+				// TODO remove from server
+			}
+			// TODO remove from navigation
+			elem.attr('src', '');
+			elem.removeData('upload');
+			elem.removeData('cropper');
 		}
-		// TODO remove from navigation
-		elem.attr('src', '');
 	}
 
 }
