@@ -125,7 +125,7 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 
 			if (cropper) {
 				// TODO remember deleted image for later delete with save
-				cropper.destroy();
+				cropperUI.destroy(this, true);
 			}
 
 			var newId = 'uploadImage-'+cropperUI.nextId();
@@ -186,6 +186,14 @@ class CropperUI {
 		return this.idGen-1;
 	}
 
+	cropperChanged(event) {
+		if (event.type == 'ready') {
+			cropperUI.getOptions(event.target).changed = false;
+		} else {
+			cropperUI.getOptions(event.target).changed = true;
+		}
+	}
+
 	createCropper(domElement, options) {
 		var elem = jQuery(domElement);
 		options.destroyed = false;
@@ -193,6 +201,12 @@ class CropperUI {
             aspectRatio: 1,
 		});
 		elem.data('upload', options);
+		this.registerEvents(domElement);
+	}
+
+	registerEvents(domElement) {
+		var events = [ 'crop', 'ready' ];
+		events.forEach(e => domElement.addEventListener(e, this.cropperChanged, false));
 	}
 
 	getNav(domElement) {
@@ -217,16 +231,15 @@ class CropperUI {
 
 	addImage(domElement) {
 		var cropper   = this.getCropper(domElement);
-		if (cropper) cropper.destroy();
-		var options   = this.getOptions(domElement);
-		options.destroyed = true;
-		cropper = null;
+		if (cropper) {
+			this.destroy(domElement, true);
+		}
 		var fileInput = jQuery(domElement).closest('.cropper').find('input[type="file"]');
 		fileInput.trigger('click');
 	}
 
 	selectImage(domElement) {
-		this.destroy(domElement);
+		this.destroy(domElement, true);
 		var imgId   = jQuery(domElement).data('imgid');
 		var image   = this.getImage(domElement);
 		var uri     = jQuery(domElement).find('img').attr('src');
@@ -309,7 +322,7 @@ class CropperUI {
 			if (!options.uploadedImageURL) {
 				// TODO Remove from server
 			}
-			this.destroy(domElement);
+			this.destroy(domElement, false);
 			// Remove from navigation
 			var nav = this.getNav(domElement);
 			if (nav) {
@@ -330,13 +343,13 @@ class CropperUI {
 		alert(options.originalImageId);
 	}
 
-	destroy(domElement) {
+	destroy(domElement, askForChange) {
 		var cropper = this.getCropper(domElement);
 		if (cropper) {
 			cropper.destroy();
-			cropper = null;
 			var elem    = this.getImage(domElement);
 			var options = this.getOptions(domElement);
+			console.log('Changed '+options.changed);
 			options.cropper = null;
 			if (options.uploadedImageURL) {
 				URL.revokeObjectURL(options.uploadedImageURL);
@@ -345,6 +358,7 @@ class CropperUI {
 			elem.attr('src', '');
 			elem.removeData('upload');
 		}
+		return true;
 	}
 
 }
