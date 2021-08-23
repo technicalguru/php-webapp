@@ -148,6 +148,24 @@ class Renderer {
 		return FALSE;
 	}
 
+	public function getData($key) {
+		return $this->getAttribute('data-'.$key, TRUE);
+	}
+
+	public function setData($key, $value) {
+		$this->setAttribute('data-'.$key, $value);
+		return $this;
+	}
+
+	public function getAria($key) {
+		return $this->getAttribute('aria-'.$key, TRUE);
+	}
+
+	public function setAria($key, $value) {
+		$this->setAttribute('aria-'.$key, $value);
+		return $this;
+	}
+
 	protected function renderStartTag($tagName) {
 		$rc = '<'.$tagName;
 
