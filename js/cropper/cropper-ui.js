@@ -102,30 +102,35 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 	var file;
 	var cropper = cropperUI.getCropper(this);
 	var image   = cropperUI.getImage(this);
-	var options = image.data('upload');
+	var options = cropperUI.getOptions(this);
+	if (options && options.destroyed) {
+		cropper = undefined;
+		options = undefined;
+	}
 
 	if (files && files.length) {
 		file = files[0];
 
 		if (/^image\/\w+/.test(file.type)) {
-			options.uploadedImageType = file.type;
-			options.uploadedImageName = file.name;
-			options.scaleX            = 1;
-			options.scaleY            = 1;
-
-			if (options.uploadedImageURL) {
-				URL.revokeObjectURL(options.uploadedImageURL);
+			var oldId = null;
+			if (options) {
+				oldId = options.originalImageId;
+				if (options.uploadedImageURL) {
+					URL.revokeObjectURL(options.uploadedImageURL);
+				}
 			}
 
 			var url = URL.createObjectURL(file);
 			image[0].src = url;
 
 			if (cropper) {
+				// TODO remember deleted image for later delete with save
 				cropper.destroy();
-				image.data('cropper', null);
 			}
 
+			var newId = 'uploadImage-'+cropperUI.nextId();
 			options = {
+				originalImageId:   newId,
 				originalImageURL:  url,
 				uploadedImageType: file.type,
 				uploadedImageName: file.name,
@@ -133,6 +138,19 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 				scaleX:            1,
 				scaleY:            1,
 			};
+			// Add image at end of navbar
+			var nav = cropperUI.getNav(this);
+			if (nav) {
+				var addLink = nav.find('a[data-imgid="newImg"]');
+				var oldLink = oldId != null ? nav.find('a[data-imgid="'+oldId+'"]') : addLink;
+				var html = '<a data-imgid="'+newId+'" href="#" onclick="cropperUI.selectImage(this); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'+url+'"></a>';
+				oldLink.before(html);
+				if (oldId != null) oldLink.remove();
+				if (nav.data('maximages') < nav.children().length) {
+					addLink.hide();
+				}
+			}
+			// Create the cropper
 			cropperUI.createCropper(image[0], options);
 			this.value = null;
 		} else {
@@ -144,11 +162,13 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 class CropperUI {
 
 	constructor() {
+		this.idGen = 1;
 	}
 
 	init() {
 		jQuery('img.cropper-image').each(function(index) {
 			var options = {
+				originalImageId:   this.getAttribute('data-imgid'),
 				originalImageURL:  this.src,
 				uploadedImageType: 'image/jpeg',
 				uploadedImageName: 'cropped.jpg',
@@ -161,35 +181,58 @@ class CropperUI {
 		jQuery('[data-toggle="tooltip"]').tooltip();
 	}
 
+	nextId() {
+		this.idGen++;
+		return this.idGen-1;
+	}
+
 	createCropper(domElement, options) {
 		var elem = jQuery(domElement);
-		elem.data('upload', options);
-		elem.cropper({
-			aspectRatio: 1,
+		options.destroyed = false;
+		options.cropper   = new Cropper(domElement, {
+            aspectRatio: 1,
 		});
+		elem.data('upload', options);
+	}
+
+	getNav(domElement) {
+		var nav = jQuery(domElement).closest('.cropper').find('.cropper-nav');
+		if (nav.length == 0) return null;
+		return nav;
 	}
 
 	getImage(domElement) {
 		return jQuery(domElement).closest('.cropper').find('img.cropper-image');
 	}
 
+	getOptions(domElement) {
+		return this.getImage(domElement).data('upload');
+	}
+
 	getCropper(domElement) {
-		return this.getImage(domElement).data('cropper');
+		var options = this.getOptions(domElement);
+		if (options && options.cropper) return options.cropper;
+		return undefined;
 	}
 
 	addImage(domElement) {
 		var cropper   = this.getCropper(domElement);
-		cropper.destroy();
+		if (cropper) cropper.destroy();
+		var options   = this.getOptions(domElement);
+		options.destroyed = true;
+		cropper = null;
 		var fileInput = jQuery(domElement).closest('.cropper').find('input[type="file"]');
 		fileInput.trigger('click');
 	}
 
 	selectImage(domElement) {
 		this.destroy(domElement);
+		var imgId   = jQuery(domElement).data('imgid');
 		var image   = this.getImage(domElement);
 		var uri     = jQuery(domElement).find('img').attr('src');
 		image[0].src = uri;
 		var options = {
+			originalImageId:   imgId,
 			originalImageURL:  uri,
 			uploadedImageType: 'image/jpeg',
 			uploadedImageName: 'cropped.jpg',
@@ -202,74 +245,105 @@ class CropperUI {
 
 	setDragMode(domElement, value) {
 		var cropper = this.getCropper(domElement);
-		cropper.setDragMode(value);
+		if (cropper) cropper.setDragMode(value);
 	}
 
 	rotate(domElement, value) {
 		var cropper = this.getCropper(domElement);
-		if (cropper.cropped && cropper.options.viewMode > 0) {
-			cropper.clear();
-		}
-		cropper.rotate(value);
-		if (cropper.cropped && cropper.options.viewMode > 0) {
-			cropper.crop();
+		if (cropper) {
+			if (cropper.cropped && cropper.options.viewMode > 0) {
+				cropper.clear();
+			}
+			cropper.rotate(value);
+			if (cropper.cropped && cropper.options.viewMode > 0) {
+				cropper.crop();
+			}
 		}
 	}
 
 	scaleX(domElement, value) {
 		var cropper = this.getCropper(domElement);
-		var elem    = this.getImage(domElement);
-		var options = elem.data('upload');
-		options.scaleX = value*options.scaleX;
-		cropper.scaleX(options.scaleX);
+		if (cropper) {
+			var options = this.getOptions(domElement);
+			options.scaleX = value*options.scaleX;
+			cropper.scaleX(options.scaleX);
+		}
 	}
 
 	scaleY(domElement, value) {
 		var cropper = this.getCropper(domElement);
-		var elem    = this.getImage(domElement);
-		var options = elem.data('upload');
-		options.scaleY = value*options.scaleY;
-		cropper.scaleY(options.scaleY);
+		if (cropper) {
+			var options = this.getOptions(domElement);
+			options.scaleY = value*options.scaleY;
+			cropper.scaleY(options.scaleY);
+		}
 	}
 
 	reset(domElement) {
 		var cropper = this.getCropper(domElement);
-		cropper.reset();
-		var elem    = this.getImage(domElement);
-		var options = elem.data('upload');
-		options.scaleX = 1;
-		options.scaleY = 1;
+		if (cropper) {
+			cropper.reset();
+			var options = this.getOptions(domElement);
+			options.scaleX = 1;
+			options.scaleY = 1;
+		}
 	}
 
 	save(domElement) {
 		var cropper = this.getCropper(domElement);
-		var elem    = this.getImage(domElement);
-		var options = elem.data('upload');
-		if (options.uploadedImageURL) {
-			// TODO Upload with data options
-		} else {
-			// Send data options for modifications
+		if (cropper) {
+			var options = this.getOptions(domElement);
+			if (options.uploadedImageURL) {
+				// TODO Upload with data options
+			} else {
+				// Send data options for modifications
+			}
 		}
+	}
+
+	delete(domElement) {
+		var cropper = this.getCropper(domElement);
+		if (cropper) {
+			// TODO Ask for confirmation
+			var options = this.getOptions(domElement);
+			if (!options.uploadedImageURL) {
+				// TODO Remove from server
+			}
+			this.destroy(domElement);
+			// Remove from navigation
+			var nav = this.getNav(domElement);
+			if (nav) {
+				var link = nav.find('a[data-imgid="'+options.originalImageId+'"]');
+				// select next if any
+				var nextImage = link.next();
+				link.remove();
+				if (nextImage.data('imgid') == 'newImg') nextImage = nextImage.prev();
+				if ((nextImage.length == 0) || (nextImage.data('imgid') == 'newImg')) nextImage = null;
+				if (nextImage != null) this.selectImage(nextImage[0]);
+				nav.find('a[data-imgid="newImg"]').show();
+			}
+		}
+	}
+
+	info(domElement) {
+		var options = this.getOptions(domElement);
+		alert(options.originalImageId);
 	}
 
 	destroy(domElement) {
 		var cropper = this.getCropper(domElement);
 		if (cropper) {
-			// TODO Ask for confirmation
 			cropper.destroy();
 			cropper = null;
 			var elem    = this.getImage(domElement);
-			var options = elem.data('upload');
+			var options = this.getOptions(domElement);
+			options.cropper = null;
 			if (options.uploadedImageURL) {
 				URL.revokeObjectURL(options.uploadedImageURL);
 				options.uploadedImageURL = '';
-			} else {
-				// TODO remove from server
 			}
-			// TODO remove from navigation
 			elem.attr('src', '');
 			elem.removeData('upload');
-			elem.removeData('cropper');
 		}
 	}
 

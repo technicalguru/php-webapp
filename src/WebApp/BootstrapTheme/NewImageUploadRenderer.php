@@ -22,14 +22,14 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		$rc     = '';
 		$uriDir = $this->component->getUriDir();
 		if ($this->component->hasNavigation()) {
-			$rc .= '<div class="cropper-nav" style="height: 150px; margin: 10px; overflow-x: auto;white-space: nowrap;">';
+			$rc .= '<div class="cropper-nav" data-maximages="'.$this->component->getMaxImages().'" style="height: 150px; margin: 10px; overflow-x: auto;white-space: nowrap;scrollbar-width: thin;">';
 			foreach ($this->component->getImages() AS $id => $uri) {
 				$rc .= '<a data-imgid="'.$id.'" href="#" onclick="cropperUI.selectImage(this); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'.$uriDir.'/'.$uri.'"></a>';
 			}
 
 			// Always create the new image upload here
-			$class = ($this->component->getImageCount() < $this->component->getMaxImages()) ? '' : 'hidden';
-			$rc .= '<a data-imgid="newImg" href="#" onclick="cropperUI.addImage(this); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'.\WebApp\Utils::getImageBasePath(TRUE).'/multi-image-upload-new.png"></a>';
+			$style = ($this->component->getImageCount() < $this->component->getMaxImages()) ? '' : ' style="display:none;"';
+			$rc .= '<a '.$style.' data-imgid="newImg" href="#" onclick="cropperUI.addImage(this); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'.\WebApp\Utils::getImageBasePath(TRUE).'/multi-image-upload-new.png"></a>';
 			$rc .= '</div>';
 		}
 		return $rc;
@@ -85,7 +85,10 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 				'</div>'.
 				// Delete
 				'<div class="btn-group">'.
-				  $this->renderActionButton('cropperUI.destroy(this);', 'Delete', 'Delete Help', 'fa fa-trash-alt', 'danger').
+				  $this->renderActionButton('cropperUI.delete(this);', 'Delete', 'Delete Help', 'fa fa-trash-alt', 'danger').
+				'</div>'.
+				'<div class="btn-group">'.
+				  $this->renderActionButton('cropperUI.info(this);', 'Info', 'Info Help', 'fa fa-info', 'secondary').
 				'</div>'.
 		      '</div>';
 		return $rc;
