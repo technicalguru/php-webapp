@@ -128,6 +128,14 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 				cropperUI.destroy(this);
 			}
 
+			var reader = new FileReader();
+			var foo    = this;
+			reader.addEventListener('load', function(event) {
+				var file = event.target;
+				cropperUI.getOptions(foo).file = file.result;
+			});
+			reader.readAsDataURL(file);
+
 			var newId = 'uploadImage-'+cropperUI.nextId();
 			options = {
 				originalImageId:   newId,
@@ -137,6 +145,7 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 				uploadedImageURL:  url,
 				scaleX:            1,
 				scaleY:            1,
+				file:              null,
 			};
 			// Add image at end of navbar
 			var nav = cropperUI.getNav(this);
@@ -362,7 +371,11 @@ class CropperUI {
 
 	info(domElement) {
 		var options = this.getOptions(domElement);
-		alert(options.originalImageId);
+		if (options.file) {
+			alert(JSON.stringify(options.file));
+		} else {
+			alert(options.originalImageId);
+		}
 	}
 
 	destroy(domElement, askForChange) {
@@ -440,8 +453,14 @@ class DeleteImageModal extends ChangeConfirmModal {
 
 		var options = cropperUI.getOptions(this.domElement);
 		if (!options.uploadedImageURL) {
-			// TODO Remove from server
+			// Remove from server
+			var data = {
+				action:  'delete',
+				imageId: options.originalImageId,
+			}
+			webApp.POST(document.location, data, new WebAppAjaxController());
 		}
+
 		cropperUI.destroy(this.domElement);
 		// Remove from navigation
 		var nav = cropperUI.getNav(this.domElement);
