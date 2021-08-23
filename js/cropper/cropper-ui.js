@@ -125,7 +125,7 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 
 			if (cropper) {
 				// TODO remember deleted image for later delete with save
-				cropperUI.destroy(this, true);
+				cropperUI.destroy(this);
 			}
 
 			var newId = 'uploadImage-'+cropperUI.nextId();
@@ -143,7 +143,7 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 			if (nav) {
 				var addLink = nav.find('a[data-imgid="newImg"]');
 				var oldLink = oldId != null ? nav.find('a[data-imgid="'+oldId+'"]') : addLink;
-				var html = '<a data-imgid="'+newId+'" href="#" onclick="cropperUI.selectImage(this); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'+url+'"></a>';
+				var html = '<a data-imgid="'+newId+'" href="#" onclick="cropperUI.selectImage(this, true); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'+url+'"></a>';
 				oldLink.before(html);
 				if (oldId != null) oldLink.remove();
 				if (nav.data('maximages') < nav.children().length) {
@@ -163,6 +163,24 @@ class CropperUI {
 
 	constructor() {
 		this.idGen = 1;
+		webApp.registerI18N(new I18N({
+			'de' : {
+				addImageTitle: 'Bild hinzufügen',
+				addImageBody: 'Du hast die Änderungen am aktuellen Bild noch nicht gespeichert. Wenn Du auf "Weiter..." klickst, gehen diese Änderungen verloren. Möchtest Du das?',
+				selectImageTitle: 'Anderes Bild ändern',
+				selectImageBody: 'Du hast die Änderungen am aktuellen Bild noch nicht gespeichert. Wenn Du auf "Weiter..." klickst, gehen diese Änderungen verloren. Möchtest Du das?',
+				deleteImageTitle: 'Bild löschen',
+				deleteImageBody: 'Wenn Du auf "Weiter..." klickst, wird das Bild unwiderruflich gelöscht. Möchtest Du das?',
+			},
+			'en' : {
+				addImageTitle: 'Adding a new image',
+				addImageBody: 'You haven\'t saved the changes to the current image yet. You will lose all these changes when you click on "Continue...". Are you sure?',
+				selectImageTitle: 'Editing another image',
+				selectImageBody: 'You haven\'t saved the changes to the current image yet. You will lose all these changes when you click on "Continue...". Are you sure?',
+				deleteImageTitle: 'Deleting image',
+				deleteImageBody: 'This image will be deleted when you click on "Continue...". This action cannot be undone. Are you sure?',
+			},
+		}));
 	}
 
 	init() {
@@ -229,17 +247,35 @@ class CropperUI {
 		return undefined;
 	}
 
-	addImage(domElement) {
+	addImage(domElement, checkChange) {
 		var cropper   = this.getCropper(domElement);
 		if (cropper) {
-			this.destroy(domElement, true);
+			// ask for confirmation when image changed
+			if (checkChange) {
+				var options = this.getOptions(domElement);
+				if (options.changed) {
+					var modal = new AddImageModal(domElement);
+					modal.show();
+					return;
+				}
+			}
+			this.destroy(domElement);
 		}
 		var fileInput = jQuery(domElement).closest('.cropper').find('input[type="file"]');
 		fileInput.trigger('click');
 	}
 
-	selectImage(domElement) {
-		this.destroy(domElement, true);
+	selectImage(domElement, checkChange) {
+		// ask for confirmation when image changed
+		if (checkChange) {
+			var cropper   = this.getCropper(domElement);
+			if (cropper && this.getOptions(domElement).changed) {
+				var modal = new SelectImageModal(domElement);
+				modal.show();
+				return;
+			}
+		}
+		this.destroy(domElement);
 		var imgId   = jQuery(domElement).data('imgid');
 		var image   = this.getImage(domElement);
 		var uri     = jQuery(domElement).find('img').attr('src');
@@ -299,6 +335,7 @@ class CropperUI {
 			var options = this.getOptions(domElement);
 			options.scaleX = 1;
 			options.scaleY = 1;
+			options.changed = false;
 		}
 	}
 
@@ -317,24 +354,9 @@ class CropperUI {
 	delete(domElement) {
 		var cropper = this.getCropper(domElement);
 		if (cropper) {
-			// TODO Ask for confirmation
-			var options = this.getOptions(domElement);
-			if (!options.uploadedImageURL) {
-				// TODO Remove from server
-			}
-			this.destroy(domElement, false);
-			// Remove from navigation
-			var nav = this.getNav(domElement);
-			if (nav) {
-				var link = nav.find('a[data-imgid="'+options.originalImageId+'"]');
-				// select next if any
-				var nextImage = link.next();
-				link.remove();
-				if (nextImage.data('imgid') == 'newImg') nextImage = nextImage.prev();
-				if ((nextImage.length == 0) || (nextImage.data('imgid') == 'newImg')) nextImage = null;
-				if (nextImage != null) this.selectImage(nextImage[0]);
-				nav.find('a[data-imgid="newImg"]').show();
-			}
+			// Ask for confirmation
+			var modal = new DeleteImageModal(domElement);
+			modal.show();
 		}
 	}
 
@@ -349,7 +371,6 @@ class CropperUI {
 			cropper.destroy();
 			var elem    = this.getImage(domElement);
 			var options = this.getOptions(domElement);
-			console.log('Changed '+options.changed);
 			options.cropper = null;
 			if (options.uploadedImageURL) {
 				URL.revokeObjectURL(options.uploadedImageURL);
@@ -358,9 +379,83 @@ class CropperUI {
 			elem.attr('src', '');
 			elem.removeData('upload');
 		}
-		return true;
 	}
 
+}
+
+class ChangeConfirmModal extends WebAppModal {
+
+	constructor(id, domElement, title, body) {
+		super(id);
+		this.domElement = domElement;
+		this.setTitle(title);
+		this.setBody(body);
+		this.addButton(webApp.i18n('continue'), 'btn-danger', '');
+		this.setCloseLabel(webApp.i18n('cancel'));
+		jQuery('#'+this.id+' .btn-danger').on('click', jQuery.proxy(this.yesClicked, this));
+		jQuery('#'+this.id+' .close-button').on('click', jQuery.proxy(this.noClicked, this));
+	}
+
+	yesClicked() {
+		this.end();
+	}
+
+	noClicked() {
+		this.end();
+	}
+}
+
+class AddImageModal extends ChangeConfirmModal {
+
+	constructor(domElement) {
+		super('confirmChangeModal', domElement, webApp.i18n('addImageTitle'), webApp.i18n('addImageBody'));
+	}
+
+	yesClicked() {
+		this.end();
+		cropperUI.addImage(this.domElement, false);
+	}
+}
+
+class SelectImageModal extends ChangeConfirmModal {
+
+	constructor(domElement) {
+		super('confirmSelectModal', domElement, webApp.i18n('selectImageTitle'), webApp.i18n('selectImageBody'));
+	}
+
+	yesClicked() {
+		this.end();
+		cropperUI.selectImage(this.domElement, false);
+	}
+}
+
+class DeleteImageModal extends ChangeConfirmModal {
+
+	constructor(domElement) {
+		super('confirmDeleteModal', domElement, webApp.i18n('deleteImageTitle'), webApp.i18n('deleteImageBody'));
+	}
+
+	yesClicked() {
+		this.end();
+
+		var options = cropperUI.getOptions(this.domElement);
+		if (!options.uploadedImageURL) {
+			// TODO Remove from server
+		}
+		cropperUI.destroy(this.domElement);
+		// Remove from navigation
+		var nav = cropperUI.getNav(this.domElement);
+		if (nav) {
+			var link = nav.find('a[data-imgid="'+options.originalImageId+'"]');
+			// select next if any
+			var nextImage = link.next();
+			link.remove();
+			if (nextImage.data('imgid') == 'newImg') nextImage = nextImage.prev();
+			if ((nextImage.length == 0) || (nextImage.data('imgid') == 'newImg')) nextImage = null;
+			if (nextImage != null) cropperUI.selectImage(nextImage[0]);
+			nav.find('a[data-imgid="newImg"]').show();
+		}
+	}
 }
 
 var cropperUI = new CropperUI();
