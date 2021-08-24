@@ -112,16 +112,20 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 		file = files[0];
 
 		if (/^image\/\w+/.test(file.type)) {
-			var oldId = null;
+			var oldId      = null;
+			var replacedId = null;
 			if (options) {
 				oldId = options.originalImageId;
+				replacedId = oldId;
 				if (options.uploadedImageURL) {
 					URL.revokeObjectURL(options.uploadedImageURL);
+				}
+				if (options.replacedImageId) {
+					replacedId = options.replacedImageId;
 				}
 			}
 
 			if (cropper) {
-				// TODO remember deleted image for later delete with save
 				cropperUI.destroy(this);
 			}
 
@@ -138,6 +142,7 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 
 			var newId = 'uploadImage-'+cropperUI.nextId();
 			options = {
+				replacedImageId:   replacedId,
 				originalImageId:   newId,
 				originalImageURL:  url,
 				uploadedImageType: file.type,
@@ -415,13 +420,42 @@ class CropperUI {
 
 	save(domElement) {
 		var cropper = this.getCropper(domElement);
-		if (cropper) {
-			var options = this.getOptions(domElement);
-			if (options.uploadedImageURL) {
-				// TODO Upload with data options
-			} else {
-				// Send data options for modifications
+		var options = this.getOptions(domElement);
+		if (cropper && options.changed) {
+			var data = {
+				action:        'save',
+				imageId:       options.originalImageId,
+				data:          cropper.getData(),
+				containerData: cropper.getContainerData(),
+				imageData:     cropper.getImageData(),
+				canvasData:    cropper.getCanvasData(),
+				cropBoxData:   cropper.getCropBoxData(),
+				order:         [],
+				replacedId:    null,
+				blob:          null,
 			}
+			if (options.replacedImageId) {
+				data.replacedId = options.replacedImageId;
+			}
+			if (options.uploadedImageURL) {
+				// Upload with data options
+				data.blob = options.file;
+			}
+			var nav  = this.getNav(domElement);
+			if (nav) {
+				nav.children().each(function(index) {
+					var link = jQuery(this);
+					if (link.data('imgid') != 'newImg') {
+						if (link.find('img').attr('src') != options.uploadedImageURL) {
+							data.order.push(link.data('imgid'));
+						} else {
+							data.order.push('NEW');
+						}
+					}
+				});
+			}
+			// Send data options for modifications
+			webApp.POST(document.location, data, new SaveImageAjaxController(options));
 		}
 	}
 
@@ -539,6 +573,24 @@ class DeleteImageModal extends ChangeConfirmModal {
 			if (nextImage != null) cropperUI.selectImage(nextImage[0]);
 			nav.find('a[data-imgid="newImg"]').show();
 		}
+	}
+}
+
+class SaveImageAjaxController extends WebAppDefaultAjaxController {
+
+	constructor(options) {
+		super();
+		this.options = options;
+	}
+
+	done(ajaxParams, data, textStatus, jqXHR) {
+		// Change nav and editor URL (replace/reset?), set changed to FALSE
+		super.done(ajaxParams, data, textStatus, jqXHR);
+	}
+
+	fail(ajaxParams, jqXHR, textStatus, errorThrown) {
+		super.fail(ajaxParams, jqXHR, textStatus, errorThrown);
+		// Show error message
 	}
 }
 
