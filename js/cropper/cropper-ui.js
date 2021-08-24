@@ -152,8 +152,10 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 			if (nav) {
 				var addLink = nav.find('a[data-imgid="newImg"]');
 				var oldLink = oldId != null ? nav.find('a[data-imgid="'+oldId+'"]') : addLink;
-				var html = '<a data-imgid="'+newId+'" href="#" onclick="cropperUI.selectImage(this, true); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'+url+'"></a>';
+				var html = '<a class="cropper-nav-link" data-imgid="'+newId+'" href="#" onclick="cropperUI.selectImage(this, true); return false;"><img class="img-fluid img-thumbnail" src="'+url+'"></a>';
 				oldLink.before(html);
+				var newLink = nav.find('a[data-imgid="'+newId+'"]');
+				cropperUI.addNavigationLinks(newLink);
 				if (oldId != null) oldLink.remove();
 				if (nav.data('maximages') < nav.children().length) {
 					addLink.hide();
@@ -206,6 +208,9 @@ class CropperUI {
 			cropperUI.createCropper(this, options);
 		});
 		jQuery('[data-toggle="tooltip"]').tooltip();
+		jQuery('.cropper-nav a.cropper-nav-link').each(function(index) {
+			cropperUI.addNavigationLinks(this);
+		});
 	}
 
 	nextId() {
@@ -229,6 +234,19 @@ class CropperUI {
 		});
 		elem.data('upload', options);
 		this.registerEvents(domElement);
+	}
+
+	addNavigationLinks(domElement) {
+		jQuery(domElement).mouseenter(function() {
+			jQuery(this).find('.cropper-nav-link-hover').show();
+		}).mouseleave(function() {
+			jQuery(this).find('.cropper-nav-link-hover').hide();
+		}).append(
+			'<div class="cropper-nav-link-hover" style="display: none;">'+
+				'<span class="fa fa-angle-left"  onClick="cropperUI.moveLeft(event, this);" title="Move Left"></span>'+
+				'<span class="fa fa-angle-right" onClick="cropperUI.moveRight(event, this);" title="Move Right"></span>'+
+			'</div>'
+		);
 	}
 
 	registerEvents(domElement) {
@@ -274,31 +292,60 @@ class CropperUI {
 		fileInput.trigger('click');
 	}
 
+	moveLeft(event, domElement) {
+		var link = this.findNavLink(domElement);
+		if (link.prev()) {
+			link.prev().insertAfter(link);
+			this.saveOrder(domElement);
+		}
+		event.stopPropagation();
+	}
+
+	moveRight(event, domElement) {
+		var link = this.findNavLink(domElement);
+		if (link.next() && (link.next().data('imgid') != 'newImg')) {
+			link.next().insertBefore(link);
+			this.saveOrder(domElement);
+		}
+		event.stopPropagation();
+	}
+
+	findNavLink(domElement) {
+		var rc = jQuery(domElement);
+		while ((rc.length > 0) && !rc.data('imgid')) {
+			rc = rc.parent();
+		}
+		return rc;
+	}
+
 	selectImage(domElement, checkChange) {
 		// ask for confirmation when image changed
-		if (checkChange) {
-			var cropper   = this.getCropper(domElement);
-			if (cropper && this.getOptions(domElement).changed) {
-				var modal = new SelectImageModal(domElement);
-				modal.show();
-				return;
-			}
-		}
-		this.destroy(domElement);
+		var cropper = this.getCropper(domElement);
+		var options = this.getOptions(domElement);
 		var imgId   = jQuery(domElement).data('imgid');
-		var image   = this.getImage(domElement);
-		var uri     = jQuery(domElement).find('img').attr('src');
-		image[0].src = uri;
-		var options = {
-			originalImageId:   imgId,
-			originalImageURL:  uri,
-			uploadedImageType: 'image/jpeg',
-			uploadedImageName: 'cropped.jpg',
-			uploadedImageURL:  '',
-			scaleX:            1,
-			scaleY:            1,
-		};
-		this.createCropper(image[0], options);
+		if (!cropper || options.originalImageId != imgId) {
+			if (checkChange) {
+				if (cropper && options.changed) {
+					var modal = new SelectImageModal(domElement);
+					modal.show();
+					return;
+				}
+			}
+			this.destroy(domElement);
+			var image   = this.getImage(domElement);
+			var uri     = jQuery(domElement).find('img').attr('src');
+			image[0].src = uri;
+			options = {
+				originalImageId:   imgId,
+				originalImageURL:  uri,
+				uploadedImageType: 'image/jpeg',
+				uploadedImageName: 'cropped.jpg',
+				uploadedImageURL:  '',
+				scaleX:            1,
+				scaleY:            1,
+			};
+			this.createCropper(image[0], options);
+		}
 	}
 
 	setDragMode(domElement, value) {
@@ -346,6 +393,23 @@ class CropperUI {
 			options.scaleY = 1;
 			options.changed = false;
 		}
+	}
+
+	saveOrder(domElement) {
+		var nav  = this.getNav(domElement);
+		var list = [];
+		nav.children().each(function(index) {
+			var link = jQuery(this);
+			if ((link.data('imgid') != 'newImg') && !link.find('img').attr('src').startsWith('blob:')) {
+				list.push(link.data('imgid'));
+			}
+		});
+		// Save to server
+		var data = {
+			action: 'changeOrder',
+			order:  list,
+		}
+		webApp.POST(document.location, data, new WebAppAjaxController());
 	}
 
 	save(domElement) {

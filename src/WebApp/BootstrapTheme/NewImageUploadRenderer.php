@@ -22,14 +22,14 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		$rc     = '';
 		$uriDir = $this->component->getUriDir();
 		if ($this->component->hasNavigation()) {
-			$rc .= '<div class="cropper-nav" data-maximages="'.$this->component->getMaxImages().'" style="height: 150px; margin: 10px; overflow-x: auto;white-space: nowrap;scrollbar-width: thin;">';
+			$rc .= '<div class="cropper-nav" data-maximages="'.$this->component->getMaxImages().'">';
 			foreach ($this->component->getImages() AS $id => $uri) {
-				$rc .= '<a data-imgid="'.$id.'" href="#" onclick="cropperUI.selectImage(this, true); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'.$uriDir.'/'.$uri.'"></a>';
+				$rc .= '<a class="cropper-nav-link" data-imgid="'.$id.'" href="#" onclick="cropperUI.selectImage(this, true); return false;"><img class="img-fluid img-thumbnail" src="'.$uriDir.'/'.$uri.'"></a>';
 			}
 
 			// Always create the new image upload here
 			$style = ($this->component->getImageCount() < $this->component->getMaxImages()) ? '' : ' style="display:none;"';
-			$rc .= '<a '.$style.' data-imgid="newImg" href="#" onclick="cropperUI.addImage(this, true); return false;"><img class="img-fluid img-thumbnail" style="margin:10px; max-height: 80%;" src="'.\WebApp\Utils::getImageBasePath(TRUE).'/multi-image-upload-new.png"></a>';
+			$rc .= '<a '.$style.' data-imgid="newImg" href="#" onclick="cropperUI.addImage(this, true); return false;"><img class="img-fluid img-thumbnail" src="'.\WebApp\Utils::getImageBasePath(TRUE).'/multi-image-upload-new.png"></a>';
 			$rc .= '</div>';
 		}
 		return $rc;
@@ -80,15 +80,15 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 				      '<span class="fa fa-upload"></span>'.
 				    '</span>'.
 				  '</label>'.
-				  $this->renderActionButton('cropperUI.save(this);', 'Save', 'Save Help', 'fa fa-save').
-				  $this->renderActionButton('cropperUI.reset(this);', 'Clear Changes', 'Clear Help', 'fa fa-trash-restore-alt').
+				  $this->renderActionButton('cropperUI.reset(this);', 'Reset Changes', 'Reset Help', 'fa fa-trash-restore-alt').
 				'</div>'.
 				// Delete
 				'<div class="btn-group">'.
 				  $this->renderActionButton('cropperUI.delete(this);', 'Delete', 'Delete Help', 'fa fa-trash-alt', 'danger').
 				'</div>'.
 				'<div class="btn-group">'.
-				  $this->renderActionButton('cropperUI.info(this);', 'Info', 'Info Help', 'fa fa-info', 'secondary').
+				//  $this->renderActionButton('cropperUI.info(this);', 'Info', 'Info Help', 'fa fa-info', 'secondary').
+				  $this->renderActionButton('cropperUI.save(this);', 'Save', 'Save Help', 'fa fa-save', 'success').
 				'</div>'.
 		      '</div>';
 		return $rc;
