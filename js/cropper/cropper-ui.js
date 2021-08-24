@@ -120,13 +120,13 @@ jQuery('.cropper input[type="file"]').on('change', function() {
 				}
 			}
 
-			var url = URL.createObjectURL(file);
-			image[0].src = url;
-
 			if (cropper) {
 				// TODO remember deleted image for later delete with save
 				cropperUI.destroy(this);
 			}
+
+			var url = URL.createObjectURL(file);
+			image[0].src = url;
 
 			var reader = new FileReader();
 			var foo    = this;
@@ -219,10 +219,11 @@ class CropperUI {
 	}
 
 	cropperChanged(event) {
+		var options = cropperUI.getOptions(event.target);
 		if (event.type == 'ready') {
-			cropperUI.getOptions(event.target).changed = false;
+			options.changed = options.uploadedImageURL ? true : false;
 		} else {
-			cropperUI.getOptions(event.target).changed = true;
+			options.changed = true;
 		}
 	}
 
@@ -391,7 +392,7 @@ class CropperUI {
 			var options = this.getOptions(domElement);
 			options.scaleX = 1;
 			options.scaleY = 1;
-			options.changed = false;
+			options.changed = options.uploadedImageURL ? true : false;
 		}
 	}
 
