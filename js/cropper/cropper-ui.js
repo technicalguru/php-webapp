@@ -186,7 +186,11 @@ class CropperUI {
 				selectImageTitle: 'Anderes Bild ändern',
 				selectImageBody: 'Du hast die Änderungen am aktuellen Bild noch nicht gespeichert. Wenn Du auf "Weiter..." klickst, gehen diese Änderungen verloren. Möchtest Du das?',
 				deleteImageTitle: 'Bild löschen',
-				deleteImageBody: 'Wenn Du auf "Weiter..." klickst, wird das Bild unwiderruflich gelöscht. Möchtest Du das?',
+				deleteImageBody:  'Wenn Du auf "Weiter..." klickst, wird das Bild unwiderruflich gelöscht. Möchtest Du das?',
+				deleteFailedTitle:'Das Bild konnte nicht gelöscht werden.',
+				deleteFailedText: 'Leider konnten wir das Bild nicht vom Server löschen. Bitte versuche es später noch einmal.',
+				saveFailedTitle:  'Das Bild konnte nicht gespeichert werden.',
+				saveFailedText:   'Leider konnten wir das Bild auf dem Server nicht speichern. Bitte versuche es später noch einmal.',
 			},
 			'en' : {
 				addImageTitle: 'Adding a new image',
@@ -195,6 +199,10 @@ class CropperUI {
 				selectImageBody: 'You haven\'t saved the changes to the current image yet. You will lose all these changes when you click on "Continue...". Are you sure?',
 				deleteImageTitle: 'Deleting image',
 				deleteImageBody: 'This image will be deleted when you click on "Continue...". This action cannot be undone. Are you sure?',
+				deleteFailedTitle:'The image could not be deleted.',
+				deleteFailedText: 'We are sorry but we couldn\'t delete the image from our server. Please retry later!',
+				saveFailedTitle:  'The image could not be saved.',
+				saveFailedText:   'We are sorry but we couldn\'t save the image on our server. Please retry later!',
 			},
 		}));
 	}
@@ -557,9 +565,64 @@ class DeleteImageModal extends ChangeConfirmModal {
 				action:  'delete',
 				imageId: options.originalImageId,
 			}
-			webApp.POST(document.location, data, new WebAppAjaxController());
+			webApp.POST(document.location, data, new DeleteImageAjaxController(this.domElement));
+		} else {
+			var handler = new DeleteImageAjaxController(this.domElement);
+			handler.deleteImage();
 		}
+	}
 
+}
+
+class SaveImageAjaxController extends WebAppDefaultAjaxController {
+
+	constructor(options) {
+		super();
+		this.options = options;
+	}
+
+	done(ajaxParams, data, textStatus, jqXHR) {
+		super.done(ajaxParams, data, textStatus, jqXHR);
+		if (data.success) {
+			// Change nav and editor URL (replace/reset?), set changed to FALSE
+		} else {
+			this.showError();
+		}
+	}
+
+	fail(ajaxParams, jqXHR, textStatus, errorThrown) {
+		super.fail(ajaxParams, jqXHR, textStatus, errorThrown);
+		this.showError();
+	}
+
+	showError() {
+		// Show error message
+		webApp.error(webApp.i18n('saveFailedTitle'), webApp.i18n('saveFailedText'));
+	}
+}
+
+class DeleteImageAjaxController extends WebAppDefaultAjaxController {
+
+	constructor(domElement) {
+		super();
+		this.domElement = domElement;
+	}
+
+	done(ajaxParams, data, textStatus, jqXHR) {
+		super.done(ajaxParams, data, textStatus, jqXHR);
+		if (data.success) {
+			this.deleteImage();
+		} else {
+			this.showError();
+		}
+	}
+
+	fail(ajaxParams, jqXHR, textStatus, errorThrown) {
+		super.fail(ajaxParams, jqXHR, textStatus, errorThrown);
+		this.showError();
+	}
+
+	deleteImage() {
 		cropperUI.destroy(this.domElement);
 		// Remove from navigation
 		var nav = cropperUI.getNav(this.domElement);
@@ -574,23 +637,10 @@ class DeleteImageModal extends ChangeConfirmModal {
 			nav.find('a[data-imgid="newImg"]').show();
 		}
 	}
-}
 
-class SaveImageAjaxController extends WebAppDefaultAjaxController {
-
-	constructor(options) {
-		super();
-		this.options = options;
-	}
-
-	done(ajaxParams, data, textStatus, jqXHR) {
-		// Change nav and editor URL (replace/reset?), set changed to FALSE
-		super.done(ajaxParams, data, textStatus, jqXHR);
-	}
-
-	fail(ajaxParams, jqXHR, textStatus, errorThrown) {
-		super.fail(ajaxParams, jqXHR, textStatus, errorThrown);
+	showError() {
 		// Show error message
+		webApp.error(webApp.i18n('deleteFailedTitle'), webApp.i18n('deleteFailedText'));
 	}
 }
 
