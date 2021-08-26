@@ -43,6 +43,7 @@ class DefaultLayout extends \WebApp\Layout {
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::CROPPERJS)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper.min.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper-ui.css', TRUE).'" rel="stylesheet" type="text/css">';
 		}
 		$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap.css', TRUE).'" rel="stylesheet" type="text/css">';
 		$rc .= parent::renderLinks();

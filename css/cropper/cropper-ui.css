@@ -1,0 +1,48 @@
+.cropper-actions {
+	margin-top: 0.5em;
+	text-align: center;
+}
+
+.cropper-actions label {
+	margin-bottom: 0;
+}
+
+.cropper-actions .btn-group {
+	padding-right: 0.5em;
+}
+
+.cropper-nav {
+	height: 150px;
+	margin: 10px;
+	overflow-x: auto;
+	white-space: nowrap;
+	scrollbar-width: thin;
+}
+
+.cropper-nav-link {
+	display: inline-block;
+	height: 140px;
+	position: relative;
+}
+
+.cropper-nav a img.img-fluid {
+	margin: 5px;
+	height: 140px;
+}
+
+.cropper-nav-link-hover {
+	display: inline-block;
+	position: absolute;
+	color: red;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	top: 0;
+	padding: 15px 10px;
+	text-align: center;
+	font-size: 1.3em;
+}
+
+.cropper-nav-link-hover span {
+	padding: 2px;
+}
