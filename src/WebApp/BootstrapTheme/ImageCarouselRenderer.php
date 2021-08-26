@@ -45,7 +45,7 @@ class ImageCarouselRenderer extends \WebApp\DefaultTheme\DivRenderer {
 			$nav   .= '</ol>';
 
 			// Composite
-			$rc   = '<div id="'.$id.'" class="carousel slide" data-ride="carousel">'.$nav.$inner.
+			$rc   = '<div id="'.$id.'" class="carousel slide" data-ride="carousel" data-interval="false">'.$nav.$inner.
 			           '<a class="carousel-control-prev" href="#'.$id.'" role="button" data-slide="prev">'.
 			              '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'.
 			              '<span class="sr-only">'.I18N::_('previous').'</span>'.
