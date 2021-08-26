@@ -18,6 +18,7 @@ class ImageCarouselRenderer extends \WebApp\DefaultTheme\DivRenderer {
 			// Placeholder image or nothing?
 		} else if (count($images) == 1) {
 			// No navigation - just a simple image
+			$images[0]->image->addClass('img-fluid');
 			$rc = $this->theme->renderComponent($images[0]->image);
 		} else if (count($images) > 1) {
 			$id    = $this->component->getId().'-carousel';
