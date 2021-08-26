@@ -218,7 +218,8 @@ class CropperUI {
 				scaleX:            1,
 				scaleY:            1,
 			};
-			cropperUI.createCropper(this, options);
+			var cropperOptions = { autoCrop: false };
+			cropperUI.createCropper(this, options, cropperOptions);
 		});
 		jQuery('[data-toggle="tooltip"]').tooltip();
 		jQuery('.cropper-nav a.cropper-nav-link').each(function(index) {
@@ -240,12 +241,12 @@ class CropperUI {
 		}
 	}
 
-	createCropper(domElement, options) {
+	createCropper(domElement, options, cropperOptions) {
 		var elem = jQuery(domElement);
 		options.destroyed = false;
-		options.cropper   = new Cropper(domElement, {
-            aspectRatio: 1,
-		});
+		if (!cropperOptions) cropperOptions = {};
+		cropperOptions.aspectRatio= 1;
+		options.cropper   = new Cropper(domElement, cropperOptions);
 		elem.data('upload', options);
 		this.registerEvents(domElement);
 	}
@@ -332,12 +333,12 @@ class CropperUI {
 		return rc;
 	}
 
-	selectImage(domElement, checkChange) {
+	selectImage(domElement, checkChange, ignoreIdChange) {
 		// ask for confirmation when image changed
 		var cropper = this.getCropper(domElement);
 		var options = this.getOptions(domElement);
 		var imgId   = jQuery(domElement).data('imgid');
-		if (!cropper || options.originalImageId != imgId) {
+		if (!cropper || ignoreIdChange || (options.originalImageId != imgId)) {
 			if (checkChange) {
 				if (cropper && options.changed) {
 					var modal = new SelectImageModal(domElement);
@@ -358,7 +359,10 @@ class CropperUI {
 				scaleX:            1,
 				scaleY:            1,
 			};
-			this.createCropper(image[0], options);
+			var cropperOptions = {
+				autoCrop: false,
+			};
+			this.createCropper(image[0], options, cropperOptions);
 		}
 	}
 
@@ -463,7 +467,7 @@ class CropperUI {
 				});
 			}
 			// Send data options for modifications
-			webApp.POST(document.location, data, new SaveImageAjaxController(options));
+			webApp.POST(document.location, data, new SaveImageAjaxController(domElement));
 		}
 	}
 
@@ -576,15 +580,43 @@ class DeleteImageModal extends ChangeConfirmModal {
 
 class SaveImageAjaxController extends WebAppDefaultAjaxController {
 
-	constructor(options) {
+	constructor(domElement) {
 		super();
-		this.options = options;
+		this.domElement = domElement;
 	}
 
 	done(ajaxParams, data, textStatus, jqXHR) {
 		super.done(ajaxParams, data, textStatus, jqXHR);
 		if (data.success) {
+			var options = cropperUI.getOptions(this.domElement);
 			// Change nav and editor URL (replace/reset?), set changed to FALSE
+			var nav = cropperUI.getNav(this.domElement);
+			if (nav) {
+				var link = nav.find('a[data-imgid="'+options.originalImageId+'"]');
+				var d = new Date();
+				link.find('img').attr('src', data.data.path+'?'+d.getTime());
+				link.data('imgid', data.data.id);
+				link.attr('data-imgid', data.data.id);
+				options.changed = false;
+				// Select image
+				cropperUI.selectImage(link[0], false, true);
+			} else {
+				// No nav to help here
+				options = {
+					replacedImageId:   null,
+					originalImageId:   data.data.id,
+					originalImageURL:  data.data.path,
+					uploadedImageType: 'image/jpeg',
+					uploadedImageName: 'upload.jpeg',
+					uploadedImageURL:  null,
+					scaleX:            1,
+					scaleY:            1,
+					file:              null,
+				};
+				cropperUI.destroy(this.domElement);
+				var image = cropperUI.getImage(this.domElement);
+				cropperUI.createCropper(image[0], options);
+			}
 		} else {
 			this.showError();
 		}
@@ -623,6 +655,7 @@ class DeleteImageAjaxController extends WebAppDefaultAjaxController {
 	}
 
 	deleteImage() {
+		var options = cropperUI.getOptions(this.domElement);
 		cropperUI.destroy(this.domElement);
 		// Remove from navigation
 		var nav = cropperUI.getNav(this.domElement);
