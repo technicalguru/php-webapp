@@ -47,7 +47,7 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		}
 		$width  = $this->component->getWidth();
 		$height = $this->component->getHeight();
-		$rc  = '<div class="cropper-editor">'.
+		$rc  = '<div class="cropper-editor" style="max-width: '.$width.'px;">'.
 		          '<img data-imgid="'.$did.'" class="cropper-image img-fluid" src="'.$src.'">'.
 		          //$this->renderDocToggles().
 		       '</div>'.
