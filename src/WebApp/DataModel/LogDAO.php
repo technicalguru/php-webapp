@@ -28,6 +28,11 @@ class LogDAO extends \TgDatabase\DAO {
 		return TRUE;
 	}
 
+	public function deleteAll() {
+		$sql = 'DELETE * FROM '.$this->database->quoteName($this->tableName);
+		$this->database->query($sql);
+	}
+
 	public function housekeeping($days = 30) {
 		$this->threshold = new Date(time()-$days*Date::SECONDS_PER_DAY, WFW_TIMEZONE);
 		$sql = 'DELETE * FROM '.$this->database->quoteName($this->tableName).' WHERE log_date < '.$this->database->prepareValue($threshold);
