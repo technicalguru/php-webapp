@@ -31,6 +31,7 @@ class Renderer {
 
 	public function addClass($class) {
 		$this->addAttribute('class', $class);
+		return $this;
 	}
 
 	public function removeClass($class) {
@@ -54,6 +55,7 @@ class Renderer {
 		} else {
 			unset($this->styles[$name]);
 		}
+		return $this;
 	}
 
 	protected function getAttribute($name, $combined = FALSE) {
@@ -112,6 +114,7 @@ class Renderer {
 			if (!isset($this->attributes[$name])) $this->attributes[$name] = array();
 			$this->attributes[$name][] = $value;
 		}
+		return $this;
 	}
 
 	public function setAttribute($name, $value) {
@@ -120,6 +123,7 @@ class Renderer {
 		} else {
 			unset($this->attributes[$name]);
 		}
+		return $this;
 	}
 
 	public function removeAttribute($name, $value) {
