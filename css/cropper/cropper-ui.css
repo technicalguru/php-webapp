@@ -1,6 +1,5 @@
 .cropper-actions {
 	margin-top: 0.5em;
-	margin-left: 20px;
 }
 
 .cropper-actions label {
@@ -18,6 +17,7 @@
 	overflow-x: auto;
 	white-space: nowrap;
 	scrollbar-width: thin;
+	margin-bottom: 10px;
 }
 
 .cropper-nav-link {
@@ -46,4 +46,12 @@
 
 .cropper-nav-link-hover span {
 	padding: 2px;
+}
+
+.cropper-editor {
+	width: 100%;
+}
+
+.cropper-image {
+	background-image: url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC\');
 }
