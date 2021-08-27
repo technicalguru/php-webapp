@@ -494,6 +494,46 @@ return array(
 		'de' => 'Bitte benutze eine aktuelle Version von Chrome, Edge, Firefox oder Safari.',
 		'en' => 'Please use a current version of Chrome, Edge, Firefox or Safari.',
 	),
+	'upload_move_help' => array(
+		'de' => 'Zum Verschieben-Modus wechseln',
+		'en' => 'Switch to Drag Mode',
+	),
+	'upload_crop_help' => array(
+		'de' => 'Zum Ausschneiden-Modus wechseln',
+		'en' => 'Switch to Crop Mode',
+	),
+	'upload_rotate_left_help' => array(
+		'de' => 'Bild 90 Grad nach links drehen',
+		'en' => 'Rotate image left by 90 degrees',
+	),
+	'upload_rotate_right_help' => array(
+		'de' => 'Bild 90 Grad nach rechts drehen',
+		'en' => 'Rotate image right by 90 degrees',
+	),
+	'upload_flip_horizontally_help' => array(
+		'de' => 'Bild horizontal spiegeln',
+		'en' => 'Flip image horizontally',
+	),
+	'upload_flip_vertically_help' => array(
+		'de' => 'Bild vertikal spiegeln',
+		'en' => 'Flip image vertically',
+	),
+	'upload_import_help' => array(
+		'de' => 'Bild von der Festplatte öffnen',
+		'en' => 'Load image from disk',
+	),
+	'upload_reset_help' => array(
+		'de' => 'Änderungen rückgängig machen',
+		'en' => 'Reset all changes',
+	),
+	'upload_delete_help' => array(
+		'de' => 'Dieses Bild vom Server löschen',
+		'en' => 'Delete this image from server',
+	),
+	'upload_save_help' => array(
+		'de' => 'Dieses Bild auf dem Server speichern',
+		'en' => 'Save this image to the server',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
