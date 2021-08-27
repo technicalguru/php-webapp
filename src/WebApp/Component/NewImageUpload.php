@@ -32,29 +32,19 @@ class NewImageUpload extends Div {
 		return $this->config->images;
 	}
 
-	
-/*
-	public static function isImageRemoved($name) {
-		$ind = intval(\TgUtils\Request::getRequest()->getPostParam('iu-remove-'.$name, 0)) == 1;
-		$newFile = isset($_FILES['iu-'.$name]) && ($_FILES['iu-'.$name]['error'] == 0);
-		return $newFile || $ind;
+	public function getWidth() {
+		return $this->config->width;
 	}
 
-	public static function getImage($name) {
-		return FileInput::getFile('iu-'.$name);
+	public function getHeight() {
+		return $this->config->height;
 	}
 
-	public static function handleImageUpload($name, $targetDir) {
-		$rc = FileInput::handleFileUpload('iu-'.$name, $targetDir);
-		if (($rc != NULL) && ($rc['filename'] != NULL)) {
-			$info = getimagesize($targetDir.'/'.$rc['filename']);
-			$rc['mime']   = $info['mime'];
-			$rc['width']  = $info[0];
-			$rc['height'] = $info[1];
-			$rc['ratio']  = $info[0] / $info[1];
+	public function getAspectRatio() {
+		if (!isset($this->config->aspectRatio)) {
+			$this->config->aspectRatio = round($this->config->width / $this->config->height, 2);
 		}
-		return $rc;
+		return $this->config->aspectRatio;
 	}
-*/
 }
 

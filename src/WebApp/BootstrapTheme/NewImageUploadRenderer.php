@@ -8,7 +8,10 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);
-		$this->addClass('cropper');
+		$this->addClass('cropper')
+			->setData('width', $component->getWidth())
+			->setData('height', $component->getHeight())
+			->setData('aspect-ratio', $component->getAspectRatio());
 		$this->theme->addFeature(\WebApp\BootstrapTheme\BootstrapTheme::CROPPERJS);
 	}
 
@@ -41,8 +44,10 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 			$did = $id;
 			break;
 		}
-		$rc  = '<div class="cropper-editor" style="max-width: 400px; max-height: 400px; margin: 20px;">'.
-		          '<img data-imgid="'.$did.'" class="cropper-image" style="background-image: url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC\'); width: 400px; height: 400px;" src="'.$src.'">'.
+		$width  = $this->component->getWidth();
+		$height = $this->component->getHeight();
+		$rc  = '<div class="cropper-editor" style="max-width: '.$width.'px; max-height: '.$height.'px; margin: 20px;">'.
+		          '<img data-imgid="'.$did.'" class="cropper-image" style="background-image: url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC\'); width: '.$width.'px; height: '.$height.'px;" src="'.$src.'">'.
 		          $this->renderActions().
 		          //$this->renderDocToggles().
 		       '</div>';
