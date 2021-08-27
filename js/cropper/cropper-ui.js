@@ -518,7 +518,11 @@ class SaveImageAjaxController extends WebAppDefaultAjaxController {
 				};
 				cropperUI.destroy(this.domElement);
 				var image = cropperUI.getImage(this.domElement);
-				cropperUI.createCropper(image[0], options);
+				image[0].src = data.data.path;
+				var cropperOptions = {
+					autoCrop: false,
+				};
+				cropperUI.createCropper(image[0], options, cropperOptions);
 			}
 		} else {
 			this.showError();
