@@ -1,6 +1,6 @@
 .cropper-actions {
 	margin-top: 0.5em;
-	text-align: center;
+	margin-left: 20px;
 }
 
 .cropper-actions label {
@@ -9,6 +9,7 @@
 
 .cropper-actions .btn-group {
 	padding-right: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 .cropper-nav {

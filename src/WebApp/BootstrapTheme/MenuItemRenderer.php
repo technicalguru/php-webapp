@@ -17,7 +17,7 @@ class MenuItemRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$target  = $this->component->getLinkTarget() != NULL ? ' target="'.$this->component->getLinkTarget().'"' : '';
 		if ($this->component->hasChildren()) {
 			$rc .= '<a class="nav-link dropdown-toggle" href="'.$link.'" id="dropDown-'.$this->component->getId().'"'.$target.' role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$this->component->getLabel().'</a>'.
-			       '<div class="dropdown-menu bg-dark" aria-labelledby=""dropDown-'.$this->component->getId().'">';
+			       '<div class="dropdown-menu bg-dark" aria-labelledby="dropDown-'.$this->component->getId().'">';
 			foreach ($this->component->getChildren() AS $child) {
 				switch(get_class($child)) {
 				case 'WebApp\Component\MenuItem':

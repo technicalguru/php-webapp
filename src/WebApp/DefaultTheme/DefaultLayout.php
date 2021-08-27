@@ -10,8 +10,8 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderLinks() {
-		$rc  = '<link rel="stylesheet" href="'.\WebApp\Utils::getCssBaseUrl().'/app.css" rel="stylesheet" type="text/css">'.
-		       '<link rel="stylesheet" href="'.\TgFontAwesome\FontAwesome::getUri().'" rel="stylesheet" type="text/css">';
+		$rc  = '<link rel="stylesheet" href="'.\WebApp\Utils::getCssBaseUrl().'/app.css" type="text/css">'.
+		       '<link rel="stylesheet" href="'.\TgFontAwesome\FontAwesome::getUri().'" type="text/css">';
 		$rc .= parent::renderLinks();
 		return $rc;
 	}

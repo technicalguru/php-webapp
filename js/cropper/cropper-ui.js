@@ -1,102 +1,4 @@
 
-// Methods
-/*
-        case 'getCroppedCanvas':
-          try {
-            data.option = JSON.parse(data.option);
-          } catch (e) {
-            console.log(e.message);
-          }
-
-          if (image.data('uploadedImageType') === 'image/jpeg') {
-            if (!data.option) {
-              data.option = {};
-            }
-
-            data.option.fillColor = '#fff';
-          }
-
-          break;
-      }
-
-      result = cropper[data.method](data.option, data.secondOption);
-
-      switch (data.method) {
-        case 'getCroppedCanvas':
-          if (result) {
-            // Bootstrap's Modal
-            $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
-
-            if (!download.disabled) {
-              download.download = image.data('uploadedImageName');
-              download.href = result.toDataURL(image.data('uploadedImageType'));
-            }
-          }
-
-          break;
-
-        case 'destroy':
-          cropper = null;
-
-          if (image.data('uploadedImageURL')) {
-            URL.revokeObjectURL(image.data('uploadedImageURL'));
-            image.data('uploadedImageURL', '');
-            image.attr('src') = image.data('originalImageURL');
-          }
-
-          break;
-      }
-
-      if (typeof result === 'object' && result !== cropper && input) {
-        try {
-          input.value = JSON.stringify(result);
-        } catch (e) {
-          console.log(e.message);
-        }
-      }
-    }
-  });
-
-jQuery('.cropper .docs-toggles').on('change', function() {
-    var e = event || window.event;
-    var target = e.target || e.srcElement;
-    var cropBoxData;
-    var canvasData;
-    var isCheckbox;
-    var isRadio;
-
-    if (target.tagName.toLowerCase() === 'label') {
-      target = target.querySelector('input');
-    }
-
-    isCheckbox = target.type === 'checkbox';
-    isRadio = target.type === 'radio';
-
-    if (isCheckbox || isRadio) {
-      if (isCheckbox) {
-        options[target.name] = target.checked;
-        cropBoxData = cropper.getCropBoxData();
-        canvasData = cropper.getCanvasData();
-
-        options.ready = function () {
-          console.log('ready');
-          cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
-        };
-      } else {
-        options[target.name] = target.value;
-        options.ready = function () {
-          console.log('ready');
-        };
-      }
-
-      // Restart
-      cropper.destroy();
-      cropper = new Cropper(image, options);
-    }
-  }
-);
-*/
-
 jQuery('.cropper input[type="file"]').on('change', function() {
 	var files = this.files;
 	var file;
@@ -245,7 +147,8 @@ class CropperUI {
 		var elem = jQuery(domElement);
 		options.destroyed = false;
 		if (!cropperOptions) cropperOptions = {};
-		cropperOptions.aspectRatio= 1;
+		var mainElem = elem.closest('.cropper');
+		cropperOptions.aspectRatio = mainElem.data('aspect-ratio');
 		options.cropper   = new Cropper(domElement, cropperOptions);
 		elem.data('upload', options);
 		this.registerEvents(domElement);
@@ -615,7 +518,11 @@ class SaveImageAjaxController extends WebAppDefaultAjaxController {
 				};
 				cropperUI.destroy(this.domElement);
 				var image = cropperUI.getImage(this.domElement);
-				cropperUI.createCropper(image[0], options);
+				image[0].src = data.data.path;
+				var cropperOptions = {
+					autoCrop: false,
+				};
+				cropperUI.createCropper(image[0], options, cropperOptions);
 			}
 		} else {
 			this.showError();

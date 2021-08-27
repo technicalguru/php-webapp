@@ -21,31 +21,31 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderLinks() {
 		$webroot = $this->app->request->webRoot;
-		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" rel="stylesheet" type="text/css">'.
-		       '<link rel="stylesheet" href="'.$this->getBootstrapUri().'" rel="stylesheet" type="text/css">';
+		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" type="text/css">'.
+		       '<link rel="stylesheet" href="'.$this->getBootstrapUri().'" type="text/css">';
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('filter-multi-select.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('filter-multi-select.css', TRUE).'" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD) || $this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('multi-image-upload.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('multi-image-upload.css', TRUE).'" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('remote-search.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('remote-search.css', TRUE).'" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('dynamic-fields.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('dynamic-fields.css', TRUE).'" type="text/css">';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::CROPPERJS)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper.min.css', TRUE).'" rel="stylesheet" type="text/css">';
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper-ui.css', TRUE).'" rel="stylesheet" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper.min.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper-ui.css', TRUE).'" type="text/css">';
 		}
-		$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap.css', TRUE).'" rel="stylesheet" type="text/css">';
+		$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap.css', TRUE).'" type="text/css">';
 		$rc .= parent::renderLinks();
 		return $rc;
 	}
@@ -92,7 +92,7 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function renderNavbarToggler() {
-		$rc = '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbarContent" aria-expanded="false" aria-label="'.I18N::_('navbar_toggle_label').'"><span class="navbar-toggler-icon"></span></button>';
+		$rc = '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="'.I18N::_('navbar_toggle_label').'"><span class="navbar-toggler-icon"></span></button>';
 		return $rc;
 	}
 
@@ -136,7 +136,7 @@ class DefaultLayout extends \WebApp\Layout {
 			$rc .= '</ul>';
 		}
 
-		$rc .= '</nav>';
+		$rc .= '</div>';
 		return $rc;
 	}
 
