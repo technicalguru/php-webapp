@@ -80,9 +80,9 @@ class Layout {
 		if (!is_array($files)) $files = array($files);
 		foreach ($files AS $file) {
 			//if (strpos($file, '://') === FALSE) {
-			//	$rc .= '<link rel="stylesheet" href="'.Utils::getCssBaseUrl().'/'.$file.'" rel="stylesheet" type="text/css">';
+			//	$rc .= '<link rel="stylesheet" href="'.Utils::getCssBaseUrl().'/'.$file.'" type="text/css">';
 			//} else {
-				$rc .= '<link rel="stylesheet" href="'.$file.'" rel="stylesheet" type="text/css">';
+				$rc .= '<link rel="stylesheet" href="'.$file.'" type="text/css">';
 			//}
 		}
 		return $rc;
