@@ -30,7 +30,6 @@ class LogDAO extends \TgDatabase\DAO {
 
 	public function deleteAll() {
 		$sql = 'DELETE FROM '.$this->database->quoteName($this->tableName);
-		echo "$sql<br>\n";
 		$this->database->query($sql);
 	}
 
