@@ -2,6 +2,7 @@
 
 namespace WebApp\BootstrapTheme;
 
+use TgI18n\I18N;
 use WebApp\Utils;
 
 class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
@@ -46,8 +47,8 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 		}
 		$width  = $this->component->getWidth();
 		$height = $this->component->getHeight();
-		$rc  = '<div class="cropper-editor" style="max-width: '.$width.'px; max-height: '.$height.'px; margin: 20px;">'.
-		          '<img data-imgid="'.$did.'" class="cropper-image" style="background-image: url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC\'); width: '.$width.'px; height: '.$height.'px;" src="'.$src.'">'.
+		$rc  = '<div class="cropper-editor">'.
+		          '<img data-imgid="'.$did.'" class="cropper-image img-fluid" src="'.$src.'">'.
 		          //$this->renderDocToggles().
 		       '</div>'.
 		       $this->renderActions();
@@ -63,45 +64,45 @@ class NewImageUploadRenderer extends \WebApp\DefaultTheme\DivRenderer {
 //				'</div>'.
 				// Mouse Mode
 				'<div class="btn-group">'.
-				  $this->renderActionButton('cropperUI.setDragMode(this,\'move\');', 'Move', 'Move Help', 'fa fa-arrows-alt').
-				  $this->renderActionButton('cropperUI.setDragMode(this,\'crop\');', 'Crop', 'Crop Help', 'fa fa-crop-alt').
+				  $this->renderActionButton('cropperUI.setDragMode(this,\'move\');', 'move', 'fa fa-arrows-alt').
+				  $this->renderActionButton('cropperUI.setDragMode(this,\'crop\');', 'crop', 'fa fa-crop-alt').
 				'</div>'.
 				// No move into directions (yet)!
 				// Rotate
 				'<div class="btn-group">'.
-				  $this->renderActionButton('cropperUI.rotate(this,-90);', 'Rotate Left', 'Rotate Help', 'fa fa-undo-alt').
-				  $this->renderActionButton('cropperUI.rotate(this,90);', 'Rotate Right', 'Rotate Help', 'fa fa-redo-alt').
+				  $this->renderActionButton('cropperUI.rotate(this,-90);', 'rotate_left',  'fa fa-undo-alt').
+				  $this->renderActionButton('cropperUI.rotate(this,90);',  'rotate_right', 'fa fa-redo-alt').
 				'</div>'.
 				// Flip
 				'<div class="btn-group">'.
-				  $this->renderActionButton('cropperUI.scaleX(this,-1);', 'Flip Horizontally', 'Flip Help', 'fa fa-arrows-alt-h').
-				  $this->renderActionButton('cropperUI.scaleY(this,-1);', 'Flip Vertically', 'Flip Help', 'fa fa-arrows-alt-v').
+				  $this->renderActionButton('cropperUI.scaleX(this,-1);', 'flip_horizontally', 'fa fa-arrows-alt-h').
+				  $this->renderActionButton('cropperUI.scaleY(this,-1);', 'flip_vertically',   'fa fa-arrows-alt-v').
 				'</div>'.
 				// Finish / Cancel
 				'<div class="btn-group">'.
-				  '<label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">'.
+				  '<label class="btn btn-primary btn-upload" for="inputImage" title="'.htmlentities(I18N::_('upload_import_help')).'">'.
 				    '<input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">'.
-				    '<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image">'.
+				    '<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="'.htmlentities(I18N::_('upload_import_help')).'">'.
 				      '<span class="fa fa-upload"></span>'.
 				    '</span>'.
 				  '</label>'.
-				  $this->renderActionButton('cropperUI.reset(this);', 'Reset Changes', 'Reset Help', 'fa fa-trash-restore-alt').
+				  $this->renderActionButton('cropperUI.reset(this);', 'reset', 'fa fa-trash-restore-alt').
 				'</div>'.
 				// Delete
 				'<div class="btn-group">'.
-				  $this->renderActionButton('cropperUI.delete(this);', 'Delete', 'Delete Help', 'fa fa-trash-alt', 'danger').
+				  $this->renderActionButton('cropperUI.delete(this);', 'delete', 'fa fa-trash-alt', 'danger').
 				'</div>'.
 				'<div class="btn-group">'.
-				//  $this->renderActionButton('cropperUI.info(this);', 'Info', 'Info Help', 'fa fa-info', 'secondary').
-				  $this->renderActionButton('cropperUI.save(this);', 'Save', 'Save Help', 'fa fa-save', 'success').
+				//  $this->renderActionButton('cropperUI.info(this);', 'Info', 'fa fa-info', 'secondary').
+				  $this->renderActionButton('cropperUI.save(this);', 'save', 'fa fa-save', 'success').
 				'</div>'.
 		      '</div>';
 		return $rc;
 	}
 
-	public function renderActionButton($click, $title, $help, $icon, $type = 'primary') {
-		$rc = '<button type="button" class="btn btn-'.$type.'" onClick="'.$click.'" title="'.htmlentities($title).'">'.
-		         '<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="'.htmlentities($help).'">'.
+	public function renderActionButton($click, $title, $icon, $type = 'primary') {
+		$rc = '<button type="button" class="btn btn-'.$type.'" onClick="'.$click.'" title="'.htmlentities(I18N::_('upload_'.$title.'_help')).'">'.
+		         '<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="'.htmlentities(I18N::_('upload_'.$title.'_help')).'">'.
 		            '<span class="'.$icon.'"></span>'.
 		         '</span>'.
 		      '</button>';
