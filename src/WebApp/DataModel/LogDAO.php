@@ -29,13 +29,14 @@ class LogDAO extends \TgDatabase\DAO {
 	}
 
 	public function deleteAll() {
-		$sql = 'DELETE * FROM '.$this->database->quoteName($this->tableName);
+		$sql = 'DELETE FROM '.$this->database->quoteName($this->tableName);
+		echo "$sql<br>\n";
 		$this->database->query($sql);
 	}
 
 	public function housekeeping($days = 30) {
 		$this->threshold = new Date(time()-$days*Date::SECONDS_PER_DAY, WFW_TIMEZONE);
-		$sql = 'DELETE * FROM '.$this->database->quoteName($this->tableName).' WHERE log_date < '.$this->database->prepareValue($threshold);
+		$sql = 'DELETE FROM '.$this->database->quoteName($this->tableName).' WHERE log_date < '.$this->database->prepareValue($threshold);
 		$this->database->query($sql);
 	}
 }
