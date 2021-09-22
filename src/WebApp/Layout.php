@@ -40,7 +40,14 @@ class Layout {
 		      $this->renderMeta().
 		      $this->renderLinks().
 		      $this->renderTitle().
+		      $this->renderOtherHeader().
 		      '</head>';
+		return $rc;
+	}
+
+	protected function renderOtherHeader() {
+		$rc = '';
+		foreach ($this->page->getOtherHeaders() AS $s) $rc .= $s;
 		return $rc;
 	}
 

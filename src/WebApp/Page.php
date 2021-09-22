@@ -55,6 +55,10 @@ class Page extends Component\Component {
 		return $rc;
 	}
 
+	public function getOtherHeaders() {
+		return array();
+	}
+
 	public function getMetaKeywords() {
 		return $this->app->getMetaKeywords();
 	}
