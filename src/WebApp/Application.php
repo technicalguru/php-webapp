@@ -14,6 +14,7 @@ class Application {
 	public    $vault;
 	public    $database;
 	public    $dataModel;
+	public    $serviceFactory;
 	public    $authentication;
 	public    $authorization;
 	public    $sessionHandler;
@@ -39,6 +40,7 @@ class Application {
 		$this->initVault();
 		$this->initDatabase();
 		$this->initDataModel();
+		$this->initServices();
 		$this->initAuthentication();
 		$this->initAuthorization();
 		$this->initSession();
@@ -69,6 +71,14 @@ class Application {
 		if ($this->database && $this->config->has('dataModel') && $this->config->get('dataModel')) {
 			$this->dataModel = new \TgDatabase\DataModel($this->database);
 			$this->dataModel->register('log', new DataModel\LogDAO($this->database));
+		}
+	}
+
+	protected function initServices() {
+		if ($this->config->has('serviceFactory')) {
+			$config    = $this->config->get('serviceFactory');
+			$className = $config->class;
+			$this->serviceFactory = new $className($this);
 		}
 	}
 
@@ -348,6 +358,13 @@ class Application {
 				$this->dataModel->get('log')->create($log);
 			}
 		}
+	}
+
+	public function svc($name) {
+		if ($this->serviceFactory != NULL) {
+			return $this->serviceFactory->get($name);
+		}
+		return NULL;
 	}
 
 	public function dao($name) {
