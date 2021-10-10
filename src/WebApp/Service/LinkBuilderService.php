@@ -35,6 +35,9 @@ class LinkBuilderService extends AbstractService {
 			$name = $subject;
 		} else if (is_object($subject)) {
 			$name = strtolower(get_class($subject));
+			if ($pos = strrpos($name, '\\')) {
+				$name = substr($name, $pos + 1);
+			}
 		}
 		return $name;
 	}
