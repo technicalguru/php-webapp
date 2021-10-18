@@ -83,7 +83,7 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($logo != null) {
 			if ((substr($logo, 0, 4) != 'http') && (substr($logo, 0, 1) != '/')) $logo = Utils::getImageBaseUrl().'/'.$logo;
 			$size = $this->app->getBrandSize() != NULL ? $this->app->getBrandSize() : 30;
-			$rc .= '<img src="'.$logo.'" style="margin-right: 10px;" alt="" loading="lazy" width="'.$size.'" height="'.$size.'">';
+			$rc .= '<img src="'.$logo.'" style="margin-right: 10px;" alt="" loading="lazy" width="'.$size.'" height="'.$size.'"/>';
 		}
 		$rc .= $this->app->getBrandName();
 		if ($link != null) $rc .= '</a>';

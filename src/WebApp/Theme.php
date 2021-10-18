@@ -35,16 +35,8 @@ class Theme {
 	public function render($page) {
 		$this->page = $page;
 
-		// Get the layout of the page
-		$layoutName = $page->getLayoutName();
-
-		// Fallback to default theme layout
-		if ($layoutName == NULL) {
-			$layoutName = $this->getLayoutName();
-		}
-
-		// get the layout
-		$layout = $this->getLayout($layoutName);
+		// Ask the layout factory
+		$layout = $this->app->getLayoutFactory()->getLayout($this, $page);
 
 		// Fallback to this object
 		if ($layout == NULL) {
@@ -64,27 +56,8 @@ class Theme {
      * depending on the current page object.
 	 * @return name of layout (this method returns 'default')
 	 */
-	protected function getLayoutName() {
+	public function getLayoutName() {
 		return 'default';
-	}
-
-	/** 
-     * Return a layout object for the given name. 
-     * @return the layout object (can be NULL)
-     */
-	protected function getLayout($name) {
-		if ($name == NULL) $name = 'default';
-		$className = strpos($name, '\\') === FALSE ? $this->class->getNamespaceName().'\\'.ucfirst($name).'Layout' : $name;
-		if (class_exists($className)) {
-			$className = '\\'.$className;
-			return new $className($this, $this->page);
-		}
-		$className = $this->class->getNamespaceName().'\\DefaultLayout';
-		if (class_exists($className)) {
-			$className = '\\'.$className;
-			return new $className($this, $this->page);
-		}
-		return NULL;
 	}
 
 	/**

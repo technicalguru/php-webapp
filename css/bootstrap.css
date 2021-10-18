@@ -212,4 +212,11 @@ input.plain-checkbox {
 	margin-left: 15px;
 }
 
+.mmenu-icon {
+	display: inline-block;
+	text-align: center;
+	width: 2em;
+	left: -0.6em;
+	position: relative;
+}
 

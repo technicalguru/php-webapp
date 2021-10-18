@@ -14,6 +14,7 @@ class Application {
 	public    $vault;
 	public    $database;
 	public    $dataModel;
+	public    $layoutFactory;
 	public    $serviceFactory;
 	public    $authentication;
 	public    $authorization;
@@ -28,6 +29,7 @@ class Application {
 		$this->request   = $this->initRequest();
 		$this->principal = NULL;
 		I18N::addI18nFile(__DIR__.'/../i18n.php');
+		$this->layoutFactory = $this->createLayoutFactory();
 	}
 
 	protected function initRequest() {
@@ -204,6 +206,14 @@ class Application {
 			}
 			$this->mailQueue     = new \TgEmail\EmailQueue($mailConfig, $mailDAO);
 		}
+	}
+
+	protected function createLayoutFactory() {
+		return new LayoutFactory($this);
+	}
+
+	public function getLayoutFactory() {
+		return $this->layoutFactory;
 	}
 
 	public function getTheme() {

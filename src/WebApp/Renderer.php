@@ -170,7 +170,7 @@ class Renderer {
 		return $this;
 	}
 
-	protected function renderStartTag($tagName) {
+	protected function renderStartTag($tagName, $closeTag = FALSE) {
 		$rc = '<'.$tagName;
 
 		$rc .= ' id="'.htmlspecialchars($this->component->getId()).'"';
@@ -199,6 +199,7 @@ class Renderer {
 			}
 		}
 
+		if ($closeTag) $rc .= '/';
 		$rc .= '>';
 		return $rc;
 	}

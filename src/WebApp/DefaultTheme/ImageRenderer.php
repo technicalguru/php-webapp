@@ -9,7 +9,7 @@ class ImageRenderer extends \WebApp\Renderer {
 	}
 
 	public function render() {
-		return $this->renderStartTag('img');
+		return $this->renderStartTag('img', TRUE);
 	}
 }
 
