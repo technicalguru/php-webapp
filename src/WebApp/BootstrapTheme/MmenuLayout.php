@@ -8,10 +8,14 @@ use WebApp\Utils;
 /** A layout using Mmenu */
 class MmenuLayout extends DefaultLayout {
 
+	protected $hasMenu;
+	protected $menu;
 	protected $menuStyles;
 	protected $staticMenuConfig;
 	protected $menuOptions;
 	protected $menuConfig;
+	protected $cssPath;
+	protected $jsPath;
 
 	public function __construct($theme, $page) {
 		parent::__construct($theme, $page);
@@ -21,12 +25,26 @@ class MmenuLayout extends DefaultLayout {
 		$this->staticMenuConfig = array();
 		$this->menuOptions      = NULL;
 		$this->menuConfig       = NULL;
+		$this->cssPath          = NULL;
+		$this->jsPath           = NULL;
+	}
+
+	public function setCssPath($path) {
+		$this->cssPath = $path;
+		return $this;
+	}
+
+	public function getCssPath() {
+		$path = $this->cssPath;
+		if ($path == NULL) {
+			$path = Utils::getWebRootPath(TRUE).'/mmenu/mmenu.css';
+		}
+		return $path;
 	}
 
 	protected function renderLinks() {
-		$webroot = Utils::getWebRootPath(TRUE);
 		$rc  = parent::renderLinks();
-		$rc .= '<link rel="stylesheet" href="'.$webroot.'/mmenu/mmenu.css" type="text/css">';
+		$rc .= '<link rel="stylesheet" href="'.$this->getCssPath().'" type="text/css">';
 		return $rc;
 	}
 
@@ -137,10 +155,23 @@ class MmenuLayout extends DefaultLayout {
 		return $rc;
 	}
 
+	public function setJsPath($path) {
+		$this->jsPath = $path;
+		return $this;
+	}
+
+	public function getJsPath() {
+		$path = $this->jsPath;
+		if ($path == NULL) {
+			$path = Utils::getWebRootPath(TRUE).'/mmenu/mmenu.js';
+		}
+		return $path;
+	}
+		
 	protected function renderJavascript() {
 		$rc = parent::renderJavascript();
 		if ($this->hasMenu) {
-			$rc .= '<script src="'.Utils::getWebRootPath(TRUE).'/mmenu/mmenu.js"></script>'.
+			$rc .= '<script src="'.$this->getJsPath().'"></script>'.
 			       $this->renderMenuStyles().
 			       '<script type="text/javascript">'.
 			          $this->renderStaticMenuConfig().
