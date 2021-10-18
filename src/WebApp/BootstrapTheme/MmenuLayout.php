@@ -131,7 +131,7 @@ class MmenuLayout extends DefaultLayout {
 		$rc = '';
 		if ($item != NULL) {
 			$rc = '<li>';
-			$link = $item->getPageLink();
+			$link = $item->getLink();
 			if ($level == 0) {
 				$icon = $item->getIcon();
 				if ($icon == NULL) $icon = '';

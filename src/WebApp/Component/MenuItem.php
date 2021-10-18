@@ -7,7 +7,7 @@ use \TgI18n\I18N;
 class MenuItem extends Container {
 
 	protected $label;
-	protected $pageLink;
+	protected $link;
 	protected $linkTarget;
 	protected $icon;
 
@@ -15,7 +15,7 @@ class MenuItem extends Container {
 		parent::__construct($parent);
 		$this->setLabel($label);
 		$this->setLinkTarget(NULL);
-		$this->setPageLink($pageLink);
+		$this->setLink($pageLink);
 		$this->setIcon($icon);
 	}
 
@@ -25,17 +25,24 @@ class MenuItem extends Container {
 
 	public function setLabel($value) {
 		$this->label = $value;
+		return $this;
+	}
+
+	public function setLink($link) {
+		$this->link = $link;
+		return $this;
+	}
+
+	public function getLink() {
+		return $this->link;
 	}
 
 	public function getPageLink() {
-		return $this->pageLink;
+		return $this->getLink();
 	}
 
 	public function setPageLink($value) {
-		$this->pageLink = $value;
-		if ((strlen($value) > 4) && (substr($value, 0,4) == 'http')) {
-			$this->setLinkTarget('blank');
-		}
+		return $this->setLink($value);
 	}
 
 	public function getIcon() {
@@ -44,6 +51,7 @@ class MenuItem extends Container {
 
 	public function setIcon($value) {
 		$this->icon = $value;
+		return $this;
 	}
 
 	public function getLinkTarget() {
@@ -52,5 +60,6 @@ class MenuItem extends Container {
 
 	public function setLinkTarget($value) {
 		$this->linkTarget = $value;
+		return $this;
 	}
 }

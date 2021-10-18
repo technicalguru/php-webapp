@@ -49,7 +49,7 @@ class MenuItemRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
 	protected function createLink($component) {
 		$rc = '#';
-		$pageLink = $component->getPageLink();
+		$pageLink = $component->getLink();
 		if ($pageLink != NULL) {
 			$rc = $pageLink;
 		}
