@@ -135,7 +135,7 @@ class MmenuLayout extends DefaultLayout {
 			if ($level == 0) {
 				$icon = $item->getIcon();
 				if ($icon == NULL) $icon = '';
-				$icon = '<span class="mmenu-icon">'.$icon.'</span>';
+				$icon = '<span class="mmenu-icon" title="'.htmlentities($item->getLabel()).'">'.$icon.'</span>';
 			}
 
 			if ($link != NULL) {
