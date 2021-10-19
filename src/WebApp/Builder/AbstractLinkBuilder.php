@@ -1,6 +1,6 @@
 <?php
 
-namespace WebApp\Service;
+namespace WebApp\Builder;
 
 /** Descendants only need to declare methods like getViewLink(), getEditLink() etc. */
 class AbstractLinkBuilder implements \TgUtils\LinkBuilder {

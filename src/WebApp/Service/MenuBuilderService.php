@@ -2,7 +2,7 @@
 
 namespace WebApp\Service;
 
-class LinkBuilderService extends AbstractService implements \TgUtils\LinkBuilder {
+class MenuBuilderService extends AbstractService implements \WebApp\Builder\MenuBuilder {
 
 	protected $builders;
 
@@ -11,12 +11,12 @@ class LinkBuilderService extends AbstractService implements \TgUtils\LinkBuilder
 		$this->builders = array();
 	}
 
-	public function getLink($subject, $action = \TgUtils\LinkBuilder::VIEW, $params = NULL) {
+	public function getMenu($subject, $params = NULL) {
 		$builder = $this->getBuilder($subject);
 		if ($builder != NULL) {
-			return $builder->getLink($subject, $action, $params);
+			return $builder->getMenu($subject, $params);
 		}
-		return '#';
+		return NULL;
 	}
 
 	public function getBuilder($subject) {
@@ -45,3 +45,5 @@ class LinkBuilderService extends AbstractService implements \TgUtils\LinkBuilder
 	}
 
 }
+
+		
