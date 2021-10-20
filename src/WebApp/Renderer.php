@@ -171,14 +171,19 @@ class Renderer {
 	}
 
 	protected function renderStartTag($tagName, $closeTag = FALSE) {
-		$rc = '<'.$tagName;
+		$attributes = $this->computeFinalAttributes();
+		return \TgUtils\Html::renderStartTag($tagName, $attributes, $closeTag);
+	}
 
-		$rc .= ' id="'.htmlspecialchars($this->component->getId()).'"';
+	public function computeFinalAttributes() {
+		$rc = array();
 
-		// Render classes and styles first
+		$rc['id'] = $this->component->getId();
+
+		// classes
 		$classes = $this->getAttribute('class', TRUE);
 		if (($classes != NULL) && (count($classes) > 0)) {
-			$rc .= ' class="'.htmlspecialchars(trim(implode(' ', $classes))).'"';
+			$rc['class'] =  $classes;
 		}
 
 		$styles = $this->getStyles(TRUE);
@@ -187,26 +192,19 @@ class Renderer {
 			foreach ($styles AS $name => $value) {
 				$style .= ' '.$name.':'.$value.';';
 			}
-			$rc .= ' style="'.htmlspecialchars(trim($style)).'"';
+			$rc['style'] = trim($style);
 		}
 
 		$attributes = $this->getAttributes(TRUE);
-		unset($attributes['class']);
+		unset($attributes['class'], $attributes['style'], $attributes['id']);
 		foreach ($attributes AS $name => $value) {
-			if (is_array($value)) $value = implode(' ', $value);
-			if (is_numeric($value) || is_string($value)) {
-				$rc .= ' '.$name.'="'.htmlspecialchars($value).'"';
-			}
+			$rc[$name] = $value;
 		}
-
-		if ($closeTag) $rc .= '/';
-		$rc .= '>';
 		return $rc;
 	}
 
 	protected function renderEndTag($tagName) {
-		$rc = '</'.$tagName.'>';
-		return $rc;
+		return \TgUtils\Html::renderEndTag($tagName);
 	}
 
 	public function getParentFor($componentName) {
