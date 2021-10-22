@@ -277,5 +277,9 @@ class Page extends Component\Component {
 	protected function dao($name) {
 		return $this->app->dao($name);
 	}
+
+	protected function svc($name) {
+		return $this->app->svc($name);
+	}
 }
 

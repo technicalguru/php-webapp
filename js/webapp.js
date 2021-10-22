@@ -227,7 +227,7 @@ class WebAppModal {
 	constructor(id) {
 		this.id  = id;
 		jQuery('#'+id).remove();
-		jQuery('<div id="'+this.id+'" class="modal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-secondary close-button" data-dismiss="modal">'+webApp.i18n('close')+'</button></div></div></div></div>').appendTo('body');
+		jQuery('<div id="'+this.id+'" class="modal fade" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-secondary close-button" data-dismiss="modal">'+webApp.i18n('close')+'</button></div></div></div></div>').appendTo('body');
 		this.dom = jQuery('#'+id);
 	}
 

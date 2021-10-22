@@ -69,3 +69,10 @@ WebAppUtils.validateFields = function(path) {
 
 	return rc;
 };
+
+WebAppUtils.encodeHtmlEntities = function(s) {
+	var rc = s.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+	   return '&#'+i.charCodeAt(0)+';';
+	});
+	return rc;
+};
