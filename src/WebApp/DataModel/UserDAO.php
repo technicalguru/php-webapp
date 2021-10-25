@@ -47,12 +47,22 @@ class UserDAO extends \TgDatabase\DAO {
 	}
 
 	public function getByEmail($email) {
-		return $this->findSingle(array('email' => trim(strtolower($email)), array('status', User::STATUS_DELETED, '!=')));
+		return $this->findSingle(
+			array(
+				Restrictions::eq('email', $email)->ignoreCase(),
+				Restrictions::ne('status', User::STATUS_DELETED)
+			)
+		);
 	}
 
 	public function findByRole($role) {
 		$rc = array();
-		$users = $this->find(array('status' => 'active', array('roles', '%'.$role.'%', 'LIKE')));
+		$users = $this->find(
+			array(
+				Restrictions::eq('status', 'active'),
+				Restrictions::like('roles', '%'.$role.'%')
+			)
+		);
 		foreach ($users AS $user) {
 			if ($user->hasRole($role)) {
 				$rc[] = $user;
@@ -75,7 +85,7 @@ class UserDAO extends \TgDatabase\DAO {
 					$r->add(Restrictions::like('email', '%'.$s.'%')->ignoreCase());
 				}
 			}
-			$users = $this->createCriteria()->add($r)->add(Restrictions::ne('status', User::STATUS_DELETED))->list();
+			$users = $this->createQuery(NULL, $r)->add(Restrictions::ne('status', User::STATUS_DELETED))->list();
 			$uids  = \TgUtils\Utils::extractAttributeFromList($users, 'uid');
 			if (count($uids) == 0) $uids[] = -1;
 			return Restrictions::in($property, $uids);
