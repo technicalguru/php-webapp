@@ -14,7 +14,7 @@
 		"php" : ">=7.0.0",
 		"technicalguru/vault" : "^1",
 		"technicalguru/utils" : "^1",
-		"technicalguru/database" : "^1.1",
+		"technicalguru/database" : "~1.2",
 		"technicalguru/i18n" : "^1",
 		"technicalguru/rest-client" : "^1",
 		"technicalguru/email" : "^1",
