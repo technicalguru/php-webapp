@@ -80,7 +80,7 @@ class UserDAO extends \TgDatabase\DAO {
 			$r = Restrictions::or();
 			foreach (explode(' ', $s) AS $part) {
 				$s = trim($part);
-				if (strlen($s) > 0) {
+				if (mb_strlen($s) > 0) {
 					$r->add(Restrictions::like('name',  '%'.$s.'%')->ignoreCase());
 					$r->add(Restrictions::like('email', '%'.$s.'%')->ignoreCase());
 				}
@@ -99,24 +99,24 @@ class UserDAO extends \TgDatabase\DAO {
 			$where = '';
 			foreach (explode(' ', $s) AS $part) {
 				$value = trim($part);
-				if (strlen($value) > 0) {
-					$value = $this->database->escape(strtolower($value));
+				if (mb_strlen($value) > 0) {
+					$value = $this->database->escape(mb_strtolower($value));
 					$where .= ' OR (LOWER(`name`) LIKE \'%'.$value.'%\') OR (LOWER(`email`) LIKE \'%'.$value.'%\')';
 				}
 			}
-			$rc[] = substr($where, 4);
+			$rc[] = mb_substr($where, 4);
 		}
 		return $rc;
 	}
 
 	public function create($object) {
-		$object->email = trim(strtolower($object->email));
+		$object->email = trim(mb_strtolower($object->email));
 		return parent::create($object);
 	}
 
 	public function save($object) {
 		if (is_object($object)) {
-			$object->email = trim(strtolower($object->email));
+			$object->email = trim(mb_strtolower($object->email));
 		}
 		return parent::save($object);
 	}

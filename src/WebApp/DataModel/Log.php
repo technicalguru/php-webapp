@@ -14,7 +14,7 @@ class Log {
 		foreach (array('error', 'warn', 'info', 'debug') AS $sev) {
 			if (isset($this->log_text->$sev)) {
 				foreach ($this->log_text->$sev AS $msg) {
-					$rc .= '['.strtoupper($sev).'] '.$msg."\n";
+					$rc .= '['.mb_strtoupper($sev).'] '.$msg."\n";
 				}
 			}
 		}
@@ -26,12 +26,12 @@ class Log {
 		foreach (array('error', 'warn', 'info', 'debug') AS $sev) {
 			if (isset($this->log_text->$sev)) {
 				foreach ($this->log_text->$sev AS $msg) {
-					$rc = '['.strtoupper($sev).'] '.$msg;
+					$rc = '['.mb_strtoupper($sev).'] '.$msg;
 					break 2;
 				}
 			}
 		}
-		if (strlen($rc) > 100) $rc = substr($rc, 0, 100);
+		if (mb_strlen($rc) > 100) $rc = mb_substr($rc, 0, 100);
 		return $rc;
 	}
 		

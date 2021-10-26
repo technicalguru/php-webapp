@@ -22,7 +22,7 @@ class User implements \WebApp\Auth\Principal {
 	}
 
 	public function verifyPassword($password) {
-		if (substr($this->password, 0, 1) != '$') {
+		if (mb_substr($this->password, 0, 1) != '$') {
 			$this->setPassword($this->password);
 		}
 		return password_verify($password, $this->password);
@@ -34,7 +34,7 @@ class User implements \WebApp\Auth\Principal {
 
 	/** Checks password criteria */
 	public function passwordCriteriaMatched($password) {
-		return strlen($password) >= 8;
+		return mb_strlen($password) >= 8;
 	}
 
 	public function getRoles() {
@@ -69,7 +69,7 @@ class User implements \WebApp\Auth\Principal {
 	public function getData() {
 		if ($this->data == NULL) {
 			$this->data = new \stdClass;
-		} else if (is_string($this->data) && (substr($this->data, 0, 1) == '{')) {
+		} else if (is_string($this->data) && (mb_substr($this->data, 0, 1) == '{')) {
 			$this->data = json_decode($this->data);
 		}
 		return $this->data;
