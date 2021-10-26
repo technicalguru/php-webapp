@@ -50,4 +50,10 @@ class AccessLogDAO extends \TgDatabase\DAO {
 			$this->create($obj);
 		}
 	}
+
+	public function housekeeping($expiration = NULL) {
+		if (!is_int($expiration) && !is_object($expiration)) $expiration = time()-60*\TgUtils\Date::SECONDS_PER_DAY;
+		if (!is_object($expiration)) $expiration = new \TgUtils\Date($expiration, WFW_TIMEZONE);
+		return $this->deleteBy(Restrictions::lt('log_time', $expiration));
+	}
 }

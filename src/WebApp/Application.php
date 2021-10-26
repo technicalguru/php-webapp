@@ -358,22 +358,37 @@ class Application {
 	/**
 	 * Persist any error message in the database.
 	 */
-	public function afterRequest() {
+	public function afterRequest($page = NULL) {
 		// Persist the Log when configured
 		if ($this->config->has('logErrors') && $this->config->get('logErrors') && $this->dataModel) {
-			$messages = Log::instance()->messages;
-			if (isset($messages['error']) && (count($messages['error']) > 0)) {
-				$log           = new DataModel\Log();
-				$log->log_text = $messages;
-				$log->log_date = Date::getInstance(time(), WFW_TIMEZONE);
-				$this->dao('log')->create($log);
-			}
+			$this->afterRequestErrorLog($page);
 		}
 		if ($this->config->has('accessLog') && $this->config->get('accessLog') && $this->dataModel) {
+			$this->afterRequestAccessLog($page);
+		}
+	}
+
+	protected function afterRequestErrorLog($page) {
+		$messages = Log::instance()->messages;
+		if (isset($messages['error']) && (count($messages['error']) > 0)) {
+			$log           = new DataModel\Log();
+			$log->log_text = $messages;
+			$log->log_date = Date::getInstance(time(), WFW_TIMEZONE);
+			$this->dao('log')->create($log);
+		}
+	}
+
+	protected function afterRequestAccessLog($page) {
+		if ($this->isInAccessLog($page)) {
 			$principal = $this->getPrincipal();
 			$userId    = (($principal != NULL) && isset($principal->uid)) ? $principal->uid : 0;
 			$this->dao('accessLog')->log($userId, $this->request);
 		}
+	}
+
+	protected function isInAccessLog($page) {
+		if ($page != NULL) return $page->isInAccessLog();
+		return TRUE;
 	}
 
 	public function svc($name) {
