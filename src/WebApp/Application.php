@@ -72,7 +72,8 @@ class Application {
 	protected function initDataModel() {
 		if ($this->database && $this->config->has('dataModel') && $this->config->get('dataModel')) {
 			$this->dataModel = new \TgDatabase\DataModel($this->database);
-			$this->dataModel->register('log', new DataModel\LogDAO($this->database));
+			$this->dataModel->register('log',       new DataModel\LogDAO($this->database));
+			$this->dataModel->register('accessLog', new DataModel\AccessLogDAO($this->database));
 		}
 	}
 
@@ -365,8 +366,13 @@ class Application {
 				$log           = new DataModel\Log();
 				$log->log_text = $messages;
 				$log->log_date = Date::getInstance(time(), WFW_TIMEZONE);
-				$this->dataModel->get('log')->create($log);
+				$this->dao('log')->create($log);
 			}
+		}
+		if ($this->config->has('accessLog') && $this->config->get('accessLog') && $this->dataModel) {
+			$principal = $this->getPrincipal();
+			$userId    = (($principal != NULL) && isset($principal->uid)) ? $principal->uid : 0;
+			$this->dao('accessLog')->log($userId, $this->request);
 		}
 	}
 

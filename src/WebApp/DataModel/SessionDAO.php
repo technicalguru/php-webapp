@@ -3,6 +3,7 @@
 namespace WebApp\DataModel;
 
 use TgUtils\Date;
+use TgDatabase\Restrictions;
 use WebApp\WebAppException;
 
 /** DataModel class for sessions */
@@ -41,7 +42,9 @@ class SessionDAO extends \TgDatabase\DAO {
 
 	public function expire($maxlifetime) {
 		$now    = new Date(time(), WFW_TIMEZONE);
-		$expiry = $now->toMysql(TRUE);
-		$this->deleteBy(array(array('expiry_time', $expiry, '<'), array('persistent', 0)));
+		$this->createQuery(NULL, array(
+			Restrictions::lt('expiry_time', $now),
+			Restrictions::eq('persistent', 0),
+		))->delete();
 	}
 }
