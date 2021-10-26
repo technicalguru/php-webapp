@@ -71,14 +71,14 @@ class BasicFormElement extends Container {
 
 	public function getBaseName() {
 		$rc = $this->getName();
-		if (strpos($this->getName(), '[]') > 0) {
-			$rc = substr($rc, 0, strlen($rc)-2);
+		if (mb_strpos($this->getName(), '[]') > 0) {
+			$rc = mb_substr($rc, 0, mb_strlen($rc)-2);
 		}
 		return $rc;
 	}
 
 	public function isArray() {
-		return strpos($this->getName(), '[]') > 0;
+		return mb_strpos($this->getName(), '[]') > 0;
 	}
 
 	public function isEnabled() {
