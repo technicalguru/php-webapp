@@ -281,5 +281,10 @@ class Page extends Component\Component {
 	protected function svc($name) {
 		return $this->app->svc($name);
 	}
+
+	/** Overwrite when u dont want to have this page appear in access log */
+	public function isInAccessLog() {
+		return TRUE;
+	}
 }
 

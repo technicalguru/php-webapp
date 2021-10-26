@@ -43,7 +43,7 @@ class Service {
 			$this->theme->render($page);
 		}
 
-		$this->app->afterRequest();
+		$this->app->afterRequest($this->page);
 	}
 
 
