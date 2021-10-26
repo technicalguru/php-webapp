@@ -32,8 +32,9 @@ class Service {
 				Session\Utils::isFreshLogin();
 			} else if ($action == 'redirect') {
 				// redirect
-				$this->app->afterRequest();
 				header('Location: '.$rc[1]);
+				$this->app->afterRequest($this->page);
+				return;
 			}
 		} catch (\Throwable $e) {
 			\TgLog\Log::error('Cannot create application', $e);
