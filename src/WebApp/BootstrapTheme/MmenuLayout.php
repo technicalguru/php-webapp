@@ -130,27 +130,37 @@ class MmenuLayout extends DefaultLayout {
 	protected function renderMenuItem($item, $level) {
 		$rc = '';
 		if ($item != NULL) {
-			$rc = '<li>';
-			$link = $item->getLink();
-			if ($level == 0) {
-				$icon = $item->getIcon();
-				if ($icon == NULL) $icon = '';
-				$icon = '<span class="mmenu-icon" title="'.htmlentities($item->getLabel()).'">'.$icon.'</span>';
-			}
-
-			if ($link != NULL) {
-				$rc .= '<a href="'.htmlentities($link).'">'.$icon.$item->getLabel().'</a>';
-			} else {
-				$rc .= '<span>'.$icon.$item->getLabel().'</span>';
-			}
-			if ($item->hasChildren()) {
-				$rc .= '<ul>';
-				foreach ($item->getChildren() AS $child) {
-					$rc .= $this->renderMenuItem($child, $level+1);
+			if (get_class($item) == 'WebApp\Component\Divider') {
+				$rc .= '<li class="mm-divider">';
+				if ($level == 0) {
+					$icon = $item->getIcon();
+					if ($icon == NULL) $icon = '';
+					$rc .= '<i class="mmenu-icon" title="'.htmlentities($item->getLabel()).'">'.$icon.'</i>';
 				}
-				$rc .= '</ul>';
+				$rc .= $item->getLabel().'</li>';
+			} else {
+				$rc .= '<li>';
+				$link = $item->getLink();
+				if ($level == 0) {
+					$icon = $item->getIcon();
+					if ($icon == NULL) $icon = '';
+					$icon = '<span class="mmenu-icon" title="'.htmlentities($item->getLabel()).'">'.$icon.'</span>';
+				}
+
+				if ($link != NULL) {
+					$rc .= '<a href="'.htmlentities($link).'">'.$icon.$item->getLabel().'</a>';
+				} else {
+					$rc .= '<span>'.$icon.$item->getLabel().'</span>';
+				}
+				if ($item->hasChildren()) {
+					$rc .= '<ul>';
+					foreach ($item->getChildren() AS $child) {
+						$rc .= $this->renderMenuItem($child, $level+1);
+					}
+					$rc .= '</ul>';
+				}
+				$rc .= '</li>';
 			}
-			$rc .= '</li>';
 		}
 		return $rc;
 	}
