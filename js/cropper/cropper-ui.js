@@ -463,8 +463,6 @@ class DeleteImageModal extends ChangeConfirmModal {
 	}
 
 	yesClicked() {
-		this.end();
-
 		var options = cropperUI.getOptions(this.domElement);
 		if (!options.uploadedImageURL) {
 			// Remove from server
@@ -477,6 +475,7 @@ class DeleteImageModal extends ChangeConfirmModal {
 			var handler = new DeleteImageAjaxController(this.domElement);
 			handler.deleteImage();
 		}
+		this.end();
 	}
 
 }
@@ -551,6 +550,7 @@ class DeleteImageAjaxController extends WebAppDefaultAjaxController {
 		super.done(ajaxParams, data, textStatus, jqXHR);
 		if (data.success) {
 			this.deleteImage();
+			location.reload();
 		} else {
 			this.showError();
 		}
