@@ -130,7 +130,7 @@ class WebApp {
 
 	hideSpinner() {
 		jQuery('#page-blocker').remove();
-		jQuery('#page-blocker-backdrop').remove();
+		jQuery('#page-blocker-backdrop,.modal-backdrop').remove();
 	}
 
 	// Register an I18N object for translations
