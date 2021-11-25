@@ -278,11 +278,13 @@ class WebAppModal {
 
 	hide() {
 		jQuery('#'+this.id).modal('hide');
+		jQuery('.modal-backdrop').remove();
 	}
 
 	destroy() {
 		jQuery('#'+this.id).modal('dispose');
 		jQuery('#'+this.id).remove();
+		jQuery('.modal-backdrop').remove();
 	}
 
 	end() {
