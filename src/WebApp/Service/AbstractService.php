@@ -10,5 +10,12 @@ class AbstractService implements Service {
 		$this->app = $app;
 	}
 
+	protected function svc($name) {
+		return $this->app->svc($name);
+	}
+
+	protected function dao($name) {
+		return $this->app->dao($name);
+	}
 }
 
