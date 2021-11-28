@@ -130,7 +130,7 @@ class WebApp {
 
 	hideSpinner() {
 		jQuery('#page-blocker').remove();
-		jQuery('#page-blocker-backdrop,.modal-backdrop').remove();
+		jQuery('#page-blocker-backdrop,.modal,.modal-backdrop').remove();
 	}
 
 	// Register an I18N object for translations
@@ -265,6 +265,9 @@ class WebAppModal {
 		if (elems.length > 0) {
 			elems[0].focus();
 		}
+		$('#myModal').on('hidden.bs.modal', function (e) {
+			jQuery('.modal-backdrop,.modal').remove();
+		});
 	}
 
 	showError(text) {
@@ -278,13 +281,13 @@ class WebAppModal {
 
 	hide() {
 		jQuery('#'+this.id).modal('hide');
-		jQuery('.modal-backdrop').remove();
+		jQuery('.modal-backdrop,.modal').remove();
 	}
 
 	destroy() {
 		jQuery('#'+this.id).modal('dispose');
 		jQuery('#'+this.id).remove();
-		jQuery('.modal-backdrop').remove();
+		jQuery('.modal-backdrop,.modal').remove();
 	}
 
 	end() {
