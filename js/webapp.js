@@ -265,7 +265,7 @@ class WebAppModal {
 		if (elems.length > 0) {
 			elems[0].focus();
 		}
-		$('#myModal').on('hidden.bs.modal', function (e) {
+		$('#'+this.id).on('hidden.bs.modal', function (e) {
 			jQuery('.modal-backdrop,.modal').remove();
 		});
 	}
