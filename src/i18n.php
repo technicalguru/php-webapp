@@ -534,6 +534,50 @@ return array(
 		'de' => 'Dieses Bild auf dem Server speichern',
 		'en' => 'Save this image to the server',
 	),
+	'january' => array(
+		'de' => 'Januar',
+		'en' => 'January',
+	),
+	'february' => array(
+		'de' => 'Februar',
+		'en' => 'February',
+	),
+	'march' => array(
+		'de' => 'März',
+		'en' => 'March',
+	),
+	'may' => array(
+		'de' => 'Mai',
+		'en' => 'May',
+	),
+	'june' => array(
+		'de' => 'Juni',
+		'en' => 'June',
+	),
+	'july' => array(
+		'de' => 'Juli',
+		'en' => 'July',
+	),
+	'august' => array(
+		'de' => 'August',
+		'en' => 'August',
+	),
+	'september' => array(
+		'de' => 'September',
+		'en' => 'September',
+	),
+	'october' => array(
+		'de' => 'Oktober',
+		'en' => 'October',
+	),
+	'november' => array(
+		'de' => 'November',
+		'en' => 'November',
+	),
+	'december' => array(
+		'de' => 'Dezember',
+		'en' => 'December',
+	),
 	/* Copy these 4 lines 
 	'' => array(
 		'de' => '',
