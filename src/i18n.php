@@ -546,6 +546,10 @@ return array(
 		'de' => 'März',
 		'en' => 'March',
 	),
+	'april' => array(
+		'de' => 'April',
+		'en' => 'April',
+	),
 	'may' => array(
 		'de' => 'Mai',
 		'en' => 'May',
