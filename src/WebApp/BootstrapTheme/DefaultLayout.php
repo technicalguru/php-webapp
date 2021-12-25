@@ -26,6 +26,9 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" type="text/css">';
 		}
+		if ($this->theme->hasFeature(BootstrapTheme::DATERANGEPICKER)) {
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-daterangepicker.css', TRUE).'" type="text/css">';
+		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
 			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('filter-multi-select.css', TRUE).'" type="text/css">';
 		}
@@ -188,6 +191,11 @@ class DefaultLayout extends \WebApp\Layout {
 			$rc .= '<script src="'.Utils::getJavascriptPath('bootstrap-datepicker.js', TRUE).'"></script>'.
 			       '<script src="'.Utils::getJavascriptPath('bootstrap-datepicker-locales.min.js', TRUE).'"></script>'.
 			       '<script>jQuery(document).ready(function () { $(\'.datepicker\').datepicker({ format: \''.I18N::_('datepicker_format').'\'}) })</script>';
+		}
+		if ($this->theme->hasFeature(BootstrapTheme::DATERANGEPICKER)) {
+			$rc .= '<script src="'.Utils::getJavascriptPath('moment.min.js', TRUE).'"></script>'.
+			       '<script src="'.Utils::getJavascriptPath('bootstrap-daterangepicker.min.js', TRUE).'"></script>'.
+			       '<script>jQuery(document).ready(function () { jQuery(\'.webappdaterange\').each(function(index) { var elem = jQuery(this); var options = elem.data(\'options\'); var rangedefs = elem.data(\'rangedefs\'); options.ranges = {}; jQuery.each(rangedefs, function(key,value) { options.ranges[key] = eval(value); }); elem.daterangepicker(options); }) });</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
 			$rc .= '<script type="text/javascript">jQuery(document).on(\'click\', \'ul.nav-tabs a\', function(e) { e.preventDefault(); jQuery(this).tab(\'show\').parent().addClass(\'active\'); jQuery(this).parent().siblings().removeClass(\'active\');});</script>';
