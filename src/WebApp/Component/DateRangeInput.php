@@ -38,6 +38,11 @@ class DateRangeInput extends Input {
 		return $this->period;
 	}
 
+	public function setOnApply($script) {
+		$this->setData('apply-script', $script);
+		return $this;
+	}
+
 	public static function getGetValue($name, $timezoneId) {
 		$request = \TgUtils\Request::getRequest();
 		$range   = $request->getGetParam($name);

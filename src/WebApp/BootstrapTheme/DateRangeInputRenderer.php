@@ -19,8 +19,8 @@ class DateRangeInputRenderer extends \WebApp\DefaultTheme\InputRenderer {
 		$options = $this->createOptions();
 		$this->setData('options', $options);
 		$this->setRangeData();
-		$rc  = '<div class="input-group date">'.
-		          '<div class="input-group-prepend input-group-addon">'.
+		$rc  = '<div class="input-group">'.
+		          '<div class="input-group-prepend">'.
 		             '<span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>'.
 		          '</div>'.
 		          $this->renderStartTag('input').

@@ -195,7 +195,7 @@ class DefaultLayout extends \WebApp\Layout {
 		if ($this->theme->hasFeature(BootstrapTheme::DATERANGEPICKER)) {
 			$rc .= '<script src="'.Utils::getJavascriptPath('moment.min.js', TRUE).'"></script>'.
 			       '<script src="'.Utils::getJavascriptPath('bootstrap-daterangepicker.min.js', TRUE).'"></script>'.
-			       '<script>jQuery(document).ready(function () { jQuery(\'.webappdaterange\').each(function(index) { var elem = jQuery(this); var options = elem.data(\'options\'); var rangedefs = elem.data(\'rangedefs\'); options.ranges = {}; jQuery.each(rangedefs, function(key,value) { options.ranges[key] = eval(value); }); elem.daterangepicker(options); }) });</script>';
+			       '<script>jQuery(document).ready(function () { jQuery(\'.webappdaterange\').each(function(index) { var elem = jQuery(this); var options = elem.data(\'options\'); var rangedefs = elem.data(\'rangedefs\'); options.ranges = {}; jQuery.each(rangedefs, function(key,value) { options.ranges[key] = eval(value); }); elem.daterangepicker(options); var script = elem.data(\'apply-script\'); if (typeof script != \'undefined\') { elem.on(\'apply.daterangepicker\', function(ev, picker) { eval(script); })} }) });</script>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::TABS)) {
 			$rc .= '<script type="text/javascript">jQuery(document).on(\'click\', \'ul.nav-tabs a\', function(e) { e.preventDefault(); jQuery(this).tab(\'show\').parent().addClass(\'active\'); jQuery(this).parent().siblings().removeClass(\'active\');});</script>';
