@@ -29,13 +29,18 @@ class Renderer {
 		return $this->getAttribute('class');
 	}
 
-	public function addClass($class) {
-		$this->addAttribute('class', $class);
+	public function addClass(...$classes) {
+		foreach ($classes AS $class) {
+			$this->addAttribute('class', $class);
+		}
 		return $this;
 	}
 
-	public function removeClass($class) {
-		$this->removeAttribute('class', $class);
+	public function removeClass(...$classes) {
+		foreach ($classes AS $class) {
+			$this->removeAttribute('class', $class);
+		}
+		return $this;
 	}
 
 	public function hasClass($class) {
@@ -138,6 +143,7 @@ class Renderer {
 				unset($this->attributes[$name]);
 			}
 		}
+		return $this;
 	}
 
 	public function hasAttribute($name, $value = NULL) {
