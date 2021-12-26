@@ -14,6 +14,7 @@ class DateRangeInput extends Input {
 	public function __construct($parent, $id, $value = null) {
 		parent::__construct($parent, $id, 'text', NULL);
 		$this->period = $value;
+		$this->setPrependContent('<i class="fas fa-calendar-alt"></i>');
 	}
 
 	public function showDropdowns($newValue = NULL) {

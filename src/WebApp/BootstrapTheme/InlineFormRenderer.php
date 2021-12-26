@@ -12,17 +12,13 @@ class InlineFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function render() {
-		$rc  = $this->renderStartTag($this->tagName);
-		if ($this->component->hasFieldSets()) {
-			$rc .= $this->renderFieldSets();
-		}
-		$rc .= $this->renderFormChildren($this->component->getChildren());
-		$rc .= $this->renderEndTag($this->tagName);
+		$this->theme->pushRendererBuilder(new InlineForm\InlineFormRendererBuilder($this->theme));
+		$rc  = parent::render();
+		$this->theme->popRendererBuilder();
 		return $rc;
 	}
 
 	public function renderFieldSets() {
-
 		// render each field set
 		foreach ($this->component->getFieldSets() AS $fieldSet) {
 			$rc  = '<div class="form-fieldset" id="fieldset-'.$this->component->getId().'-'.$fieldSet->getId().'">';

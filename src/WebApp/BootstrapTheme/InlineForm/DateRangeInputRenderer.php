@@ -1,6 +1,6 @@
 <?php
 
-namespace WebApp\BootstrapTheme;
+namespace WebApp\BootstrapTheme\InlineForm;
 
 use TgI18n\I18N;
 use TgUtils\Date;
@@ -10,7 +10,7 @@ class DateRangeInputRenderer extends InputRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);
-		$this->theme->addFeature(BootstrapTheme::DATERANGEPICKER);
+		$this->theme->addFeature(\WebApp\BootstrapTheme\BootstrapTheme::DATERANGEPICKER);
 		$this->addClass('webappdaterange');
 		$this->component->setType('text');
 	}
@@ -19,13 +19,7 @@ class DateRangeInputRenderer extends InputRenderer {
 		$options = $this->createOptions();
 		$this->setData('options', $options);
 		$this->setRangeData();
-		$rc  = '<div class="input-group mb-2 mr-sm-2">'.
-		          '<div class="input-group-prepend">'.
-		             '<span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>'.
-		          '</div>'.
-		          $this->renderStartTag('input').
-		       '</div>';
-		return $rc;
+		return parent::render();
 	}
 
 	protected function createOptions() {

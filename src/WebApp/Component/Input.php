@@ -15,6 +15,7 @@ class Input extends FormElement {
 
 	public function setPlaceholder($placeholder) {
 		$this->setAttribute('placeholder', \TgI18n\I18N::__($placeholder));
+		return $this;
 	}
 
 	public function getType() {
@@ -23,6 +24,25 @@ class Input extends FormElement {
 
 	public function setType($type) {
 		$this->setAttribute('type', $type);
+		return $this;
+	}
+
+	public function setPrependContent($value) {
+		$this->prependContent = $value;
+		return $this;
+	}
+
+	public function getPrependContent() {
+		return $this->prependContent;
+	}
+
+	public function setAppendContent($value) {
+		$this->appendContent = $value;
+		return $this;
+	}
+
+	public function getAppendContent() {
+		return $this->appendContent;
 	}
 
 }
