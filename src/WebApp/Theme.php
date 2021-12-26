@@ -8,21 +8,19 @@ use TgI18n\I18N;
 class Theme {
 
 	/** Information about the app */
-	public    $app      = NULL;
-	protected $page     = NULL;
-	protected $class    = NULL;
-	protected $features = NULL;
-	protected $useCache = FALSE;
+	public    $app              = NULL;
+	/** The current page */
+	protected $page             = NULL;
+	/** Enabled features */
+	protected $features         = NULL;
+	/** Stack of RendererBuilders */
+	protected $rendererBuilders = NULL;
 
-	public function __construct($app, $useCache = TRUE) {
-		$this->app       = $app;
-		$this->class     = new \ReflectionClass($this);
-		$this->features  = array();
-		$app->theme      = $this;
-		$this->useCache  = $useCache;
-		if ($this->useCache) {
-			$this->initCache();
-		}
+	public function __construct($app) {
+		$this->app              = $app;
+		$this->features         = array();
+		$app->theme             = $this;
+		$this->rendererBuilders = new \TgUtils\Stack(new Builder\DefaultRendererBuilder($this));
 	}
 
 	/** The entry function for the theme. Renders the complete page in this theme.
@@ -45,9 +43,6 @@ class Theme {
 
 		$html = $layout->renderPage();
 
-		if ($this->useCache) {
-			$this->saveCache();
-		}
 		echo $html;
 	}
 
@@ -78,17 +73,31 @@ class Theme {
 		return $rc;
 	}
 
-	// was: renderComponent($parentRenderer, $component)
+	/**
+	  * Rendering is delegated to Renderer objects.
+	  * Any component can define a renderer by annotation "webapp/renderer" which
+	  *   always takes precendence.
+	  * Creation of renderers are delegated to RendererBuilder objects in order
+	  *   to allow components/themes to influence rendering of some HTML children.
+	  * A RendererBuilder can refuse to deliver a Renderer so the renderer "above" will
+	  *   be asked to create a Renderer. This is helpful especially for forms.
+	  * The stack of RendererBuilders can be managed by pushRendererBuilder() and 
+	  *   popRendererBuilder() methods. However, the removal of builders lies in the
+      *   responsibility of the object that adds a builder onto the stack.
+	  */
 	public function renderComponent($component) {
 		if (is_string($component)) {
+			// Strings are rendered directly
 			return $component;
 		} else if (is_array($component)) {
+			// Arrays are recursively rendered per element
 			$rc = '';
 			foreach ($component AS $c) {
 				$rc .= $this->renderComponent($c);
 			}
 			return $rc;
 		} else if (is_object($component)) {
+			// Objects will be rendered with according renderers
 			if (is_a($component, 'WebApp\\Component\\LazyInitializer')) {
 				$component->lazyInit();
 			}
@@ -101,12 +110,15 @@ class Theme {
 	 * Returns the correct renderer for the given component.
 	 * <p>The return value MUST NOT be NULL.</p>
 	 */
-	// was getRenderer($parentRenderer, $component)
 	public function getRenderer($component) {
 		// An annotation can overwrite the renderer
 		$renderer   = $this->getAnnotatedRenderer($component);
 		if ($renderer == NULL) {
-			$renderer = $this->findCachedRenderer($component);
+			// The stack will be asked from top to bottom
+			foreach ($this->rendererBuilders->elements() AS $builder) {
+				$renderer = $builder->getRenderer($component);
+				if ($renderer != NULL) break;
+			}
 		}
 		return $renderer;
 	}
@@ -116,50 +128,6 @@ class Theme {
 		if (($rc != NULL) && is_string($rc)) {
 			$rc = new $rc($this, $component);
 		}
-		return $rc;
-	}
-
-	protected function findCachedRenderer($component) {
-		$renderer = NULL;
-		if ($this->useCache) {
-			$className = $this->getRendererCache(get_class($component));
-			if ($className != NULL) {
-				$renderer = new $className($this, $component);
-			}
-		}
-
-		if ($renderer == NULL) {
-			$themeClass = $this->class;
-			while (($renderer == NULL) && ($themeClass !== FALSE)) {
-				$namespace  = $themeClass->getNamespaceName();
-				$renderer   = $this->searchRendererInNamespace($namespace, $component);
-				$themeClass = $themeClass->getParentClass();
-			}
-
-			if ($renderer == NULL) {
-				$renderer = new Renderer($this, $component);
-			}
-			if ($this->useCache) {
-				$this->setRendererCache(get_class($component), get_class($renderer));
-			}
-		}
-		return $renderer;
-	}
-
-	protected function searchRendererInNamespace($namespace, $component) {
-		$class = new \ReflectionClass($component);
-		$rc    = NULL;
-
-		while (($rc == NULL) && ($class !== FALSE)) {
-			$shortName = $class->getShortName();
-			$className = '\\'.$namespace.'\\'.$shortName.'Renderer';
-			if (class_exists($className)) {
-				$rc = new $className($this, $component);
-			} else {
-				$class = $class->getParentClass();
-			}
-		}
-
 		return $rc;
 	}
 
@@ -191,24 +159,16 @@ class Theme {
 		return $rc;
 	}
 
-	// Renderer Cache
-	protected function initCache() {
-		$this->rendererCache = array();
-		// Loading from disk => concurrency!
+	public function pushRendererBuilder($builder) {
+		$this->rendererBuilders->push($builder);
 	}
 
-	protected function saveCache() {
-		// Saving to disk => concurrency!
-	}
-
-	protected function getRendererCache($name) {
-		if (isset($this->rendererCache[$name])) return $this->rendererCache[$name];
+	public function popRendererBuilder() {
+		// Never remove the top-most builder
+		if ($this->rendererBuilders->size() > 1) {
+			return $this->rendererBuilders->pop();
+		}
 		return NULL;
 	}
-
-	protected function setRendererCache($name, $value) {
-		$this->rendererCache[$name] = $value;
-	}
-
 }
 
