@@ -4,10 +4,10 @@ namespace WebApp\Component;
 
 use TgUtils\Request;
 
-class SearchFilterBar extends Form {
+class SearchFilterBar extends InlineForm {
 
 	public function __construct($parent) {
-		parent::__construct($parent, 'searchForm', Form::INLINE);
+		parent::__construct($parent, 'searchForm');
 		$this->setMethod('GET');
 		$this->setAction(Request::getRequest()->originalPath);
 		$this->searchInput = $this->createSearchInput();

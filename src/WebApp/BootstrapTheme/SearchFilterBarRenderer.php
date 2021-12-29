@@ -2,7 +2,7 @@
 
 namespace WebApp\BootstrapTheme;
 
-class SearchFilterBarRenderer extends \WebApp\DefaultTheme\FormRenderer {
+class SearchFilterBarRenderer extends InlineFormRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);
