@@ -6,7 +6,7 @@ class InlineFormRenderer extends ContainerRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component, 'form');
-		$this->addClass('horizontal');
+		$this->addClass('inline');
 	}
 
 	public function render() {

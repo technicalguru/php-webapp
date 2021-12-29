@@ -12,7 +12,7 @@ class FilterPanel extends Div {
 	public function __construct($parent) {
 		parent::__construct($parent);
 		$this->addClass('filter-panel');
-		$this->form = new Form($this, 'filterForm');
+		$this->form = new VerticalForm($this, 'filterForm');
 		$this->form->setAction(Request::getRequest()->originalPath);
 		$this->addFilterSections();
 		$this->addButtons();

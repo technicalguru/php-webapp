@@ -47,7 +47,7 @@ class LoginForm extends Div {
 	}
 
 	protected function createForm($tfa, $return) {
-		$form   = new Form($this->body, 'loginForm', Form::VERTICAL);
+		$form   = new VerticalForm($this->body, 'loginForm');
 		$form->setMethod('POST');
 		$this->createUserInput($form);
 		$this->createPasswordInput($form);

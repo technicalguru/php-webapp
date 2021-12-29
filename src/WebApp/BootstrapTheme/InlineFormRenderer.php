@@ -18,6 +18,7 @@ class InlineFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		return $rc;
 	}
 
+/*
 	public function renderFieldSets() {
 		// render each field set
 		foreach ($this->component->getFieldSets() AS $fieldSet) {
@@ -81,6 +82,7 @@ class InlineFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc .= '</div>';
 		return $rc;
 	}
+*/
 
 }
 

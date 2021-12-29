@@ -11,6 +11,11 @@ class VerticalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function render() {
+		$this->theme->pushRendererBuilder(new VerticalForm\VerticalFormRendererBuilder($this->theme));
+		$rc  = parent::render();
+		$this->theme->popRendererBuilder();
+		return $rc;
+/*
 		$rc  = $this->renderStartTag($this->tagName);
 		if ($this->component->hasFieldSets()) {
 			$rc .= $this->renderFieldSets();
@@ -18,8 +23,10 @@ class VerticalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc .= $this->renderFormChildren($this->component->getChildren());
 		$rc .= $this->renderEndTag($this->tagName);
 		return $rc;
+*/
 	}
 
+/*
 	public function renderFieldSets() {
 		// Construct the components
 		$tabSet = new \WebApp\Component\TabSet(NULL, $this->component->getId().'fieldsets');
@@ -69,30 +76,6 @@ class VerticalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function renderGeneralFormChild($child) {
-		$error = $child->getError();
-		$rc    = '<div class="form-group'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
-		$label = $child->getLabel();
-		if ($label != NULL) {
-			$rc .= '<label for="'.htmlentities($child->getId()).'">'.$label.'</label>';
-		} else {
-			// TODO
-		}
-		$child->addClass('form-control');
-		if ($error != NULL) {
-			$child->addClass('is-invalid');
-			$child->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
-		}
-		$rc   .= $this->theme->renderComponent($child);
-		$help  = $child->getHelp();
-		if ($help != NULL) {
-			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
-		}
-		$error = $child->getError(); // Could have been rendered already
-		if ($error != NULL) {
-			$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
-		}
-		$rc .= '</div>';
-		return $rc;
 	}
 
 	public function renderCheckbox($child) {
@@ -120,5 +103,7 @@ class VerticalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc .= '</div>';
 		return $rc;
 	}
+
+*/
 }
 
