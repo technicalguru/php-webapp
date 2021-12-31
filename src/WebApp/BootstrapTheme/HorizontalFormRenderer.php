@@ -32,6 +32,11 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	}
 
 	public function render() {
+		$this->theme->pushRendererBuilder(new HorizontalForm\HorizontalFormRendererBuilder($this->theme, $this));
+		$rc  = parent::render();
+		$this->theme->popRendererBuilder();
+		return $rc;
+/*
 		$rc  = $this->renderStartTag($this->tagName);
 		if ($this->component->hasFieldSets()) {
 			$rc .= $this->renderFieldSets();
@@ -39,6 +44,7 @@ class HorizontalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 		$rc .= $this->renderFormChildren($this->component->getChildren());
 		$rc .= $this->renderEndTag($this->tagName);
 		return $rc;
+*/
 	}
 
 	public function renderFieldSets() {

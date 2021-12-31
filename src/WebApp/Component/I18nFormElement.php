@@ -33,7 +33,7 @@ class I18nFormElement extends CombinedFormElement {
 		
 	}
 
-	public function setError($languageKey, $value) {
+	public function setError($languageKey, $value = NULL) {
 		if ($this->created) {
 			throw new \WebApp\WebAppException('Invalid method call. Language specific components already created');
 		}

@@ -4,12 +4,13 @@ namespace WebApp\Component;
 
 use WebApp\DataModel\Address;
 
-class AddressInput extends \WebApp\Component\FormElementGroup {
+class AddressInput extends \WebApp\Component\CombinedFormElement {
 
 	public function __construct($parent, $id, $label, $value = NULL) {
-		parent::__construct($parent, $label);
+		parent::__construct($parent, $id, $value);
 		$this->setId($id);
 		$this->addClass('form-grid');
+		$this->setLabel($label);
 		self::createAddressFields($value);
 	}
 

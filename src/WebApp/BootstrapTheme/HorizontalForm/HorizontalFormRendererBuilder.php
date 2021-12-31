@@ -1,8 +1,8 @@
 <?php
 
-namespace WebApp\BootstrapTheme\VerticalForm;
+namespace WebApp\BootstrapTheme\HorizontalForm;
 
-class VerticalFormRendererBuilder extends \WebApp\Builder\AbstractRendererBuilder {
+class HorizontalFormRendererBuilder extends \WebApp\Builder\AbstractRendererBuilder {
 
 	protected $form;
 
@@ -12,7 +12,7 @@ class VerticalFormRendererBuilder extends \WebApp\Builder\AbstractRendererBuilde
 	}
 
 	public function getRenderer($component) {
-		$rc = $this->searchRendererInNamespace('WebApp\BootstrapTheme\VerticalForm', $component);
+		$rc = $this->searchRendererInNamespace('WebApp\BootstrapTheme\HorizontalForm', $component);
 		if (($rc == NULL) && is_a($component, 'WebApp\Component\FormElement')) {
 			$elemRenderer = $this->getComponentRenderer($component);
 			if (is_a($component, 'WebApp\Component\Checkbox') || is_a($component, 'WebApp\Component\Radio')) {
@@ -34,5 +34,4 @@ class VerticalFormRendererBuilder extends \WebApp\Builder\AbstractRendererBuilde
 		}
 		return $rc;
 	}
-
 }

@@ -6,6 +6,7 @@ class CombinedFormElement extends FormElement {
 
 	protected $values;
 	protected $errors;
+	protected $groupError;
 
 	public function __construct($parent, $id, $values = NULL) {
 		parent::__construct($parent, $id);
@@ -27,6 +28,16 @@ class CombinedFormElement extends FormElement {
 
 	public function setErrors($values) {
 		$this->errors = $values;
+		return $this;
+	}
+
+	public function getError($key = NULL) {
+		return $this->groupError;
+	}
+
+	public function setError($keyOrError, $error = NULL) {
+		$this->groupError = $keyOrError;
+		return $this;
 	}
 
 }
