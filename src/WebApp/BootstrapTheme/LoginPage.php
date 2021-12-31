@@ -26,7 +26,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 
 	protected function getLoginForm() {
 		$rc = array();
-		$form   = new \WebApp\Component\Form($this, 'loginForm', \WebApp\Component\Form::HORIZONTAL);
+		$form   = new \WebApp\Component\HorizontalForm($this, 'loginForm');
 		$form->setMethod('POST');
 		$form->setAnnotation('horizontal-form/component-size', 'sm-12 md-6 lg-4');
 		$form->setAction($this->request->originalPath);

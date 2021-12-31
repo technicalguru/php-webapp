@@ -4,15 +4,13 @@ namespace WebApp\Component;
 
 use \TgI18n\I18N;
 
-class I18nFormElement extends BasicFormElement implements MultiValueComponent {
+class I18nFormElement extends CombinedFormElement {
 
 	protected $errors;
 	protected $languages;
-	protected $values;
 
 	public function __construct($parent, $id, $languages, $values = null) {
-		parent::__construct($parent, $id);
-		$this->setValues($values);
+		parent::__construct($parent, $id, $values);
 		$this->setLanguages($languages);
 	}
 
@@ -28,27 +26,11 @@ class I18nFormElement extends BasicFormElement implements MultiValueComponent {
 		return I18N::__($this->values, $languageKey);
 	}
 
-	public function getValues() {
-		return $this->values;
-	}
-
 	public function setValue($languageKey, $value) {
 		if (is_int($value)) $value = ''.$value;
 		if (is_object($this->values)) $this->values->$languageKey = $value;
 		if (is_array($this->values)) $this->values[$languageKey] = $value;
 		
-	}
-
-	public function setValues($values) {
-		$this->values = $values;
-	}
-
-	public function getErrors() {
-		return $this->errors;
-	}
-
-	public function setErrors($values) {
-		$this->errors = $values;
 	}
 
 	public function setError($languageKey, $value) {

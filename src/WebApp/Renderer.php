@@ -11,7 +11,6 @@ class Renderer {
 	protected $attributes;
 	protected $styles;
 
-	// was __construct($theme, $parent, $component) {
 	public function __construct($theme, $component) {
 		$this->app        = $theme->app;
 		$this->theme      = $theme;

@@ -2,7 +2,7 @@
 
 namespace WebApp\Component;
 
-class RemoteSearchMultiSelect extends FormElement {
+class RemoteSearchMultiSelect extends BasicFormElement {
 
 	public $restUri;
 	public $values;

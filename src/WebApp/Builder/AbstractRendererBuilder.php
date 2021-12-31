@@ -22,7 +22,7 @@ abstract class AbstractRendererBuilder implements RendererBuilder {
 			$shortName = $class->getShortName();
 			$className = '\\'.$namespace.'\\'.$shortName.'Renderer';
 			if (class_exists($className)) {
-				$rc = new $className($this->theme, $component);
+				$rc = $this->createRenderer($className, $component);
 			} else {
 				$class = $class->getParentClass();
 			}
@@ -31,4 +31,7 @@ abstract class AbstractRendererBuilder implements RendererBuilder {
 		return $rc;
 	}
 
+	protected function createRenderer($className, $component) {
+		return new $className($this->theme, $component);
+	}
 }

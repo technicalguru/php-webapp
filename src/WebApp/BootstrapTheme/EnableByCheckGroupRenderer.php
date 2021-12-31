@@ -2,7 +2,7 @@
 
 namespace WebApp\BootstrapTheme;
 
-class EnableByCheckGroupRenderer extends FormElementGroupRenderer {
+class EnableByCheckGroupRenderer extends CombinedFormElementRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);

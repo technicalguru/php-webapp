@@ -2,7 +2,7 @@
 
 namespace WebApp\Component;
 
-class MultiSelect extends FormElement implements MultiValueComponent {
+class MultiSelect extends BasicFormElement {
 
 	protected $options;
 	protected $values;

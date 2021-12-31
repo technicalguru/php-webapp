@@ -2,7 +2,7 @@
 
 namespace WebApp\Component;
 
-class Button extends Container implements SingleValueComponent {
+class Button extends Container {
 
 	public function __construct($parent, $text = NULL) {
 		parent::__construct($parent, $text);

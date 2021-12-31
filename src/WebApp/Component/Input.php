@@ -2,7 +2,7 @@
 
 namespace WebApp\Component;
 
-class Input extends FormElement {
+class Input extends BasicFormElement {
 
 	public function __construct($parent, $id, $type = 'text', $value = null) {
 		parent::__construct($parent, $id, $value);

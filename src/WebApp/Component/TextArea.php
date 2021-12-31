@@ -2,7 +2,7 @@
 
 namespace WebApp\Component;
 
-class TextArea extends FormElement implements SingleValueComponent {
+class TextArea extends BasicFormElement {
 
 	protected $value;
 

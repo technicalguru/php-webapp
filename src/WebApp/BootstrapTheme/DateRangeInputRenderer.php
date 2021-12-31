@@ -13,19 +13,14 @@ class DateRangeInputRenderer extends InputRenderer {
 		$this->theme->addFeature(BootstrapTheme::DATERANGEPICKER);
 		$this->addClass('webappdaterange');
 		$this->component->setType('text');
+		$this->component->setPrependContent('<i class="fas fa-calendar-alt"></i>');
 	}
 
 	public function render() {
 		$options = $this->createOptions();
 		$this->setData('options', $options);
 		$this->setRangeData();
-		$rc  = '<div class="input-group mb-2 mr-sm-2">'.
-		          '<div class="input-group-prepend">'.
-		             '<span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>'.
-		          '</div>'.
-		          $this->renderStartTag('input').
-		       '</div>';
-		return $rc;
+		return parent::render();
 	}
 
 	protected function createOptions() {
@@ -36,7 +31,6 @@ class DateRangeInputRenderer extends InputRenderer {
 			'startDate'           => $this->renderStartDate(),
 			'endDate'             => $this->renderEndDate(),
 		);
-		//return str_replace(array('"$$', '$$"'), array('', ''), json_encode($rc));
 		return json_encode($rc);
 	}
 

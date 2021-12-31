@@ -2,7 +2,7 @@
 
 namespace WebApp\BootstrapTheme;
 
-class CheckboxRenderer extends \WebApp\DefaultTheme\CheckboxRenderer {
+class RadioRenderer extends \WebApp\DefaultTheme\RadioRenderer {
 
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component);

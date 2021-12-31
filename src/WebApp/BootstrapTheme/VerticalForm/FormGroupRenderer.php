@@ -2,10 +2,11 @@
 
 namespace WebApp\BootstrapTheme\VerticalForm;
 
-class InputRenderer extends \WebApp\BootstrapTheme\InputRenderer {
+class FormGroupRenderer extends \WebApp\Renderer {
 
-	public function __construct($theme, $component) {
+	public function __construct($theme, $component, $elementRenderer) {
 		parent::__construct($theme, $component);
+		$this->elementRenderer = $elementRenderer;
 	}
 
 	public function render() {
@@ -20,7 +21,7 @@ class InputRenderer extends \WebApp\BootstrapTheme\InputRenderer {
 			$this->addClass('is-invalid');
 			$this->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
 		}
-		$rc   .= $this->renderInput();
+		$rc   .= $this->elementRenderer->render();
 		$help  = $child->getHelp();
 		if ($help != NULL) {
 			$rc .= '<small class="form-text text-muted">'.$help.'</small>';
@@ -33,6 +34,7 @@ class InputRenderer extends \WebApp\BootstrapTheme\InputRenderer {
 		return $rc;
 	}
 
+/*
 	public function renderInput() {
 		$rc      = '';
 		$prepend = $this->component->getPrependContent();
@@ -60,5 +62,5 @@ class InputRenderer extends \WebApp\BootstrapTheme\InputRenderer {
 
 		return $rc;
 	}
-
+*/
 }
