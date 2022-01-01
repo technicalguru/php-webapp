@@ -10,9 +10,9 @@ class FormCheckRenderer extends \WebApp\Renderer {
 	}
 
 	public function render() {
+		$this->component->addLabelClass('form-check-label');
 		$rc = '<div class="form-check">'.
 		         $this->elementRenderer->render().
-		         '<label class="form-check-label" for="'.htmlentities($this->component->getId()).'">'.$this->component->getLabel().'</label>'.
 		      '</div>';
 		return $rc;
 	}

@@ -11,11 +11,14 @@ abstract class EnableByCheckGroup extends CombinedFormElement {
 		$this->setInverseCheck($inverseCheck);
 		$this->addClass('elem-by-check');
 
-		$this->check = new Checkbox($this, $id.'_checked', 'checked');
+		$this->checkGroup = new Div($this);
+		$this->checkGroup->addClass('form-check', 'form-check-inline');
+		$this->check = new Checkbox($this->checkGroup, $id.'_checked', 'checked');
 		$this->check
 			->setLabel($checkText)
 			->setAttribute('data-role', 'dynamic-check-enable')
 			->addClass('form-check-inline')
+			->addLabelClass('form-check-label')
 			->setAnnotation('bootstrap/no-class', TRUE);
 		$this->inputDiv = new Div($this);
 		$this->inputDiv->setAttribute('data-role', 'dynamic-check-input');
