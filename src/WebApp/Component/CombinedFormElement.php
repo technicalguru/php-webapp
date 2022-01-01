@@ -18,7 +18,7 @@ class CombinedFormElement extends FormElement {
 		return $this;
 	}
 
-	public function getValues($values) {
+	public function getValues() {
 		return $this->values;
 	}
 

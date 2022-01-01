@@ -25,10 +25,7 @@ class FormGroupRenderer extends \WebApp\Renderer {
 		// Do we need to push defaultBuilder again?
 		$this->theme->pushRendererBuilder(new \WebApp\Builder\DefaultRendererBuilder($this->theme));
 		$rc   .= '<div class="col-sm-10">'.
-		            $this->elementRenderer->render().
-		         '</div>';
-		// Undo defaultBuilder again
-		$this->theme->popRendererBuilder();
+		            $this->elementRenderer->render();
 
 		$help  = $child->getHelp();
 		if ($help != NULL) {
@@ -38,6 +35,11 @@ class FormGroupRenderer extends \WebApp\Renderer {
 		if ($error != NULL) {
 			$rc .= '<div id="validationFeedback-'.$child->getId().'" class="invalid-feedback">'.$error.'</div>';
 		}
+
+		$rc .= '</div>';
+		// Undo defaultBuilder again
+		$this->theme->popRendererBuilder();
+
 		$rc .= '</div>';
 		return $rc;
 	}

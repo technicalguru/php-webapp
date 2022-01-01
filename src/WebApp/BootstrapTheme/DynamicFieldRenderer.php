@@ -30,7 +30,7 @@ class DynamicFieldRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 			$id      = $child->getId();
 			$name    = $child->getName();
 			$style   = $child->getStyle('display');
-			$isMulti = is_a($child, 'WebApp\\Component\\MultiValueComponent');
+			$isMulti = is_a($child, 'WebApp\\Component\\CombinedFormElement');
 			$origVal = $isMulti ? $child->getValues() : $child->getValue();
 
 			if ($isTemplate) $child->setStyle('display', 'none');
