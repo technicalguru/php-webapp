@@ -2,17 +2,11 @@
 
 namespace WebApp\Component;
 
-class DynamicField extends Container {
+class DynamicField extends CombinedFormElement {
 
 	public function __construct($parent, $id, $values = NULL) {
-		parent::__construct($parent);
-		$this->setId($id);
-		$this->setValues($values);
-		 new \WebApp\Component\HiddenInput($this, $id.'-id', 'IDNUM');
-	}
-
-	public function getValues() {
-		return $this->values;
+		parent::__construct($parent, $id, $values);
+		new \WebApp\Component\HiddenInput($this, $id.'-id', 'IDNUM');
 	}
 
 	public function setValues($values) {

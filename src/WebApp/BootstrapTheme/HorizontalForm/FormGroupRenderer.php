@@ -13,11 +13,7 @@ class FormGroupRenderer extends \WebApp\Renderer {
 		$child = $this->component;
 		$error = $child->getError();
 		$rc    = '<div class="form-group row'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
-		$label = $child->getLabel();
-		if ($label != NULL) {
-			$required = $this->component->isRequired() ? '<sup class="text-danger">*</sup>' : '';
-			$rc .= '<label class="col-sm-2 col-form-label" for="'.htmlentities($child->getId()).'">'.$label.$required.'</label>';
-		}
+		$rc   .= $this->renderLabel();
 		if ($error != NULL) {
 			$this->addClass('is-invalid');
 			$this->addAttribute('aria-describedby', 'validationFeedback-'.$child->getId());
@@ -45,4 +41,14 @@ class FormGroupRenderer extends \WebApp\Renderer {
 		return $rc;
 	}
 
+	protected function renderLabel() {
+		$rc = '';
+		$label = $this->component->getLabel();
+		if ($label != NULL) {
+			$required = $this->component->isRequired() ? '<sup class="text-danger">*</sup>' : '';
+			$style    = is_a($this->component, 'WebApp\Component\DynamicField') ? ' style="margin-top: 0.5em;"' : '';
+			$rc .= '<label class="col-sm-2 col-form-label" for="'.htmlentities($this->component->getId()).'"'.$style.'>'.$label.$required.'</label>';
+		}
+		return $rc;
+	}
 }
