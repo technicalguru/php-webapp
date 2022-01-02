@@ -2,10 +2,10 @@
 
 namespace WebApp\DefaultTheme;
 
-class RadioRenderer extends InputRenderer {
+class FormCheckRenderer extends InputRenderer {
 
 	public function __construct($theme, $component) {
-		parent::__construct($theme, $component, 'radio');
+		parent::__construct($theme, $component);
 	}
 
 	public function render() {

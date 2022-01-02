@@ -15,8 +15,8 @@ class HorizontalFormRendererBuilder extends \WebApp\Builder\AbstractRendererBuil
 		$rc = $this->searchRendererInNamespace('WebApp\BootstrapTheme\HorizontalForm', $component);
 		if (($rc == NULL) && is_a($component, 'WebApp\Component\FormElement')) {
 			$elemRenderer = $this->getComponentRenderer($component);
-			if (is_a($component, 'WebApp\Component\Checkbox') || is_a($component, 'WebApp\Component\Radio')) {
-				$rc = new FormCheckRenderer($this->theme, $component, $elemRenderer);
+			if (is_a($component, 'WebApp\Component\FormCheck')) {
+				$rc = $elemRenderer;
 			} else {
 				$rc = new FormGroupRenderer($this->theme, $component, $elemRenderer);
 			}
