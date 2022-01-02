@@ -7,6 +7,8 @@ faces when he wants to start a new website. This framework addresses:
 * Flexible design, theme and layout of websites and individual pages
 * Database Access (mostly MariaDB or MySQL)
 * Data Model abstract layer to avoid any SQL writing
+* Service layer support for business tasks
+* REST service support by special page types
 * Flexible URL routing (mapping the URL path to a specific Page class)
 * Logging
 * Email Sending
@@ -56,6 +58,18 @@ route all requests to the `index.php` file. You could achieve this with this sni
 ```
 
 in your `.htaccess` file
+
+# Additional Remarks
+Version 1.2 re-structured the rendering of form elements. The most visible change is that it requires you to create forms now with:
+
+```
+$form1 = new HorizontalForm($parant, 'my-form');
+$form2 = new VerticalForm($parant, 'my-form');
+$form3 = new InlineForm($parant, 'my-form');
+$form4 = new GridForm($parant, 'my-form');
+```
+
+Furthermore, you shall verify the rendering of your forms because Javascript or layouts might be affected by the changes.
 
 # Contribution
 Report a bug, request an enhancement or pull request at the [GitHub Issue Tracker](https://github.com/technicalguru/php-webapp/issues).
