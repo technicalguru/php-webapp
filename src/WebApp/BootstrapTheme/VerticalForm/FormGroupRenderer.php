@@ -15,7 +15,8 @@ class FormGroupRenderer extends \WebApp\Renderer {
 		$rc    = '<div class="form-group'.($error != NULL ? ' has-error' : '').'" id="form-row-'.$child->getId().'">';
 		$label = $child->getLabel();
 		if ($label != NULL) {
-			$rc .= '<label for="'.htmlentities($child->getId()).'">'.$label.'</label>';
+			$required = $this->component->isRequired() ? '<sup class="text-danger">*</sup>' : '';
+			$rc .= '<label for="'.htmlentities($child->getId()).'">'.$label.$required.'</label>';
 		}
 		if ($error != NULL) {
 			$this->addClass('is-invalid');
