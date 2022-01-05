@@ -18,7 +18,7 @@ class AddressInput extends \WebApp\Component\CombinedFormElement {
 		if ($address == NULL) $address = new Address();
 		$id = $this->getId();
 
-		$elem = new TextInput($this, $id.'_name', $address->street1);
+		$elem = new TextInput($this, $id.'_name', $address->name);
 		$elem->setPlaceholder('address_name_label');
 		$elem->addClass('mb-1');
 		$elem->setRequired(TRUE);
