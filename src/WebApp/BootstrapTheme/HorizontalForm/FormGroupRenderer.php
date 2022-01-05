@@ -4,8 +4,9 @@ namespace WebApp\BootstrapTheme\HorizontalForm;
 
 class FormGroupRenderer extends \WebApp\Renderer {
 
-	public function __construct($theme, $component, $elementRenderer) {
+	public function __construct($theme, $component, $builder, $elementRenderer) {
 		parent::__construct($theme, $component);
+		$this->builder         = $builder;
 		$this->elementRenderer = $elementRenderer;
 	}
 
@@ -21,7 +22,7 @@ class FormGroupRenderer extends \WebApp\Renderer {
 
 		// Do we need to push defaultBuilder again?
 		$this->theme->pushRendererBuilder(new \WebApp\Builder\DefaultRendererBuilder($this->theme));
-		$rc   .= '<div class="col-sm-10">'.
+		$rc   .= '<div class="'.$this->builder->getComponentSizeClasses().'">'.
 		            $this->elementRenderer->render();
 
 		$help  = $child->getHelp();
@@ -47,7 +48,7 @@ class FormGroupRenderer extends \WebApp\Renderer {
 		if ($label != NULL) {
 			$required = $this->component->isRequired() ? '<sup class="text-danger">*</sup>' : '';
 			$style    = is_a($this->component, 'WebApp\Component\DynamicField') ? ' style="margin-top: 0.5em;"' : '';
-			$rc .= '<label class="col-sm-2 col-form-label" for="'.htmlentities($this->component->getId()).'"'.$style.'>'.$label.$required.'</label>';
+			$rc .= '<label class="'.$this->builder->getLabelSizeClasses().' col-form-label" for="'.htmlentities($this->component->getId()).'"'.$style.'>'.$label.$required.'</label>';
 		}
 		return $rc;
 	}
