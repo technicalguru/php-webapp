@@ -2,7 +2,7 @@
 
 namespace WebApp\Component;
 
-class Select extends FormElement {
+class Select extends BasicFormElement {
 
 	protected $options;
 

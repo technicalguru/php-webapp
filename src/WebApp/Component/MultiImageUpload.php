@@ -6,7 +6,7 @@ use TgI18n\I18N;
 use TgLog\Log;
 use TgLog\Error;
 
-class MultiImageUpload extends FormElement {
+class MultiImageUpload extends BasicFormElement {
 
 	public $images;
 

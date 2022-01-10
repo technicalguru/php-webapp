@@ -2,6 +2,7 @@
 
 namespace WebApp\BootstrapTheme;
 
+// TODO - this is actually a combined rendering but single-valued
 class DateTimeInputRenderer extends \WebApp\DefaultTheme\InputRenderer {
 
 	public function __construct($theme, $component) {

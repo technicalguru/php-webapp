@@ -357,6 +357,14 @@ return array(
 		'de' => 'Die Löschung war nicht erfolgreich. Bitte versuche es später noch einmal.',
 		'en' => 'The item could not be deleted. Please retry later.',
 	),
+	'daterange_format' => array(
+		'de' => 'DD.MM.YYYY',
+		'en' => 'DD/MM/YYYY',
+	),
+	'daterange_internal_format' => array(
+		'de' => 'd.m.Y',
+		'en' => 'd/m/Y',
+	),
 	'datepicker_format' => array(
 		'de' => 'dd.mm.yyyy',
 		'en' => 'dd/mm/yyyy',
@@ -533,6 +541,114 @@ return array(
 	'upload_save_help' => array(
 		'de' => 'Dieses Bild auf dem Server speichern',
 		'en' => 'Save this image to the server',
+	),
+	'january' => array(
+		'de' => 'Januar',
+		'en' => 'January',
+	),
+	'february' => array(
+		'de' => 'Februar',
+		'en' => 'February',
+	),
+	'march' => array(
+		'de' => 'März',
+		'en' => 'March',
+	),
+	'april' => array(
+		'de' => 'April',
+		'en' => 'April',
+	),
+	'may' => array(
+		'de' => 'Mai',
+		'en' => 'May',
+	),
+	'june' => array(
+		'de' => 'Juni',
+		'en' => 'June',
+	),
+	'july' => array(
+		'de' => 'Juli',
+		'en' => 'July',
+	),
+	'august' => array(
+		'de' => 'August',
+		'en' => 'August',
+	),
+	'september' => array(
+		'de' => 'September',
+		'en' => 'September',
+	),
+	'october' => array(
+		'de' => 'Oktober',
+		'en' => 'October',
+	),
+	'november' => array(
+		'de' => 'November',
+		'en' => 'November',
+	),
+	'december' => array(
+		'de' => 'Dezember',
+		'en' => 'December',
+	),
+	'mon' => array(
+		'de' => 'Mo',
+		'en' => 'Mo',
+	),
+	'tue' => array(
+		'de' => 'Di',
+		'en' => 'Tu',
+	),
+	'wed' => array(
+		'de' => 'Mi',
+		'en' => 'We',
+	),
+	'thu' => array(
+		'de' => 'Do',
+		'en' => 'Th',
+	),
+	'fri' => array(
+		'de' => 'Fr',
+		'en' => 'Fr',
+	),
+	'sat' => array(
+		'de' => 'Sa',
+		'en' => 'Sa',
+	),
+	'sun' => array(
+		'de' => 'So',
+		'en' => 'Su',
+	),
+	'apply_label' => array(
+		'de' => 'Anwenden',
+		'en' => 'Apply',
+	),
+	'today' => array(
+		'de' => 'Heute',
+		'en' => 'Today',
+	),
+	'yesterday' => array(
+		'de' => 'Gestern',
+		'en' => 'Yesterday',
+	),
+	'last_7_days' => array(
+		'de' => 'Letzte 7 Tage',
+		'en' => 'Last 7 days',
+	),
+	'last_30_days' => array(
+		'de' => 'Letzte 30 Tage',
+		'en' => 'Last 30 days',
+	),
+	'this_month' => array(
+		'de' => 'Dieser Monat',
+		'en' => 'This month',
+	),
+	'last_month' => array(
+		'de' => 'Letzter Monat',
+		'en' => 'Last month',
+	),
+	'custom_label' => array(
+		'de' => 'Benutzerdefiniert',
+		'en' => 'Custom',
 	),
 	/* Copy these 4 lines 
 	'' => array(

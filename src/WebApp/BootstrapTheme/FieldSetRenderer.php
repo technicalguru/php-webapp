@@ -2,23 +2,16 @@
 
 namespace WebApp\BootstrapTheme;
 
-class FieldSetRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
+class FieldSetRenderer extends \WebApp\DefaultTheme\DivRenderer {
 
 	public function __construct($theme, $component) {
-		parent::__construct($theme, $component, 'div');
+		parent::__construct($theme, $component);
+		$this->addClass('fieldset');
 	}
 
-	protected function renderChildren() {
-		$rc = '';
-
-		// We need the FormRenderer (Vertical/Horizontal/Inline)
-		$form = $this->component->getParent();
-		if (is_a($form, 'WebApp\\Component\\Form')) {
-			$formRenderer = $this->theme->getRenderer($form);
-			$rc .= $formRenderer->renderFormChildren($this->component->getChildren());
-		} else {
-			$rc .= parent::renderChildren();
-		}
-		return $rc;
+	public function render() {
+		$heading = new \WebApp\Component\Heading($this->component, 3, $this->component->getLabel());
+		$this->component->moveChildTo($heading, 0);
+		return parent::render();
 	}
 }

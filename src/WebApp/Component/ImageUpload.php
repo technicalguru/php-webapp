@@ -2,7 +2,7 @@
 
 namespace WebApp\Component;
 
-class ImageUpload extends FormElement {
+class ImageUpload extends BasicFormElement {
 
 	public $images;
 
