@@ -56,7 +56,7 @@ class DateRangeInput extends Input {
 		return self::fromString($range);
 	}
 
-	public function fromString($range) {
+	public static function fromString($range) {
 		if ($range != NULL) {
 			list($fromS, $untilS) = explode(' - ', $range, 2);
 			$from  = Date::createFromFormat(I18N::_('daterange_internal_format').' H:i:s', $fromS.' 00:00:00', $timezoneId);
