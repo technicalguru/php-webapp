@@ -18,7 +18,7 @@ class BreadcrumbRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 			       '</li>';
 		}
 		$rc .= '</ol>';
-		       $this->renderEndTag('nav');
+		$rc .= $this->renderEndTag('nav');
 		return $rc;
 	}
 }
