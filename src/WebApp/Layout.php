@@ -28,7 +28,7 @@ class Layout {
 	}
 
 	protected function renderDocumentBegin() {
-		return '<!doctype html><html lang="'.I18N::$defaultLangCode.'">';
+		return '<!DOCTYPE html><html lang="'.I18N::$defaultLangCode.'">';
 	}
 
 	protected function renderDocumentEnd() {
@@ -52,7 +52,7 @@ class Layout {
 	}
 
 	protected function renderMeta() {
-		$rc = '<meta charset="utf-8">';
+		$rc = '<meta charset="utf-8"/>';
 
 		// Meta
 		$meta = $this->page->getMeta();
@@ -67,13 +67,13 @@ class Layout {
 
 		foreach ($meta AS $name => $content) {
 			$s   = is_array($content) ? implode(',', $content) : $content;
-			$rc .= '<meta name="'.$name.'" content="'.htmlentities($s).'">';
+			$rc .= '<meta name="'.$name.'" content="'.htmlentities($s).'"/>';
 		}
 
 		// Alternates
 		foreach ($this->app->router->getLanguages() AS $key => $label) {
 			if ($key != $this->app->request->language) {
-				$rc .= '<meta name="alternate" hreflang="'.$key.'" content="'.htmlentities($this->app->router->getCanonicalPath(NULL, $key).$params).'">';
+				$rc .= '<meta name="alternate" hreflang="'.$key.'" content="'.htmlentities($this->app->router->getCanonicalPath(NULL, $key).$params).'"/>';
 			}
 		}
 
@@ -89,7 +89,7 @@ class Layout {
 			//if (strpos($file, '://') === FALSE) {
 			//	$rc .= '<link rel="stylesheet" href="'.Utils::getCssBaseUrl().'/'.$file.'" type="text/css">';
 			//} else {
-				$rc .= '<link rel="stylesheet" href="'.$file.'" type="text/css">';
+				$rc .= '<link rel="stylesheet" href="'.$file.'" type="text/css"/>';
 			//}
 		}
 		return $rc;

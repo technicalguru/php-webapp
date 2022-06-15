@@ -21,34 +21,34 @@ class DefaultLayout extends \WebApp\Layout {
 
 	protected function renderLinks() {
 		$webroot = $this->app->request->webRoot;
-		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" type="text/css">'.
-		       '<link rel="stylesheet" href="'.$this->getBootstrapUri().'" type="text/css">';
+		$rc  = '<link rel="stylesheet" href="'.$webroot.FontAwesome::getUri().'" type="text/css"/>'.
+		       '<link rel="stylesheet" href="'.$this->getBootstrapUri().'" type="text/css"/>';
 		if ($this->theme->hasFeature(BootstrapTheme::DATEPICKER)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" type="text/css"/>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DATERANGEPICKER)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-daterangepicker.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-daterangepicker.css', TRUE).'" type="text/css"/>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTISELECT)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('filter-multi-select.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('filter-multi-select.css', TRUE).'" type="text/css"/>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::FILEUPLOAD)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap-datepicker.min.css', TRUE).'" type="text/css"/>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::MULTIIMAGEUPLOAD) || $this->theme->hasFeature(BootstrapTheme::IMAGEUPLOAD)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('multi-image-upload.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('multi-image-upload.css', TRUE).'" type="text/css"/>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::REMOTESEARCH)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('remote-search.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('remote-search.css', TRUE).'" type="text/css"/>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::DYNAMICFIELDS)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('dynamic-fields.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('dynamic-fields.css', TRUE).'" type="text/css"/>';
 		}
 		if ($this->theme->hasFeature(BootstrapTheme::CROPPERJS)) {
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper.min.css', TRUE).'" type="text/css">';
-			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper-ui.css', TRUE).'" type="text/css">';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper.min.css', TRUE).'" type="text/css"/>';
+			$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('cropper/cropper-ui.css', TRUE).'" type="text/css"/>';
 		}
-		$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap.css', TRUE).'" type="text/css">';
+		$rc .= '<link rel="stylesheet" href="'.Utils::getCssPath('bootstrap.css', TRUE).'" type="text/css"/>';
 		$rc .= parent::renderLinks();
 		return $rc;
 	}

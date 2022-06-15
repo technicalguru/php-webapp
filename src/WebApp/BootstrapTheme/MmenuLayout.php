@@ -44,7 +44,7 @@ class MmenuLayout extends DefaultLayout {
 
 	protected function renderLinks() {
 		$rc  = parent::renderLinks();
-		$rc .= '<link rel="stylesheet" href="'.$this->getCssPath().'" type="text/css">';
+		$rc .= '<link rel="stylesheet" href="'.$this->getCssPath().'" type="text/css"/>';
 		return $rc;
 	}
 
