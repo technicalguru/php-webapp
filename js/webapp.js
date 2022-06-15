@@ -267,6 +267,7 @@ class WebAppModal {
 		}
 		$('#'+this.id).on('hidden.bs.modal', function (e) {
 			jQuery('.modal-backdrop,.modal').remove();
+			jQuery('body').removeClass('modal-open');
 		});
 	}
 
@@ -282,12 +283,14 @@ class WebAppModal {
 	hide() {
 		jQuery('#'+this.id).modal('hide');
 		jQuery('.modal-backdrop,.modal').remove();
+		jQuery('body').removeClass('modal-open');
 	}
 
 	destroy() {
 		jQuery('#'+this.id).modal('dispose');
 		jQuery('#'+this.id).remove();
 		jQuery('.modal-backdrop,.modal').remove();
+		jQuery('body').removeClass('modal-open');
 	}
 
 	end() {
