@@ -44,18 +44,18 @@ class UserDatabaseAuthenticator extends AbstractAuthenticator {
 				if (!($user->verifyPassword($secretData->password))) {
 					$user->registerFailedLoginAttempt();
 					$this->dao->save($user);
-					return new AuthError(AuthError::PASSWORD_INVALID, 'user_password_invalid');
+					return new AuthError(AuthError::PASSWORD_INVALID, 'user_password_invalid', $user->email);
 				} else {
 					$user->registerSuccessfulLogin();
 					$this->dao->save($user);
 					return $user;
 				}
 			} else if ($user->isPermanentlyBlocked()) {
-				return new AuthError(AuthError::USER_BLOCKED, 'user_blocked');
+				return new AuthError(AuthError::USER_BLOCKED, 'user_blocked', $user->email);
 			}
-			return new AuthError(AuthError::USER_TEMPORARILY_BLOCKED, 'user_temporarily_blocked');
+			return new AuthError(AuthError::USER_TEMPORARILY_BLOCKED, 'user_temporarily_blocked', $user->email);
 		}
-		return new AuthError(AuthError::USER_NOT_FOUND, 'user_not_found');
+		return new AuthError(AuthError::USER_NOT_FOUND, 'user_not_found', $id);
 	}
 
 	/**

@@ -12,13 +12,18 @@ class AuthError {
 	public $errorCode;
 	public $errorMessage;
 
-	public function __construct($errorCode, $errorMessage) {
+	public function __construct($errorCode, $errorMessage, $data = NULL) {
 		$this->errorCode    = $errorCode;
 		$this->errorMessage = $errorMessage;
+		$this->data         = $data;
 	}
 
 	public function getMessage() {
 		return \TgI18n\I18N::_($this->errorMessage);
+	}
+
+	public function getData() {
+		return $data;
 	}
 }
 

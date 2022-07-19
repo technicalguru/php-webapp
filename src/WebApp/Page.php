@@ -167,6 +167,11 @@ class Page extends Component\Component {
 				// Login failed
 				Log::register(new Error($result->getMessage()));
 				Log::error('Authentication error: '.$result->errorCode);
+				$data = $result->getData();
+				if ($data != NULL) {
+					if (is_object($data)) $data = json_encode($data);
+					Log::error('Authentication Data: '.$data);
+				}
 			} else {
 				// Return to uri if required
 				$return = $this->request->getPostParam('return');
