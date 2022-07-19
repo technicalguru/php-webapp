@@ -11,6 +11,7 @@ class AuthError {
 
 	public $errorCode;
 	public $errorMessage;
+	public $data;
 
 	public function __construct($errorCode, $errorMessage, $data = NULL) {
 		$this->errorCode    = $errorCode;
@@ -23,7 +24,7 @@ class AuthError {
 	}
 
 	public function getData() {
-		return $data;
+		return $this->data;
 	}
 }
 
