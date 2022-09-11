@@ -70,6 +70,7 @@ class RestPage extends Page {
 		if ($this->app->config->has('debug') && $this->app->config->get('debug')) {
 			$data = \TgUtils\FormatUtils::getTraceLines($t);
 		}
+		Log::error('RestPage error: ', \TgUtils\FormatUtils::getTraceLines($t));
 		return RestResult::error500($data);
 	}
 
