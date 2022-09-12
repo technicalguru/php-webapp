@@ -60,7 +60,7 @@ class LoginForm extends Div {
 
 	protected function createUserInput($form) {
 		$userid = $this->request->getPostParam('userid', '');
-		$user   = new TextInput($form, 'userid', $uid);
+		$user   = new TextInput($form, 'userid', $userid);
 		//$user->setLabel('login_email_label');
 		$user->setPlaceholder('login_email_placeholder');
 		return $user;

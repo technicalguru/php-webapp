@@ -14,7 +14,7 @@ class Renderer {
 	public function __construct($theme, $component) {
 		$this->app        = $theme->app;
 		$this->theme      = $theme;
-		$this->parent     = $parent;
+		$this->parent     = NULL; //$parent;
 		$this->component  = $component;
 		$this->attributes = array();
 		$this->styles     = array();
@@ -63,9 +63,9 @@ class Renderer {
 	}
 
 	protected function getAttribute($name, $combined = FALSE) {
-		$rc = $this->attributes[$name];
+		$rc = isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
 		if ($combined) {
-			if (isset($rc)) {
+			if ($rc != NULL) {
 				$rc = $this->_combineValues($this->component->getAttribute($name), $rc);
 			} else {
 				$rc = $this->component->getAttribute($name);

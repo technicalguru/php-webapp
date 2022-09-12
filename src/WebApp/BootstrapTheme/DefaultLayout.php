@@ -16,6 +16,7 @@ class DefaultLayout extends \WebApp\Layout {
 	}
 
 	protected function getBootstrapUri() {
+		$webroot = $this->app->request->webRoot;
 		return $this->page->getAnnotation(BootstrapTheme::CSS_URI, $webroot.Bootstrap::getCssUri());
 	}
 

@@ -4,6 +4,9 @@ namespace WebApp\Component;
 
 class Input extends BasicFormElement {
 
+	public $prependContent;
+	public $appendContent;
+
 	public function __construct($parent, $id, $type = 'text', $value = null) {
 		parent::__construct($parent, $id, $value);
 		$this->setType($type);

@@ -6,6 +6,8 @@ use TgI18n\I18N;
 
 class VerticalFormRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 
+	public $form;
+
 	public function __construct($theme, $component) {
 		parent::__construct($theme, $component, 'form');
 	}
