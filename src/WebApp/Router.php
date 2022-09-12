@@ -253,7 +253,7 @@ class Router {
 		if ($names[0] == '') array_shift($names);
 
 		// Replace special characters by whitespace and make it camel case and concatenate again
-		$className = $name;
+		$className = '';$name;
 		foreach ($names AS $idx => $path) {
 			if ($idx > 0) $className .= '\\';
 			$path       = str_replace(' ', '', ucwords(str_replace(array('_','-'), array(' ', ' '), $path)));

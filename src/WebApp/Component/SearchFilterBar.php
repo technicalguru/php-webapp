@@ -17,7 +17,8 @@ class SearchFilterBar extends InlineForm {
 	}
 
 	public static function getSearchPhrase() {
-		return trim(Request::getRequest()->getParam('search'));
+		$s = Request::getRequest()->getParam('search');
+		return $s != null ? trim($s) : NULL;
 	}
 
 	public static function getFilters() {

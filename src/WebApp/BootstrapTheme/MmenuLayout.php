@@ -130,6 +130,7 @@ class MmenuLayout extends DefaultLayout {
 	protected function renderMenuItem($item, $level) {
 		$rc = '';
 		if ($item != NULL) {
+			$icon = '';
 			if (get_class($item) == 'WebApp\Component\Divider') {
 				$rc .= '<li class="mm-divider">';
 				if ($level == 0) {

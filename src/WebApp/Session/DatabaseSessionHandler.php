@@ -22,7 +22,7 @@ class DatabaseSessionHandler implements \SessionHandlerInterface {
 	 * @param string $name
 	 * @return bool
 	 */
-	public function open($save_path, $name) {
+	public function open($save_path, $name):bool {
 		return TRUE;
 	}
 
@@ -32,7 +32,7 @@ class DatabaseSessionHandler implements \SessionHandlerInterface {
 	 * @param string $session_id
 	 * @return string
 	 */
-	public function read($session_id) {
+	public function read($session_id):string|false {
 		$this->session = $this->dao->get($session_id);
 		if (!$this->session) $this->createFreshSession($session_id);
 		return $this->session->data;
@@ -66,19 +66,19 @@ class DatabaseSessionHandler implements \SessionHandlerInterface {
 	 * @param string $data
 	 * @return bool
 	 */
-	public function write($session_id, $data) {
+	public function write($session_id, $data):bool {
 
 		// In case there is no object yet
 		if ($this->session == NULL) $this->createFreshSession($session_id);
 
 		// Update fields
 		$now        = new Date(time(), WFW_TIMEZONE);
-		$expiryTime = $_SESSION['persistent'] ? 365*24*3600 : ini_get('session.gc_maxlifetime');
+		$expiryTime = isset($_SESSION['persistent']) && $_SESSION['persistent'] ? 365*24*3600 : ini_get('session.gc_maxlifetime');
 		$expiry     = new Date(time()+$expiryTime, WFW_TIMEZONE);
 		$this->session->update_time   = $now->toMysql(TRUE);
 		$this->session->expiry_time   = $expiry->toMysql(TRUE);
 		$this->session->data          = $data;
-		$this->session->persistent    = $_SESSION['persistent'] ? 1 : 0;
+		$this->session->persistent    = isset($_SESSION['persistent']) && $_SESSION['persistent'] ? 1 : 0;
 
 		// Persist
 		$session = $this->dao->get($session_id);
@@ -101,7 +101,7 @@ class DatabaseSessionHandler implements \SessionHandlerInterface {
 	 *
 	 * @return bool
 	 */
-	public function close() {
+	public function close():bool {
 		if ($this->session) {
 			return $this->gc(ini_get('session.gc_maxlifetime'));
 		}
@@ -114,7 +114,7 @@ class DatabaseSessionHandler implements \SessionHandlerInterface {
 	 * @param int $session_id
 	 * @return bool
 	 */
-	public function destroy($session_id) {
+	public function destroy($session_id):bool {
 		$this->createFreshSession($session_id);
 		$this->dao->delete($this->session);
 		return TRUE;
@@ -126,7 +126,7 @@ class DatabaseSessionHandler implements \SessionHandlerInterface {
 	 * @param int $maxlifetime
 	 * @return bool
 	 */
-	public function gc($maxlifetime) {
+	public function gc($maxlifetime):int|false {
 		// As we had the expiry set explicitely, we dont need the max lifetime
 		$expired = $this->dao->expire($maxlifetime);
 		return TRUE;
