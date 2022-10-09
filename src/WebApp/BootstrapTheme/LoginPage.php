@@ -32,7 +32,7 @@ class LoginPage extends \WebApp\Page\LoginPage {
 		$form->setAction($this->request->originalPath);
 
 		$userid = $this->request->getPostParam('userid', '');
-		$user   = new \WebApp\Component\TextInput($form, 'userid', $uid);
+		$user   = new \WebApp\Component\TextInput($form, 'userid', $userid);
 		$user->setLabel('login_userid_label');
 		$user->setPlaceholder('login_userid_placeholder');
 
