@@ -140,7 +140,7 @@ class Router {
 
 		// strip off app path from path
 		$pathElems = explode('/', $this->request->pagePath);
-		while ($pathElems[0] === '') array_shift($pathElems);
+		while ((count($pathElems) > 0) && ($pathElems[0] === '')) array_shift($pathElems);
 		// Check language
 		if (count($pathElems) > 0) {
 			if ($this->hasLanguage($pathElems[0])) {
@@ -154,7 +154,7 @@ class Router {
 				$this->request->language = $this->getDefaultLanguage();
 			}
 		}
-		while ($pathElems[0] === '') array_shift($pathElems);
+		while ((count($pathElems) > 0) && ($pathElems[0] === '')) array_shift($pathElems);
 		$this->request->pagePathElements = $pathElems;
 		$this->request->useLanguagePath  = count($this->languages) > 1;
 
