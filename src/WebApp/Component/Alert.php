@@ -15,7 +15,7 @@ class Alert extends Container {
 	protected $title;
 	protected $description;
 
-	public function __construct($parent, $type = Alert::ERROR, $title, $description) {
+	public function __construct($parent, $type = Alert::ERROR, $title = '', $description = '') {
 		parent::__construct($parent);
 		$this->type        = $type;
 		$this->title       = $title;
