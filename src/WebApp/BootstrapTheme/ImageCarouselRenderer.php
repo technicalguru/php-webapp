@@ -30,7 +30,8 @@ class ImageCarouselRenderer extends \WebApp\DefaultTheme\DivRenderer {
 			foreach ($images AS $image) {
 				$active = $idx == 0 ? 'active' : '';
 				$nav   .= '<li data-target="#'.$id.'" data-slide-to="'.$idx.'" class="'.$active.'"></li>';
-				$title  = htmlentities($image->image->getTitle());
+				$title  = $image->image->getTitle();
+				if ($title != NULL) $title = htmlentities($title);
 				$inner .= '<div class="carousel-item '.$active.'">'.
 				             '<img src="'.$image->image->getUrl().'" class="d-block w-100" alt="'.$title.'" title="'.$title.'">';
 				if ($image->title || $image->description) {
