@@ -47,7 +47,7 @@ class I18nFormElement extends CombinedFormElement {
 				return I18N::_($this->errors[$languageKey]);
 			}
 		}
-		return I18N::_($this->errors[$languageKey]);
+		return isset($this->errors[$languageKey]) ? I18N::_($this->errors[$languageKey]) : NULL;
 	}
 
 	public static function getPostValues($name, $languages) {

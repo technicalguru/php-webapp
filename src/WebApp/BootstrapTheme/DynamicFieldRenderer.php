@@ -12,7 +12,7 @@ class DynamicFieldRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 	public function render() {
 		$this->addClass('dynamic-fields');
 		$this->addAttribute('data-role', 'dynamic-fields');
-		$rc = $this->renderStartTag('div').
+		$rc = $this->renderStartTag('div');
 		// Template
 		$rc .= $this->renderRow('IDNUM', NULL, TRUE);
 		// Children come here
