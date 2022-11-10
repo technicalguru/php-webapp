@@ -33,8 +33,8 @@ This project is licensed under [GNU LGPL 3.0](LICENSE.md).
 
 ## By Composer
 
-```
-composer install technicalguru/webapp
+```sh
+composer require technicalguru/webapp
 ```
 
 ## By Package Download
