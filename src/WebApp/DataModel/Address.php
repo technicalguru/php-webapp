@@ -14,7 +14,6 @@ class Address {
 	public $zipCode;
 	public $city;
 	public $country;
-	public $province;
 
 	public function __construct() {
 	}
