@@ -5,7 +5,7 @@ namespace WebApp;
 class LanguageUtils {
 
 	public static function getPreferredUserLanguage($priorities) {
-		$header = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		$header = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
 		$rc     = self::getBest($header, $priorities);
 		if ($rc == NULL) {
 			// Search the languages, e.g. iOS does not return the general language
