@@ -10,8 +10,17 @@ class User implements \WebApp\Auth\Principal {
 	public const STATUS_DISABLED   = 'disabled';
 	public const STATUS_DELETED    = 'deleted';
 
+	public $uid;
+	public $created_on;
+	public $email;
+	public $password;
+	public $name;
+	public $roles;
+	public $status;
+	public $data;
+
 	public function __construct() {
-		$this->created_on = new \TgUtils\Date($this->created_on, WFW_TIMEZONE);
+		if (is_string($this->created_on)) $this->created_on = new \TgUtils\Date($this->created_on, WFW_TIMEZONE);
 	}
 
 	/**
