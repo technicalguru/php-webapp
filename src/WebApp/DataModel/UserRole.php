@@ -11,6 +11,8 @@ class UserRole {
 	/** A defined role that can do everything */
 	public const ROLE_SUPERADMIN = 'superadmin';
 
+	public $privileges;
+
 	public function __construct() {
 	}
 

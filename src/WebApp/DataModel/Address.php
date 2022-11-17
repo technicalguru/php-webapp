@@ -14,6 +14,7 @@ class Address {
 	public $zipCode;
 	public $city;
 	public $country;
+	public $province;
 
 	public function __construct() {
 	}
@@ -24,7 +25,7 @@ class Address {
 
 	public static function isAddressComplete($address, $includeName = FALSE) {
 		$rc = !Utils::isEmpty($address->street1) && !Utils::isEmpty($address->zipCode) && !Utils::isEmpty($address->city) && !Utils::isEmpty($address->country);
-		if ($rc && $includeName) $rc = !Utils::isEmpty($address->name);
+		if ($rc && $includeName) $rc = isset($address->name) && !Utils::isEmpty($address->name);
 		return $rc;
 	}
 
