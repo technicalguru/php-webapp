@@ -61,7 +61,7 @@ class Layout {
 		if (!isset($meta['viewport']))  $meta['viewport']  = 'width=device-width, initial-scale=1, shrink-to-fit=no';
 		if (!isset($meta['pageclass'])) $meta['pageclass'] = get_class($this->page);
 		if (!isset($meta['canonical'])) {
-			$params = $this->app->request->params ? '?'.$this->app->request->params : '';
+			$params = $this->app->request->params ? '?'.\TgUtils\StringFilters::$NO_HTML->filter($this->app->request->params) : '';
 			$meta['canonical'] = $this->app->router->getCanonicalPath().$params;
 		}
 
