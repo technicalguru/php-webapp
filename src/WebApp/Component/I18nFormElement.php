@@ -50,11 +50,11 @@ class I18nFormElement extends CombinedFormElement {
 		return isset($this->errors[$languageKey]) ? I18N::_($this->errors[$languageKey]) : NULL;
 	}
 
-	public static function getPostValues($name, $languages) {
+	public static function getPostValues($name, $languages, $filter = NULL) {
 		$rc = array();
 		$request = \TgUtils\Request::getRequest();
 		foreach ($languages AS $key => $label) {
-			$rc[$key] = $request->getPostParam($name.'-'.$key);
+			$rc[$key] = $request->getPostParam($name.'-'.$key, NULL, $filter);
 			if ($rc[$key] != NULL) $rc[$key] = trim($rc[$key]);
 		}
 		return $rc;
