@@ -5,6 +5,7 @@ namespace WebApp;
 use TgLog\Log;
 use TgLog\Error;
 use WebApp\Component\Alert;
+use TgUtils\StringFilters;
 
 class RestPage extends Page {
 
@@ -110,10 +111,18 @@ class RestPage extends Page {
 		return $this->jsonBody;
 	}
 
-	protected function getJsonParam($key, $default = NULL) {
+	/**
+	 * Returns the JSON parameter with the given key.
+	 * @param string $key - the object attribute of root JSON object
+	 * @param mixed  $default - the default value if not available
+	 * @param StringFilter $filter - the filter to apply for the param (NULL will mean NOHTML)
+	 * @return the filtered value or default value.
+	 */
+	protected function getJsonParam($key, $default = NULL, $filter = NULL) {
 		$obj = $this->getJsonBody();
 		if (!isset($obj->$key)) return $default;
-		return $obj->$key;
+		if ($filter == NULL) $filter = StringFilters::$NO_HTML;
+		return $filter->filter($obj->$key);
 	}
 }
 
