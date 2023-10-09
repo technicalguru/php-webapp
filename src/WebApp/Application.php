@@ -52,7 +52,7 @@ class Application {
 	}
 
 	protected function initVault() {
-		if ($this->config->has('vault')) {
+		if ($this->config->has('vault') && ($this->config->get('vault')->type != 'none')) {
 			$credentials    = $this->config->getCredentialsProvider('vault', NULL);
 			$vaultConfig = $this->config->get('vault');
 			if ($credentials != NULL) {
