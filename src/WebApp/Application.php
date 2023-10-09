@@ -53,7 +53,13 @@ class Application {
 
 	protected function initVault() {
 		if ($this->config->has('vault')) {
-			$this->vault = \TgVault\VaultFactory::create($this->config->get('vault'));
+			$credentials    = $this->config->getCredentialsProvider('vault', NULL);
+			$vaultConfig = $this->config->get('vault');
+			if ($credentials != NULL) {
+				$vaultConfig->config->roleId   = $credentials->getUsername();
+				$vaultConfig->config->secretId = $credentials->getPassword();
+			}
+			$this->vault = \TgVault\VaultFactory::create($vaultConfig);
 			// TODO $this->vault->setLogger(Log::instance());
 		}
 	}
