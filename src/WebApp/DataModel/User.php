@@ -18,6 +18,7 @@ class User implements \WebApp\Auth\Principal {
 	public $roles;
 	public $status;
 	public $data;
+	public $_roles;
 
 	public function __construct() {
 		if (is_string($this->created_on)) $this->created_on = new \TgUtils\Date($this->created_on, WFW_TIMEZONE);
