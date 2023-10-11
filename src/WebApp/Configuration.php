@@ -8,6 +8,8 @@ namespace WebApp;
 class Configuration {
 
 	protected $data;
+	protected $credentialProviders;
+
 
 	public function __construct($config) {
 		$this->data = json_decode(json_encode($config));
@@ -33,7 +35,7 @@ class Configuration {
 	}
 
 	/** Return credentials provider when credentials are defined */
-	public function getCredentialsProvider($feature, $vault) {
+	public function getCredentialsProvider($feature, $vault = NULL) {
 		if ($this->has($feature)) {
 			if (!isset($this->credentialProviders->$feature)) {
 				if (!isset($this->credentialProviders)) $this->credentialProviders = new \stdClass;
