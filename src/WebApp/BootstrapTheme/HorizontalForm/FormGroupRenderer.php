@@ -4,6 +4,9 @@ namespace WebApp\BootstrapTheme\HorizontalForm;
 
 class FormGroupRenderer extends \WebApp\Renderer {
 
+	protected $builder;
+	protected $elementRenderer;
+
 	public function __construct($theme, $component, $builder, $elementRenderer) {
 		parent::__construct($theme, $component);
 		$this->builder         = $builder;

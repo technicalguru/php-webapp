@@ -12,6 +12,7 @@ class Router {
 	protected $request;
 	protected $languages;
 	protected $defaultLanguage;
+	protected $app;
 
 	public function __construct($app, $config = NULL) {
 		$this->app     = $app;

@@ -8,6 +8,7 @@ class Email extends \TgEmail\Email {
 	protected   $app;
 	protected   $request;
 	protected   $language;
+	protected   $templateProcessor;
 
 	public function __construct($app) {
 		parent::__construct();

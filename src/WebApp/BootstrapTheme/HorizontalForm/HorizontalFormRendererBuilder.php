@@ -5,6 +5,8 @@ namespace WebApp\BootstrapTheme\HorizontalForm;
 class HorizontalFormRendererBuilder extends \WebApp\Builder\AbstractRendererBuilder {
 
 	protected $form;
+	protected $labelSizes;
+	protected $componentSizes;
 
 	public function __construct($theme, $form) {
 		parent::__construct($theme);

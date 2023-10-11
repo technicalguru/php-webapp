@@ -12,6 +12,8 @@ use WebApp\DataModel\UserDAO;
  */
 class UserDatabaseAuthenticator extends AbstractAuthenticator {
 
+	protected $dao;
+
 	public function __construct(Application $app, $config = NULL) {
 		parent::__construct($app, $config);
 	}

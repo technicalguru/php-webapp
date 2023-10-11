@@ -8,6 +8,8 @@ namespace WebApp;
 class Configuration {
 
 	protected $data;
+	protected $credentialProviders;
+
 
 	public function __construct($config) {
 		$this->data = json_decode(json_encode($config));
@@ -33,16 +35,33 @@ class Configuration {
 	}
 
 	/** Return credentials provider when credentials are defined */
-	public function getCredentialsProvider($feature, $vault) {
-		if (($vault != NULL) && $this->has($feature)) {
+	public function getCredentialsProvider($feature, $vault = NULL) {
+		if ($this->has($feature)) {
 			if (!isset($this->credentialProviders->$feature)) {
 				if (!isset($this->credentialProviders)) $this->credentialProviders = new \stdClass;
 				$this->credentialProviders->$feature = NULL;
-				if (isset($this->data->$feature->security) && ($this->data->$feature->security->type == 'vault')) {
-					$path    = $this->data->$feature->security->path;
-					$userKey = isset($this->data->$feature->security->userKey) ? $this->data->$feature->security->userKey : 'username';
-					$passKey = isset($this->data->$feature->security->passKey) ? $this->data->$feature->security->passKey : 'password';
-					$this->credentialProviders->$feature = new \TgVault\CredentialsProvider($vault, $path, $userKey, $passKey);
+
+				// A security object is defined
+				if (isset($this->data->$feature->security)) {
+					if ($this->data->$feature->security->type == 'vault') {
+						// CredentialsProvider is of type vault
+						if ($vault != NULL) {
+							$path    = $this->data->$feature->security->path;
+							$userKey = isset($this->data->$feature->security->userKey) ? $this->data->$feature->security->userKey : 'username';
+							$passKey = isset($this->data->$feature->security->passKey) ? $this->data->$feature->security->passKey : 'password';
+							$this->credentialProviders->$feature = new \TgVault\CredentialsProvider($vault, $path, $userKey, $passKey);
+						}
+					} else if ($this->data->$feature->security->type == 'env') {
+						// CredentialsProvider is fed from environment variables
+						$userKey = isset($this->data->$feature->security->userKey) ? $this->data->$feature->security->userKey : strtoupper($feature).'_USERNAME';
+						$passKey = isset($this->data->$feature->security->passKey) ? $this->data->$feature->security->passKey : strtoupper($feature).'_PASSWORD';
+						$this->credentialProviders->$feature = new \WebApp\Security\EnvCredentialsProvider($userKey, $passKey);
+					} else if ($this->data->$feature->security->type == 'k8secret') {
+						// CredentialsProvider is fed from Kubernetes Secret mounted
+						$userKey = isset($this->data->$feature->security->userKey) ? $this->data->$feature->security->userKey : 'username';
+						$passKey = isset($this->data->$feature->security->passKey) ? $this->data->$feature->security->passKey : 'password';
+						$this->credentialProviders->$feature = new \WebApp\Security\K8SecretCredentialsProvider($this->data->$feature->security->path, $userKey, $passKey);
+					}
 				}
 			}
 			return $this->credentialProviders->$feature;

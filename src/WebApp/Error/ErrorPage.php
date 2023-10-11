@@ -4,6 +4,10 @@ namespace WebApp\Error;
 
 class ErrorPage extends \WebApp\Page {
 
+	public $errorCode;
+	public $errorText;
+	public $throwable;
+
 	public function __construct($app, $errorCode, $errorText, $throwable = NULL) {
 		parent::__construct($app);
 		$this->errorCode = $errorCode;

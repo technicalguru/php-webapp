@@ -10,6 +10,10 @@ use \WebApp\DataModel\UserRole;
  */
 class UserRoleAuthorizator extends AbstractAuthorizator {
 
+	protected $roles;
+	protected $grantResults;
+	protected $subroles;
+
 	public function __construct(Application $app, $config = NULL) {
 		parent::__construct($app, $config);
 		if (isset($this->config['roles'])) {
@@ -38,23 +42,23 @@ class UserRoleAuthorizator extends AbstractAuthorizator {
 
 		// From here on we need a user object
 		if ($user != NULL) {
-			if (!isset($this->grantResult[$required.'-'.$user->uid])) {
+			if (!isset($this->grantResults[$required.'-'.$user->uid])) {
 				// Least privilege: any user
 				if ($required == UserRole::ROLE_USER) {
-					$this->grantResult[$required.'-'.$user->uid] = TRUE;
+					$this->grantResults[$required.'-'.$user->uid] = TRUE;
 				} else {
 					$roles = $user->getRoles();
 
 					// Superadmins are always authorized
 					if (in_array(UserRole::ROLE_SUPERADMIN, $roles)) {
-						$this->grantResult[$required.'-'.$user->uid] = TRUE;
+						$this->grantResults[$required.'-'.$user->uid] = TRUE;
 					} else {
 						// Search the specific role
-						$this->grantResult[$required.'-'.$user->uid] = $this->isGranted($required, $roles);
+						$this->grantResults[$required.'-'.$user->uid] = $this->isGranted($required, $roles);
 					}
 				}
 			}
-			return $this->grantResult[$required.'-'.$user->uid];
+			return $this->grantResults[$required.'-'.$user->uid];
 		}
 		return FALSE;
 	}

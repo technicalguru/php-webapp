@@ -4,6 +4,8 @@ namespace WebApp\DefaultTheme;
 
 class ContainerRenderer extends \WebApp\Renderer {
 
+	public $tagName;
+
 	public function __construct($theme, $component, $tagName = NULL) {
 		parent::__construct($theme, $component);
 		$this->tagName = $tagName;
