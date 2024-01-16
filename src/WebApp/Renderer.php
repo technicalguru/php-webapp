@@ -203,6 +203,9 @@ class Renderer {
 		$attributes = $this->getAttributes(TRUE);
 		unset($attributes['class'], $attributes['style'], $attributes['id']);
 		foreach ($attributes AS $name => $value) {
+			if (($name == 'name') && (count($value) > 0) && method_exists($this->component, 'isArray') && $this->component->isArray()) {
+				$value = array($value[0].'[]');
+			}
 			$rc[$name] = $value;
 		}
 		return $rc;

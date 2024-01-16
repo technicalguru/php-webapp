@@ -40,7 +40,7 @@ class DynamicFieldRenderer extends \WebApp\DefaultTheme\ContainerRenderer {
 				else $child->setValue($value->$name);
 			}
 			$child->setId($id.'-'.$idExt);
-			$child->setName($name.'[]');
+			$child->setArray(true);
 			$label = $child->getLabel();
 			if ($label != NULL) {
 				$s   = $isTemplate ? 'display: none;' : '';
