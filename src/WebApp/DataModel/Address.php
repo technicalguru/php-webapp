@@ -30,13 +30,13 @@ class Address {
 
 	public static function toSingleLine($address, $language = NULL) {
 		$rc = '';
-		if (!Utils::isEmpty($address->name))    $rc .= ', '.$address->name;
-		if (!Utils::isEmpty($address->country)) $rc .= ', '.I18N::_($address->country, $language);
-		if (!Utils::isEmpty($address->province))$rc .= ', '.$address->province;
-		if (!Utils::isEmpty($address->city))    $rc .= ', '.$address->city;
-		if (!Utils::isEmpty($address->zipCode)) $rc .= ', '.$address->zipCode;
-		if (!Utils::isEmpty($address->street1)) $rc .= ', '.$address->street1;
-		if (!Utils::isEmpty($address->street2)) $rc .= ', '.$address->street2;
+		if (isset($address->name)     && !Utils::isEmpty($address->name))    $rc .= ', '.$address->name;
+		if (isset($address->country)  && !Utils::isEmpty($address->country)) $rc .= ', '.I18N::_($address->country, $language);
+		if (isset($address->province) && !Utils::isEmpty($address->province))$rc .= ', '.$address->province;
+		if (isset($address->city)     && !Utils::isEmpty($address->city))    $rc .= ', '.$address->city;
+		if (isset($address->zipCode)  && !Utils::isEmpty($address->zipCode)) $rc .= ', '.$address->zipCode;
+		if (isset($address->street1)  && !Utils::isEmpty($address->street1)) $rc .= ', '.$address->street1;
+		if (isset($address->street2)  && !Utils::isEmpty($address->street2)) $rc .= ', '.$address->street2;
 		return substr($rc, 2);
 	}
 }

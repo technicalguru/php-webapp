@@ -12,7 +12,7 @@ class I18nFormElementRenderer extends \WebApp\Renderer {
 	public function render() {
 		$languages = $this->component->getLanguages();
 		$cId       = $this->component->getId();
-		$cName     = $this->component->getBaseName();
+		$cName     = $this->component->getName();
 		$isArray   = $this->component->isArray();
 		if (count($languages) > 1) {
 			$tabSet = new \WebApp\Component\TabSet(NULL, $cId);

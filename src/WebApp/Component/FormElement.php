@@ -7,6 +7,7 @@ use \TgI18n\I18N;
 class FormElement extends Container {
 
 	protected $label;
+	protected $isArray;
 	protected $help;
 	protected $group;
 	protected $hidden;
@@ -17,7 +18,8 @@ class FormElement extends Container {
 			$this->setId($id);
 			$this->setName($id);
 		}
-		$this->hidden = FALSE;
+		$this->hidden  = FALSE;
+		$this->isArray = FALSE;
 	}
 
 	public function hide() {
@@ -50,6 +52,17 @@ class FormElement extends Container {
 		return $this;
 	}
 
+	public function isArray() {
+		return $this->isArray;
+	}
+
+	public function setArray($value) {
+		$this->isArray = $value;
+		foreach ($this->getChildren() AS $child) {
+			if (method_exists($child, 'setArray')) $child->setArray($value);
+		}
+	}
+
 	public function getName() {
 		return $this->getAttribute('name', TRUE, $this->getId());
 	}
@@ -59,17 +72,9 @@ class FormElement extends Container {
 		return $this;
 	}
 
-	public function getBaseName() {
-		$rc = $this->getName();
-		if (mb_strpos($this->getName(), '[]') > 0) {
-			$rc = mb_substr($rc, 0, mb_strlen($rc)-2);
-		}
-		return $rc;
-	}
-
-	public function isArray() {
-		return mb_strpos($this->getName(), '[]') > 0;
-	}
+	//public function isArray() {
+	//	return mb_strpos($this->getName(), '[]') > 0;
+	//}
 
 	public function isEnabled() {
 		return $this->getAttribute('disabled', TRUE) != 'disabled';

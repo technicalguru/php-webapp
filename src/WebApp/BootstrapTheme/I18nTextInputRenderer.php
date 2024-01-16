@@ -11,6 +11,7 @@ class I18nTextInputRenderer extends I18nFormElementRenderer {
 	protected function createFormElement($languageKey, $id, $name) {
 		$rc = new \WebApp\Component\TextInput(NULL, $id, $this->component->getValue($languageKey));
 		$rc->setName($name);
+		if ($this->component->isArray()) $rc->setArray(TRUE);
 		$rc->setEnabled($this->component->isEnabled());
 		$rc->setRequired($this->component->isRequired());
 		$rc->setPlaceholder($this->component->getPlaceholder());
