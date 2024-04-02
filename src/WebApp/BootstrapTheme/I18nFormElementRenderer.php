@@ -27,7 +27,7 @@ class I18nFormElementRenderer extends \WebApp\Renderer {
 			foreach ($languages AS $key => $label) {
 				$id    = $cId.'-'.$key;
 				$name    = $cName.'-'.$key;
-				if ($isArray) $name .= '[]';
+				//if ($isArray) $name .= '[]';
 				$error = $this->component->getError($key);
 				$elem  = $this->createFormElement($key, $id, $name);
 				if (is_object($elem)) {
